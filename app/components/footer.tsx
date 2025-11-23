@@ -19,14 +19,16 @@ export function Footer() {
           <SiInstagram />
         </Link>
         <Link
-          href="https://www.instagram.com/milenas.beautybar/"
+          href="https://www.facebook.com/share/1K1kAsUdd9/?mibextid=wwXIfr"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <SiFacebook />
         </Link>
         <Link
-          href="https://www.instagram.com/milenas.beautybar/"
+          href="https://www.tiktok.com/@milenasbeautybar"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <SiTiktok />
         </Link>

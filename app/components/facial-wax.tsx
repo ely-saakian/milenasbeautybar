@@ -16,7 +16,7 @@ const services = [
 
 export function FacialWax() {
   return (
-    <section id="facial-wax" className="flex flex-col gap-8">
+    <section id="facial-wax" className="flex flex-col gap-12">
       <h2 className="text-3xl font-serif font-bold">Facial Wax</h2>
       <ServiceList services={services} />
     </section>

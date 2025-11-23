@@ -10,8 +10,8 @@ export function Nav() {
         <p className="font-serif text-5xl">MILENA&apos;S</p>
         <p className="text-end">beauty bar</p>
       </div>
-      <nav className="flex items-center justify-between gap-8">
-        <ul className="flex items-center justify-between gap-8">
+      <nav className="flex items-baseline justify-between gap-8">
+        <ul className="flex items-baseline justify-between gap-8">
           <li>
             <NavLink href="#about">About</NavLink>
           </li>
@@ -28,14 +28,14 @@ export function Nav() {
             <NavLink href="#faqs">FAQs</NavLink>
           </li>
           <li>
-            <BookButton href="#book" />
+            <BookButton href="https://milenasbeautybar.as.me/schedule/13baf9e3" />
           </li>
           <li>
             <Link
               href="https://www.instagram.com/milenas.beautybar/"
               target="_blank"
             >
-              <SiInstagram />
+              <SiInstagram className="inline-flex" />
             </Link>
           </li>
         </ul>

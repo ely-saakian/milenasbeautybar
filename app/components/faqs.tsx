@@ -168,7 +168,7 @@ export function FAQs() {
   const rightColumn = faqData.slice(Math.ceil(faqData.length / 2));
 
   return (
-    <section id="faqs" className="flex flex-col gap-8">
+    <section id="faqs" className="flex flex-col gap-12">
       <h2 className="text-3xl font-serif font-bold">FAQs</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
