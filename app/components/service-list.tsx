@@ -40,18 +40,32 @@ export function ServiceList({ services }: ServiceListProps) {
   const currentService = services[expandedIndex];
 
   return (
-    <div className="flex flex-row gap-8">
+    <div className="flex flex-row gap-8 px-4">
       <div className="flex-1 relative">
         {currentService && (
-          <Image
-            key={expandedIndex}
-            src={currentService.image.src}
-            alt={currentService.image.alt}
-            width={currentService.image.width}
-            height={currentService.image.height}
-            className="rounded-3xl w-full h-auto transition-opacity duration-300 ease-in-out"
-            style={{ opacity: imageOpacity }}
-          />
+          <>
+            {/* Blurred background glow effect */}
+            <Image
+              key={`blur-${expandedIndex}`}
+              src={currentService.image.src}
+              alt=""
+              width={currentService.image.width}
+              height={currentService.image.height}
+              className="rounded-3xl w-full h-auto absolute inset-0 scale-105 blur-2xl opacity-50 transition-opacity duration-300 ease-in-out pointer-events-none"
+              style={{ opacity: imageOpacity * 0.5 }}
+              aria-hidden="true"
+            />
+            {/* Main image */}
+            <Image
+              key={expandedIndex}
+              src={currentService.image.src}
+              alt={currentService.image.alt}
+              width={currentService.image.width}
+              height={currentService.image.height}
+              className="rounded-3xl w-full h-auto relative z-10 transition-opacity duration-300 ease-in-out"
+              style={{ opacity: imageOpacity }}
+            />
+          </>
         )}
       </div>
       <div className="flex flex-1 flex-col gap-2">

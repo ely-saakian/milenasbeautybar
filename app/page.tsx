@@ -16,7 +16,7 @@ export default function Home() {
           full sets! Expires Dec. 31st
         </p>
       </div>
-      <main className="flex flex-col gap-14 min-h-screen w-full max-w-6xl bg-white">
+      <main className="flex flex-col gap-28 min-h-screen w-full max-w-6xl bg-white pb-16">
         <Nav />
         <Hero />
         <About />

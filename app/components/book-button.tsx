@@ -8,7 +8,9 @@ export function BookButton({ href }: BookButtonProps) {
   return (
     <Link
       href={href}
-      className="group relative inline-block self-start overflow-hidden rounded-full border border-black bg-black px-5 py-2 text-white transition-colors duration-300 hover:text-black"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative inline-flex self-start overflow-hidden rounded-full border border-black bg-black px-5 py-2 text-white transition-colors duration-300 hover:text-black"
     >
       <span className="absolute inset-0 overflow-hidden rounded-full">
         <span className="absolute left-0 top-0 h-full w-0 bg-[#F0DED3] transition-[width] duration-300 ease-in-out group-hover:w-full"></span>

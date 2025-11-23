@@ -2,9 +2,9 @@ import Image from "next/image";
 
 export function About() {
   return (
-    <section id="about" className="flex flex-col gap-8">
+    <section id="about" className="flex flex-col gap-12">
       <h2 className="text-3xl font-serif font-bold">About</h2>
-      <div className="flex flex-row gap-8 items-center">
+      <div className="flex flex-row gap-8 items-center px-4">
         <div className="flex flex-1 items-center justify-center">
           <Image
             src="/about-image.png"
