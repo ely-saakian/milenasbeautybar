@@ -6,10 +6,12 @@ import { Lashes } from "./components/lashes";
 import { FacialWax } from "./components/facial-wax";
 import { FAQs } from "./components/faqs";
 import { Footer } from "./components/footer";
+import { StructuredData } from "./components/structured-data";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen items-center justify-center  bg-white font-sans text-black gap-8">
+      <StructuredData />
       <div className="flex bg-[#F0DED3] p-2 w-screen items-center justify-center">
         <p>
           LIMITED TIME OFFER! Use code <strong>LASHPROMO</strong> for 50% off
