@@ -15,22 +15,26 @@ export function Footer() {
         <Link
           href="https://www.instagram.com/milenas.beautybar/"
           target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Follow Milena's Beauty Bar on Instagram"
         >
-          <SiInstagram />
+          <SiInstagram aria-hidden="true" />
         </Link>
         <Link
           href="https://www.facebook.com/share/1K1kAsUdd9/?mibextid=wwXIfr"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Follow Milena's Beauty Bar on Facebook"
         >
-          <SiFacebook />
+          <SiFacebook aria-hidden="true" />
         </Link>
         <Link
           href="https://www.tiktok.com/@milenasbeautybar"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Follow Milena's Beauty Bar on TikTok"
         >
-          <SiTiktok />
+          <SiTiktok aria-hidden="true" />
         </Link>
       </div>
       <p>&copy; 2025 Milena&apos;s Beauty Bar. All rights reserved.</p>
