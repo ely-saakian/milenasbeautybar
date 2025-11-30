@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 const faqData: FAQItem[] = [
   {
@@ -10,10 +10,11 @@ const faqData: FAQItem[] = [
     answer: (
       <p>
         Some modern formulas allow earlier water contact, but it depends on the
-        product and your natural lashes. At Milena’s Beauty Bar we use Zola and
-        LashBase, and both recommend leaving the third step “Enriching Solution”
-        on for <strong>12 hours</strong> — therefore please avoid getting lashes
-        or brows wet for <strong>12 hours</strong> after treatment.
+        product and your natural lashes. At Milena&apos;s Beauty Bar we use Zola
+        and LashBase, and both recommend leaving the third step &quot;Enriching
+        Solution&quot; on for <strong>12 hours</strong> — therefore please avoid
+        getting lashes or brows wet for <strong>12 hours</strong> after
+        treatment.
       </p>
     ),
   },
@@ -42,7 +43,7 @@ const faqData: FAQItem[] = [
   {
     question: "How do I establish Long-Term Care for lash lift or extensions?",
     answer: (
-      <ul className="list-disc list-inside">
+      <ul className="list-disc list-inside space-y-2">
         <li>
           Be gentle when cleansing or applying skincare around your lashes.
         </li>
@@ -61,11 +62,11 @@ const faqData: FAQItem[] = [
   {
     question: "Are lash lifts or extensions safe for everyone?",
     answer: (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-3">
         <p>
           Most people are good candidates. You may not be eligible if you have:
         </p>
-        <ul className="list-disc list-inside pl-4">
+        <ul className="list-disc list-inside space-y-1 pl-2">
           <li>Eye infections</li>
           <li>Active allergies</li>
           <li>Recent eye surgery</li>
@@ -83,12 +84,12 @@ const faqData: FAQItem[] = [
     question:
       "What should I avoid before and after my lash or brow appointment?",
     answer:
-      "Before your service, please come with a clean, makeup-free face so I can work on fresh lashes and brows. If you’re getting any waxing, pause retinols, acne medications, and strong skincare actives beforehand so your skin stays safe and doesn’t lift. After your appointment, follow the specific aftercare for your lift, lamination, or extensions — that usually means being gentle, avoiding oils, and keeping the area dry based on the brand instructions I use. And for extensions, avoid rubbing, sleeping on your face, using waterproof mascara, or using oil-based products.",
+      "Before your service, please come with a clean, makeup-free face so I can work on fresh lashes and brows. If you're getting any waxing, pause retinols, acne medications, and strong skincare actives beforehand so your skin stays safe and doesn't lift. After your appointment, follow the specific aftercare for your lift, lamination, or extensions — that usually means being gentle, avoiding oils, and keeping the area dry based on the brand instructions I use. And for extensions, avoid rubbing, sleeping on your face, using waterproof mascara, or using oil-based products.",
   },
   {
     question: "General tips for all services",
     answer: (
-      <ul className="list-disc list-inside">
+      <ul className="list-disc list-inside space-y-2">
         <li>
           <strong>Patch Test</strong>: Always recommend a patch test 24–48 hours
           before service if you&apos;re new or have sensitive skin.
@@ -125,33 +126,60 @@ interface FAQItemComponentProps {
 
 function FAQItemComponent({
   faq,
-  index,
   isExpanded,
   onToggle,
 }: FAQItemComponentProps) {
   return (
-    <div key={index}>
+    <div
+      className={`group bg-white border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 ease-out
+        ${
+          isExpanded
+            ? "ring-2 ring-[#F0DED3] shadow-lg"
+            : "hover:border-[#F0DED3]"
+        }
+      `}
+    >
       <button
         onClick={onToggle}
-        className="w-full text-left flex items-start gap-3 transition-opacity"
+        className="w-full text-left p-5 flex items-start gap-4 cursor-pointer hover:bg-[#F0DED3]/10 transition-colors"
         aria-expanded={isExpanded}
       >
-        {isExpanded ? (
-          <ChevronUp className="mt-1 shrink-0" size={20} />
-        ) : (
-          <ChevronDown className="mt-1 shrink-0" size={20} />
-        )}
-        <div className="flex-1">
-          <h3 className="text-2xl font-medium mb-2">{faq.question}</h3>
-          <div
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${
-              isExpanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        <div
+          className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
+            isExpanded
+              ? "bg-[#C4A484]"
+              : "bg-[#F0DED3]/50 group-hover:bg-[#F0DED3]"
+          }`}
+        >
+          <ChevronDown
+            className={`w-4 h-4 transition-all duration-300 ${
+              isExpanded ? "text-white rotate-180" : "text-[#C4A484]"
             }`}
-          >
-            <div className="leading-relaxed pt-2">{faq.answer}</div>
-          </div>
+          />
+        </div>
+        <div className="flex-1 pt-0.5">
+          <h3 className="text-lg font-serif font-semibold text-gray-900 leading-snug">
+            {faq.question}
+          </h3>
         </div>
       </button>
+
+      <div
+        className="grid transition-[grid-template-rows] duration-300 ease-out"
+        style={{
+          gridTemplateRows: isExpanded ? "1fr" : "0fr",
+        }}
+      >
+        <div className="overflow-hidden">
+          <div className="px-5 pb-5 pt-0">
+            <div className="ml-12 p-4 rounded-xl bg-[#F0DED3]/20 border border-[#F0DED3]/40">
+              <div className="text-gray-600 leading-relaxed [&_strong]:text-gray-800 [&_strong]:font-semibold">
+                {faq.answer}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -168,10 +196,10 @@ export function FAQs() {
   const rightColumn = faqData.slice(Math.ceil(faqData.length / 2));
 
   return (
-    <section id="faqs" className="flex flex-col gap-12">
+    <section id="faqs" className="flex flex-col gap-8 px-4">
       <h2 className="text-3xl font-serif font-bold">FAQs</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Left Column */}
         <div className="flex flex-col gap-4">
           {leftColumn.map((faq, index) => {
