@@ -10,7 +10,7 @@ import { StructuredData } from "./components/structured-data";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen items-center justify-center  bg-white font-sans text-black gap-8">
+    <div className="flex flex-col min-h-screen items-center justify-center font-sans text-black gap-8">
       <StructuredData />
       <div className="flex bg-[#F0DED3] p-2 w-screen items-center justify-center">
         <p>
@@ -19,7 +19,7 @@ export default function Home() {
         </p>
       </div>
       <Nav />
-      <main className="flex flex-col gap-8 md:gap-20 min-h-screen w-full max-w-6xl bg-white pb-16">
+      <main className="flex flex-col gap-8 md:gap-20 min-h-screen w-full max-w-6xl pb-16">
         <Hero />
         <About />
         <Brows />

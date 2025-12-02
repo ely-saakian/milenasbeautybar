@@ -27,6 +27,33 @@ const LASH_FILL_TYPES = [
   },
 ];
 
+const LASH_EXTENSION_TYPES = [
+  {
+    id: "classic",
+    name: "Classic",
+    description:
+      "The perfect choice for a natural, mascara-like look! Classic lash extensions are applied using a 1:1 technique — one extension to one natural lash — to enhance your eyes with subtle length and definition. Ideal for clients who want an everyday, effortless style. I offer three different styles, customized to your eye shape.",
+    duration: "3-4 hours",
+    price: "$100.00",
+  },
+  {
+    id: "volume",
+    name: "Volume",
+    description:
+      "Fluffy, and full! Volume lashes are created by applying lightweight fans (2–6 extensions per natural lash) for a soft, glamorous look. A perfect choice if you love extra fullness while keeping lashes lightweight and comfortable. I offer multiple styles that will be tailored to your eye shape.",
+    duration: "4-5 hours",
+    price: "$165.00",
+  },
+  {
+    id: "wispy",
+    name: "Wispy",
+    description:
+      "A blend of classics, spikes, and volume techniques for the best custom look. Wispy lashes give you a soft, textured look with added fullness and dimension. Great for clients who want a little more drama than classic but less than volume.",
+    duration: "4 hours",
+    price: "$130.00",
+  },
+];
+
 const services = [
   {
     id: "consultation",
@@ -36,7 +63,7 @@ const services = [
       "Not sure if lash extensions are right for you? Book this complimentary consultation to discuss your lash goals, review styles, check for any sensitivities, and answer your questions. Perfect for first-time clients who want to feel confident before committing to a full set!",
     href: "#book",
     image: {
-      src: "/lashes-fills-image.png",
+      src: "/lashes-consultation-image.jpg",
       alt: "Lash Consultation",
       width: 523,
       height: 364,
@@ -49,7 +76,7 @@ const services = [
     name: "Extensions",
     title: "Full Lash Extensions",
     description:
-      "Enhance your natural lashes with our premium synthetic extensions. Choose from Classic, Wispy, or Volume styles for a glamorous, full look that lasts 4-6 weeks. Each extension is carefully applied by our certified technicians.",
+      "Enhance your natural lashes with our premium extensions. Choose from Classic, Wispy, or Volume styles for a glamorous, full look that lasts 4-6 weeks.",
     href: "#book",
     image: {
       src: "/lashes-extensions-image.png",
@@ -59,6 +86,8 @@ const services = [
     },
     duration: "2-3 hours",
     price: "$150-250",
+    types: LASH_EXTENSION_TYPES,
+    typesLabel: "Choose Your Extension Type",
   },
   {
     id: "fills",
@@ -75,14 +104,15 @@ const services = [
     },
     duration: "45-75 min",
     price: "$50-80",
-    fillTypes: LASH_FILL_TYPES,
+    types: LASH_FILL_TYPES,
+    typesLabel: "Choose Your Fill Type",
   },
   {
     id: "lift",
     name: "Lift",
-    title: "Lash Lift & Curl",
+    title: "Lash Lift",
     description:
-      "Get beautifully lifted lashes with our professional lash lift treatment. This semi-permanent curl enhances your natural lashes, making them appear longer and more defined without the need for extensions.",
+      "Experience enhanced lifted lashes with our professional lash lift treatment. Enjoy long-lasting results that make your natural lashes appear longer and more defined. Our treatment includes nourishment cream to keep your lashes healthy and beautiful for weeks to come.",
     href: "#book",
     image: {
       src: "/lashes-lift-image.png",

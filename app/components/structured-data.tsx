@@ -66,7 +66,7 @@ export function StructuredData() {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Lash Lift & Curl",
+                name: "Lash Lift",
                 description:
                   "Semi-permanent lash lift treatment for naturally lifted, longer-looking lashes.",
               },

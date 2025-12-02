@@ -6,7 +6,7 @@ export function About() {
       <div className="bg-white rounded-2xl overflow-hidden">
         <div className="flex flex-col md:flex-row items-center">
           {/* Image */}
-          <div className="w-1/2 md:w-2/5 aspect-square md:aspect-auto">
+          <div className="w-1/2 md:w-2/5 aspect-square md:aspect-auto p-4 md:p-8">
             <Image
               src="/about-image.png"
               alt="Milena Saakian - Master Esthetician"
@@ -56,24 +56,6 @@ export function About() {
                   No two faces are the same — and I believe lashes and brows
                   should reflect that!
                 </p>
-              </div>
-
-              <div className="flex flex-wrap gap-3 pt-2">
-                <div className="px-4 py-2 bg-[#F0DED3]/40 rounded-full">
-                  <span className="text-sm font-medium text-gray-700">
-                    ✨ Licensed since 2018
-                  </span>
-                </div>
-                <div className="px-4 py-2 bg-[#F0DED3]/40 rounded-full">
-                  <span className="text-sm font-medium text-gray-700">
-                    🎯 Precision & Care
-                  </span>
-                </div>
-                <div className="px-4 py-2 bg-[#F0DED3]/40 rounded-full">
-                  <span className="text-sm font-medium text-gray-700">
-                    💫 Custom Services
-                  </span>
-                </div>
               </div>
             </div>
           </div>

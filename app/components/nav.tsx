@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { Logo } from "./logo";
 import { NavLink } from "./nav-link";
 import { BookButton } from "./book-button";
 import { SiInstagram } from "@icons-pack/react-simple-icons";
@@ -68,29 +69,14 @@ export function Nav() {
         } ${isScrolled ? "py-2 px-4" : "p-4"}`}
       >
         <div className="flex max-w-6xl w-full justify-between items-center">
-          <Link
-            href="#"
+          <Logo
+            size="responsive"
+            isScrolled={isScrolled}
             onClick={() => {
               window.scrollTo({ top: 0, behavior: "smooth" });
               setIsMenuOpen(false);
             }}
-            className="flex flex-col items-center"
-          >
-            <p
-              className={`font-serif transition-all duration-300 ${
-                isScrolled ? "text-2xl md:text-3xl" : "text-3xl md:text-5xl"
-              }`}
-            >
-              MILENA&apos;S
-            </p>
-            <p
-              className={`self-end transition-all duration-300 ${
-                isScrolled ? "text-[10px] md:text-xs" : "text-xs md:text-base"
-              }`}
-            >
-              beauty bar
-            </p>
-          </Link>
+          />
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center">

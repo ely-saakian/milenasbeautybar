@@ -33,3 +33,18 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Subtle full-page gradient */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(at 0% 0%, rgba(240, 222, 211, 0.4) 0%, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(196, 164, 132, 0.15) 0%, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(240, 222, 211, 0.2) 0%, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(196, 164, 132, 0.1) 0%, transparent 50%),
+    #ffffff; /* 👈 Add white as the base layer */
+  pointer-events: none;
+}
