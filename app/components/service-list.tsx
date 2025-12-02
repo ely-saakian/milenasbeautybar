@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { BookButton } from "./book-button";
@@ -37,21 +37,60 @@ interface ServiceListProps {
   services: Service[];
 }
 
+interface CollapsingInfo {
+  index: number;
+  height: number;
+}
+
 export function ServiceList({ services }: ServiceListProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [collapsingInfo, setCollapsingInfo] = useState<CollapsingInfo | null>(
+    null
+  );
+  const contentRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+
+  function setContentRef(id: string, el: HTMLDivElement | null) {
+    if (el) {
+      contentRefs.current.set(id, el);
+    } else {
+      contentRefs.current.delete(id);
+    }
+  }
 
   function toggleService(id: string) {
+    // Before state change, capture the collapsing card's height
+    if (expandedId && expandedId !== id) {
+      const contentEl = contentRefs.current.get(expandedId);
+      const index = services.findIndex((s) => s.id === expandedId);
+      if (contentEl && index !== -1) {
+        setCollapsingInfo({
+          index,
+          height: contentEl.offsetHeight,
+        });
+      }
+    } else {
+      setCollapsingInfo(null);
+    }
+
     setExpandedId(expandedId === id ? null : id);
+  }
+
+  function getCollapsingHeight(serviceIndex: number): number {
+    if (!collapsingInfo) return 0;
+    // Only return height if collapsing card is above this one
+    return collapsingInfo.index < serviceIndex ? collapsingInfo.height : 0;
   }
 
   return (
     <div className="grid gap-4">
-      {services.map((service) => (
+      {services.map((service, index) => (
         <ServiceCard
           key={service.id}
           service={service}
           isExpanded={expandedId === service.id}
           onToggle={() => toggleService(service.id)}
+          collapsingHeight={getCollapsingHeight(index)}
+          contentRef={(el) => setContentRef(service.id, el)}
         />
       ))}
     </div>
@@ -62,9 +101,18 @@ interface ServiceCardProps {
   service: Service;
   isExpanded: boolean;
   onToggle: () => void;
+  collapsingHeight: number;
+  contentRef: (el: HTMLDivElement | null) => void;
 }
 
-function ServiceCard({ service, isExpanded, onToggle }: ServiceCardProps) {
+function ServiceCard({
+  service,
+  isExpanded,
+  onToggle,
+  collapsingHeight,
+  contentRef,
+}: ServiceCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
   const [selectedType, setSelectedType] = useState<string>(
     service.types?.[0]?.id ?? ""
   );
@@ -75,9 +123,29 @@ function ServiceCard({ service, isExpanded, onToggle }: ServiceCardProps) {
     ? service.types?.find((t) => t.id === selectedType)
     : null;
 
+  useLayoutEffect(() => {
+    if (isExpanded && cardRef.current) {
+      const card = cardRef.current;
+      const scrollMargin = 96; // scroll-mt-24 = 96px
+
+      // Calculate target position accounting for collapsing card above
+      const cardRect = card.getBoundingClientRect();
+      const targetScrollY =
+        window.scrollY + cardRect.top - scrollMargin - collapsingHeight;
+
+      requestAnimationFrame(() => {
+        window.scrollTo({
+          top: targetScrollY,
+          behavior: "smooth",
+        });
+      });
+    }
+  }, [isExpanded, collapsingHeight]);
+
   return (
     <div
-      className={`group bg-white border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 ease-out 
+      ref={cardRef}
+      className={`group bg-white border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 ease-out scroll-mt-24
         ${
           isExpanded
             ? "ring-2 ring-[#F0DED3] shadow-lg"
@@ -134,6 +202,7 @@ function ServiceCard({ service, isExpanded, onToggle }: ServiceCardProps) {
 
       {/* Expanded View - CSS Grid animation */}
       <div
+        ref={contentRef}
         className="grid transition-[grid-template-rows] duration-300 ease-out"
         style={{
           gridTemplateRows: isExpanded ? "1fr" : "0fr",

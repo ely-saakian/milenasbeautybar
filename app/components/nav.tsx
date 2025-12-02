@@ -9,19 +9,9 @@ import { SiInstagram } from "@icons-pack/react-simple-icons";
 import { Menu, X } from "lucide-react";
 
 export function Nav() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [headerBottom, setHeaderBottom] = useState(0);
   const headerRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    function handleScroll() {
-      setIsScrolled(window.scrollY > 50);
-    }
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Update header bottom position when menu opens or scroll changes
   useEffect(() => {
@@ -66,12 +56,10 @@ export function Nav() {
           isMenuOpen
             ? "bg-white border-b border-gray-100"
             : "backdrop-blur-md border-b border-foreground/10"
-        } ${isScrolled ? "py-2 px-4" : "p-4"}`}
+        } py-2 px-4`}
       >
         <div className="flex max-w-6xl w-full justify-between items-center">
           <Logo
-            size="responsive"
-            isScrolled={isScrolled}
             onClick={() => {
               window.scrollTo({ top: 0, behavior: "smooth" });
               setIsMenuOpen(false);
