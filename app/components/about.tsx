@@ -3,7 +3,7 @@ import Image from "next/image";
 export function About() {
   return (
     <section id="about" className="flex flex-col gap-8 px-4">
-      <div className="bg-white rounded-2xl overflow-hidden">
+      <div className="overflow-hidden">
         <div className="flex flex-col md:flex-row items-center">
           {/* Image */}
           <div className="w-1/2 md:w-2/5 aspect-square md:aspect-auto p-4 md:p-8">
@@ -18,7 +18,7 @@ export function About() {
           </div>
 
           {/* Content */}
-          <div className="flex-1 pt-6 md:p-8 lg:p-10 flex flex-col justify-center bg-linear-to-br from-white to-[#F0DED3]/10">
+          <div className="flex-1 pt-6 md:p-8 lg:p-10 flex flex-col justify-center">
             <div className="flex flex-col gap-5">
               <div className="inline-flex items-center gap-2">
                 <span className="w-8 h-px bg-[#C4A484]" />
