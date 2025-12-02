@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { BookButton } from "./book-button";
 
-interface FillType {
+interface ServiceType {
   id: string;
   name: string;
   description: string;
@@ -29,7 +29,8 @@ interface Service {
   image: ServiceImage;
   duration: string;
   price: string;
-  fillTypes?: FillType[];
+  types?: ServiceType[];
+  typesLabel?: string;
 }
 
 interface ServiceListProps {
@@ -64,14 +65,14 @@ interface ServiceCardProps {
 }
 
 function ServiceCard({ service, isExpanded, onToggle }: ServiceCardProps) {
-  const [selectedFillType, setSelectedFillType] = useState<string>(
-    service.fillTypes?.[0]?.id ?? ""
+  const [selectedType, setSelectedType] = useState<string>(
+    service.types?.[0]?.id ?? ""
   );
 
-  const hasFillTypes = service.fillTypes && service.fillTypes.length > 0;
+  const hasTypes = service.types && service.types.length > 0;
 
-  const currentFillType = hasFillTypes
-    ? service.fillTypes?.find((f) => f.id === selectedFillType)
+  const currentType = hasTypes
+    ? service.types?.find((t) => t.id === selectedType)
     : null;
 
   return (
@@ -156,7 +157,7 @@ function ServiceCard({ service, isExpanded, onToggle }: ServiceCardProps) {
                     alt={service.title}
                     width={service.image.width}
                     height={service.image.height}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover scale-110"
                   />
                 </div>
               </div>
@@ -176,8 +177,8 @@ function ServiceCard({ service, isExpanded, onToggle }: ServiceCardProps) {
                   {service.description}
                 </p>
 
-                {/* Fill Types Selector */}
-                {hasFillTypes && (
+                {/* Types Selector */}
+                {hasTypes && (
                   <div
                     className={`mb-5 transition-all duration-500 ease-out ${
                       isExpanded
@@ -189,20 +190,20 @@ function ServiceCard({ service, isExpanded, onToggle }: ServiceCardProps) {
                     }}
                   >
                     <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
-                      Choose Your Fill Type
+                      {service.typesLabel ?? "Choose Your Option"}
                     </p>
                     <div className="grid grid-cols-3 gap-2">
-                      {service.fillTypes?.map((fillType) => (
+                      {service.types?.map((type) => (
                         <button
-                          key={fillType.id}
-                          onClick={() => setSelectedFillType(fillType.id)}
+                          key={type.id}
+                          onClick={() => setSelectedType(type.id)}
                           className={`py-2 px-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                            selectedFillType === fillType.id
+                            selectedType === type.id
                               ? "bg-[#C4A484] text-white"
                               : "bg-[#F0DED3]/50 text-gray-700 hover:bg-[#F0DED3]"
                           }`}
                         >
-                          {fillType.name}
+                          {type.name}
                         </button>
                       ))}
                     </div>
@@ -223,7 +224,7 @@ function ServiceCard({ service, isExpanded, onToggle }: ServiceCardProps) {
                       Duration
                     </p>
                     <p className="text-sm font-semibold text-gray-900 mt-1">
-                      {currentFillType?.duration ?? service.duration}
+                      {currentType?.duration ?? service.duration}
                     </p>
                   </div>
                   <div className="p-3 bg-[#F0DED3]/30 rounded-xl">
@@ -231,13 +232,13 @@ function ServiceCard({ service, isExpanded, onToggle }: ServiceCardProps) {
                       Price
                     </p>
                     <p className="text-sm font-semibold text-gray-900 mt-1">
-                      {currentFillType?.price ?? service.price}
+                      {currentType?.price ?? service.price}
                     </p>
                   </div>
                 </div>
 
-                {/* Fill Type Description */}
-                {hasFillTypes && currentFillType && (
+                {/* Type Description */}
+                {hasTypes && currentType && (
                   <div
                     className={`mb-5 p-4 rounded-xl bg-[#F0DED3]/20 border border-[#F0DED3]/40 transition-all duration-500 ease-out ${
                       isExpanded
@@ -249,24 +250,12 @@ function ServiceCard({ service, isExpanded, onToggle }: ServiceCardProps) {
                     }}
                   >
                     <p className="text-sm text-gray-600 leading-relaxed">
-                      {currentFillType.description}
+                      {currentType.description}
                     </p>
                   </div>
                 )}
 
-                {/* Book Button */}
-                {/* <div
-                  className={`transition-all duration-500 ease-out ${
-                    isExpanded
-                      ? "translate-y-0 opacity-100"
-                      : "translate-y-2 opacity-0"
-                  }`}
-                  style={{
-                    transitionDelay: isExpanded ? "350ms" : "0ms",
-                  }}
-                > */}
                 <BookButton href={service.href} />
-                {/* </div> */}
               </div>
             </div>
           </div>
