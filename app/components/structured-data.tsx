@@ -6,7 +6,6 @@ export function StructuredData() {
     description:
       "Professional lash extensions, lash lifts, brow lamination, brow waxing & tinting services by a licensed Master Esthetician since 2018.",
     url: "https://milenasbeautybar.com",
-    image: "https://milenasbeautybar.com/og-image.png",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Federal Way",
