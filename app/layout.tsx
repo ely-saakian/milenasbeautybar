@@ -53,30 +53,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
   },
-  openGraph: {
-    type: "website",
-    siteName: "Milena's Beauty Bar",
-    title: "Milena's Beauty Bar | Lash & Brow Services in Federal Way, WA",
-    description:
-      "Professional lash extensions, lash lifts, brow lamination, brow waxing & tinting in Federal Way, WA. Licensed Master Esthetician since 2018. Book your appointment today!",
-    url: siteUrl,
-    locale: "en_US",
-    images: [
-      {
-        url: "https://www.milenasbeautybar.com/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Milena's Beauty Bar - Lash & Brow Services",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Milena's Beauty Bar | Lash & Brow Services in Federal Way, WA",
-    description:
-      "Professional lash extensions, lash lifts, brow lamination, brow waxing & tinting in Federal Way, WA. Licensed Master Esthetician since 2018. Book your appointment today!",
-    images: ["https://www.milenasbeautybar.com/og-image.png"],
-  },
 };
 
 export default function RootLayout({
