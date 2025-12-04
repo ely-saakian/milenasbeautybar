@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: `${siteUrl}/og-image.png`,
+        url: "https://www.milenasbeautybar.com/og-image.png",
         width: 1200,
         height: 630,
         alt: "Milena's Beauty Bar - Lash & Brow Services",
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     title: "Milena's Beauty Bar | Lash & Brow Services in Federal Way, WA",
     description:
       "Professional lash extensions, lash lifts, brow lamination, brow waxing & tinting in Federal Way, WA. Licensed Master Esthetician since 2018. Book your appointment today!",
-    images: [`${siteUrl}/og-image.png`],
+    images: ["https://www.milenasbeautybar.com/og-image.png"],
   },
 };
 
