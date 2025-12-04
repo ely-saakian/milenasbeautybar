@@ -47,21 +47,12 @@ export const metadata: Metadata = {
     title: "Milena's Beauty Bar | Lash & Brow Services in Federal Way, WA",
     description:
       "Professional lash extensions, lash lifts, brow lamination & waxing in Federal Way, WA. Licensed Master Esthetician since 2018. Book your appointment today!",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Milena's Beauty Bar - Lash & Brow Services",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Milena's Beauty Bar | Lash & Brow Services in Federal Way, WA",
     description:
       "Professional lash extensions, lash lifts, brow lamination & waxing in Federal Way, WA. Book your appointment today!",
-    images: ["/og-image.png"],
   },
   robots: {
     index: true,
