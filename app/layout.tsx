@@ -12,7 +12,7 @@ const figtree = Figtree({
   subsets: ["latin"],
 });
 
-const siteUrl = "https://milenasbeautybar.com";
+const siteUrl = "https://www.milenasbeautybar.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
