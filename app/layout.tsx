@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { EB_Garamond, Figtree } from "next/font/google";
 import "./globals.css";
-import ogImage from "./opengraph-image.png";
 
 const ebGaramond = EB_Garamond({
   variable: "--font-eb-garamond",
@@ -62,26 +61,12 @@ export const metadata: Metadata = {
       "Professional lash extensions, lash lifts, brow lamination, brow waxing & tinting in Federal Way, WA. Licensed Master Esthetician since 2018. Book your appointment today!",
     url: siteUrl,
     locale: "en_US",
-    images: [
-      {
-        url: `${siteUrl}${ogImage.src}`,
-        width: ogImage.width,
-        height: ogImage.height,
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Milena's Beauty Bar | Lash & Brow Services in Federal Way, WA",
     description:
       "Professional lash extensions, lash lifts, brow lamination, brow waxing & tinting in Federal Way, WA. Licensed Master Esthetician since 2018. Book your appointment today!",
-    images: [
-      {
-        url: `${siteUrl}${ogImage.src}`,
-        width: ogImage.width,
-        height: ogImage.height,
-      },
-    ],
   },
 };
 
