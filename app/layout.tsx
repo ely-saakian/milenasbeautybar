@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: ogImage.src,
+        url: `${siteUrl}${ogImage.src}`,
         width: ogImage.width,
         height: ogImage.height,
       },
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
       "Professional lash extensions, lash lifts, brow lamination, brow waxing & tinting in Federal Way, WA. Licensed Master Esthetician since 2018. Book your appointment today!",
     images: [
       {
-        url: ogImage.src,
+        url: `${siteUrl}${ogImage.src}`,
         width: ogImage.width,
         height: ogImage.height,
       },
