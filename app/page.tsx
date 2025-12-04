@@ -1,6 +1,7 @@
 import { Nav } from "./components/nav";
 import { Hero } from "./components/hero";
 import { About } from "./components/about";
+import { Packages } from "./components/packages";
 import { Brows } from "./components/brows";
 import { Lashes } from "./components/lashes";
 import { FacialWax } from "./components/facial-wax";
@@ -22,6 +23,7 @@ export default function Home() {
       <main className="flex flex-col gap-8 md:gap-20 min-h-screen w-full max-w-6xl pb-16">
         <Hero />
         <About />
+        <Packages />
         <Brows />
         <Lashes />
         <FacialWax />
