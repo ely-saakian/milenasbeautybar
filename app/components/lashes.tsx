@@ -136,7 +136,7 @@ const services = [
       height: 364,
     },
     duration: "45-60 min",
-    price: "$65-85",
+    price: "$75",
   },
   {
     id: "tint",
@@ -152,7 +152,7 @@ const services = [
       height: 364,
     },
     duration: "20-30 min",
-    price: "$25-35",
+    price: "$25",
   },
   {
     id: "removal",
