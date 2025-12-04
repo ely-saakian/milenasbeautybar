@@ -47,7 +47,7 @@ const services = [
       height: 364,
     },
     duration: "15-20 min",
-    price: "$20-30",
+    price: "$25",
   },
 ];
 
