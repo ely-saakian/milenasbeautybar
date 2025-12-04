@@ -8,6 +8,7 @@ const LASH_FILL_TYPES = [
       "Traditional 1:1 ratio with a natural, defined look. Perfect for those who prefer a timeless aesthetic with subtle enhancement.",
     duration: "45-60 min",
     price: "$50-60",
+    href: "https://milenasbeautybar.as.me/?appointmentType=category:Lash%20Fills%20-%20Classic",
   },
   {
     id: "volume",
@@ -16,6 +17,7 @@ const LASH_FILL_TYPES = [
       "Fuller, dramatic appearance with multiple lightweight extensions per natural lash. Ideal for adding glamorous volume and dimension.",
     duration: "60-75 min",
     price: "$65-80",
+    href: "https://milenasbeautybar.as.me/?appointmentType=category:Lash%20Fills%20-%20Volume",
   },
   {
     id: "wispy",
@@ -24,10 +26,20 @@ const LASH_FILL_TYPES = [
       "Trendy hybrid style combining classic and volume for a feathery, textured look. Great for those wanting a modern, editorial appearance.",
     duration: "60-70 min",
     price: "$60-75",
+    href: "https://milenasbeautybar.as.me/?appointmentType=category:Lash%20Fills%20-%20Wispy",
   },
 ];
 
 const LASH_EXTENSION_TYPES = [
+  {
+    id: "half-set",
+    name: "Half Set",
+    description:
+      "A half set is a 40–60% lash coverage that gives a soft, lifted ‘lash-cluster’ look—perfect for vacations or events—and lasts about 7–10 days depending on care and natural lash growth.",
+    duration: "2 hours",
+    price: "$75.00",
+    href: "https://milenasbeautybar.as.me/?appointmentType=86404163",
+  },
   {
     id: "classic",
     name: "Classic",
@@ -35,6 +47,7 @@ const LASH_EXTENSION_TYPES = [
       "The perfect choice for a natural, mascara-like look! Classic lash extensions are applied using a 1:1 technique — one extension to one natural lash — to enhance your eyes with subtle length and definition. Ideal for clients who want an everyday, effortless style. I offer three different styles, customized to your eye shape.",
     duration: "3-4 hours",
     price: "$100.00",
+    href: "https://milenasbeautybar.as.me/?appointmentType=83828435",
   },
   {
     id: "volume",
@@ -43,6 +56,7 @@ const LASH_EXTENSION_TYPES = [
       "Fluffy, and full! Volume lashes are created by applying lightweight fans (2–6 extensions per natural lash) for a soft, glamorous look. A perfect choice if you love extra fullness while keeping lashes lightweight and comfortable. I offer multiple styles that will be tailored to your eye shape.",
     duration: "4-5 hours",
     price: "$165.00",
+    href: "https://milenasbeautybar.as.me/?appointmentType=83828550",
   },
   {
     id: "wispy",
@@ -51,6 +65,7 @@ const LASH_EXTENSION_TYPES = [
       "A blend of classics, spikes, and volume techniques for the best custom look. Wispy lashes give you a soft, textured look with added fullness and dimension. Great for clients who want a little more drama than classic but less than volume.",
     duration: "4 hours",
     price: "$130.00",
+    href: "https://milenasbeautybar.as.me/?appointmentType=83828506",
   },
 ];
 
@@ -61,7 +76,7 @@ const services = [
     title: "Lash Consultation",
     description:
       "Not sure if lash extensions are right for you? Book this complimentary consultation to discuss your lash goals, review styles, check for any sensitivities, and answer your questions. Perfect for first-time clients who want to feel confident before committing to a full set!",
-    href: "#book",
+    href: "https://milenasbeautybar.as.me/?appointmentType=83824594",
     image: {
       src: "/lashes-consultation-image.jpg",
       alt: "Lash Consultation",
@@ -113,7 +128,7 @@ const services = [
     title: "Lash Lift",
     description:
       "Experience enhanced lifted lashes with our professional lash lift treatment. Enjoy long-lasting results that make your natural lashes appear longer and more defined. Our treatment includes nourishment cream to keep your lashes healthy and beautiful for weeks to come.",
-    href: "#book",
+    href: "https://milenasbeautybar.as.me/Lashlift",
     image: {
       src: "/lashes-lift-image.png",
       alt: "Lash Lift",
@@ -129,7 +144,7 @@ const services = [
     title: "Professional Lash Tint",
     description:
       "Darken and define your natural lashes with our professional tinting service. Great for those with light-colored lashes who want more definition without daily mascara application.",
-    href: "#book",
+    href: "https://milenasbeautybar.as.me/?appointmentType=84141448",
     image: {
       src: "/lashes-tint-image.png",
       alt: "Lash Tint",
@@ -138,6 +153,22 @@ const services = [
     },
     duration: "20-30 min",
     price: "$25-35",
+  },
+  {
+    id: "removal",
+    name: "Removal",
+    title: "Professional Lash Removal",
+    description:
+      "Safe and gentle removal of lash extensions from your natural lashes. Whether you have a partial set or full extensions, we use professional-grade remover to carefully dissolve the adhesive without damaging your natural lashes. Timing varies based on the application: 20-30 minutes for partial sets, 30-45 minutes for a typical full set, and 45+ minutes for heavy applications or extensions applied elsewhere.",
+    href: "https://milenasbeautybar.as.me/?appointmentType=83828784",
+    image: {
+      src: "/lashes-extensions-removal.png",
+      alt: "Lash Removal",
+      width: 523,
+      height: 364,
+    },
+    duration: "20-45 min",
+    price: "$35",
   },
 ];
 

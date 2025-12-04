@@ -59,7 +59,7 @@ export function StructuredData() {
                 "@type": "Service",
                 name: "Lash Extensions",
                 description:
-                  "Premium synthetic lash extensions in Classic, Wispy, or Volume styles.",
+                  "Premium synthetic lash extensions in Half Set,Classic, Wispy, or Volume styles.",
               },
             },
             {
@@ -127,6 +127,23 @@ export function StructuredData() {
                 description:
                   "Gentle facial waxing for upper lip, chin, sideburns, or full face.",
               },
+            },
+          ],
+        },
+        {
+          "@type": "OfferCatalog",
+          name: "Packages",
+          itemListElement: [
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Deluxe Package",
+                description:
+                  "The ultimate pampering experience including lash lift, lash tint, brow lamination (shape and wax), and aftercare oil.",
+              },
+              price: "135.00",
+              priceCurrency: "USD",
             },
           ],
         },

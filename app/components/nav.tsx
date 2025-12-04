@@ -73,6 +73,9 @@ export function Nav() {
                 <NavLink href="#about">About</NavLink>
               </li>
               <li>
+                <NavLink href="#packages">Packages</NavLink>
+              </li>
+              <li>
                 <NavLink href="#brows">Brows</NavLink>
               </li>
               <li>
@@ -140,6 +143,7 @@ export function Nav() {
             <ul className="flex flex-col gap-2">
               {[
                 { href: "#about", label: "About" },
+                { href: "#packages", label: "Packages" },
                 { href: "#brows", label: "Brows" },
                 { href: "#lashes", label: "Lashes" },
                 { href: "#facial-wax", label: "Facial Wax" },
@@ -180,7 +184,7 @@ export function Nav() {
                 transitionDelay: isMenuOpen ? "450ms" : "0ms",
               }}
             >
-              <BookButton href="https://milenasbeautybar.as.me/schedule/13baf9e3" />
+              <BookButton href="https://milenasbeautybar.as.me/" />
 
               <div className="flex items-center justify-center gap-4">
                 <Link

@@ -7,7 +7,7 @@ const services = [
     title: "Brow Lamination",
     description:
       "Achieve beautifully sculpted, fluffy brows with our professional brow lamination treatment. This semi-permanent styling solution tames unruly hairs and creates a fuller, more defined brow shape that lasts up to 6-8 weeks.",
-    href: "#book",
+    href: "https://milenasbeautybar.as.me/?appointmentType=83825757",
     image: {
       src: "/brows-lamination-image.png",
       alt: "Brow Lamination",
@@ -23,7 +23,7 @@ const services = [
     title: "Brow Waxing",
     description:
       "Get perfectly defined brows with our gentle waxing service. Using premium soft wax, we shape your brows to complement your facial features while removing unwanted hair for a clean, polished look.",
-    href: "#book",
+    href: "https://milenasbeautybar.as.me/?appointmentType=83826463",
     image: {
       src: "/brows-wax-image.png",
       alt: "Brow Waxing",
@@ -39,7 +39,7 @@ const services = [
     title: "Brow Tinting",
     description:
       "Enhance your natural brows with our professional tinting service. Add depth and definition with long-lasting color that fills in sparse areas and gives your brows a fuller appearance.",
-    href: "#book",
+    href: "https://milenasbeautybar.as.me/?appointmentType=83825812",
     image: {
       src: "/brows-tint-image.png",
       alt: "Brow Tinting",

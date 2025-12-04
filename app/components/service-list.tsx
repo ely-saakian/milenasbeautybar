@@ -11,6 +11,7 @@ interface ServiceType {
   description: string;
   duration: string;
   price: string;
+  href?: string;
 }
 
 interface ServiceImage {
@@ -324,7 +325,7 @@ function ServiceCard({
                   </div>
                 )}
 
-                <BookButton href={service.href} />
+                <BookButton href={currentType?.href ?? service.href} />
               </div>
             </div>
           </div>
