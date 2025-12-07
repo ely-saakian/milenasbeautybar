@@ -15,7 +15,7 @@ const services = [
       height: 364,
     },
     duration: "45-60 min",
-    price: "$55-75",
+    price: "$65",
   },
   {
     id: "wax",
@@ -31,7 +31,7 @@ const services = [
       height: 364,
     },
     duration: "15-20 min",
-    price: "$15-25",
+    price: "$15",
   },
   {
     id: "tint",
