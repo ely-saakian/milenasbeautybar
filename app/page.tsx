@@ -15,8 +15,8 @@ export default function Home() {
       <StructuredData />
       <div className="flex bg-[#F0DED3] p-2 w-screen items-center justify-center">
         <p>
-          LIMITED TIME OFFER! Use code <strong>LASHPROMO</strong> for 50% off
-          full sets! Expires Dec. 31st
+          REFER A FRIEND! <strong>You get</strong> $10 off your next
+          appointment. <strong>They get</strong> $10 off their first visit.
         </p>
       </div>
       <Nav />
