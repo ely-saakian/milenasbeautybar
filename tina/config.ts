@@ -69,6 +69,37 @@ export default defineConfig({
           router: ({ document }) => `/blog/${document._sys.filename}/preview`,
         },
       },
+      {
+        name: "promoBanner",
+        label: "Promo Banner",
+        path: "content/promo-banner",
+        ui: {
+          allowedActions: {
+            create: false,
+            delete: false,
+          },
+        },
+        fields: [
+          {
+            type: "string",
+            name: "title",
+            label: "Title",
+            isTitle: true,
+            required: true,
+          },
+          {
+            type: "boolean",
+            name: "enabled",
+            label: "Enabled",
+          },
+          {
+            type: "rich-text",
+            name: "message",
+            label: "Message",
+            isBody: true,
+          },
+        ],
+      },
     ],
   },
 });
