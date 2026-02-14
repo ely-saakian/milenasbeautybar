@@ -1,5 +1,8 @@
 ---
-title: 'Hello, World!'
+title: Hello, World!
+date: 2026-02-13T00:00:00.000Z
+description: Welcome to our new blog! Stay tuned for beauty tips, tutorials, and the latest trends in brows, lashes, and skincare.
+thumbnail: ""
 ---
 
 ## Hello Ely!
