@@ -8,17 +8,15 @@ import { FacialWax } from "./components/facial-wax";
 import { FAQs } from "./components/faqs";
 import { Footer } from "./components/footer";
 import { StructuredData } from "./components/structured-data";
+import { PromoBanner } from "./components/promo-banner";
+import { FloatingHearts } from "./components/floating-hearts";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen items-center justify-center font-sans text-black gap-8">
+      <FloatingHearts />
       <StructuredData />
-      <div className="flex bg-[#F0DED3] p-2 w-screen items-center justify-center">
-        <p>
-          REFER A FRIEND! <strong>You get</strong> $10 off your next
-          appointment. <strong>They get</strong> $10 off their first visit.
-        </p>
-      </div>
+      <PromoBanner />
       <Nav />
       <main className="flex flex-col gap-8 md:gap-20 min-h-screen w-full max-w-6xl pb-16">
         <Hero />
