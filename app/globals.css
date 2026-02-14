@@ -48,3 +48,53 @@ body::before {
     #ffffff; /* 👈 Add white as the base layer */
   pointer-events: none;
 }
+
+/* Floating hearts animation */
+@keyframes floatDown {
+  0% {
+    top: -5%;
+    opacity: 0.8;
+  }
+  70% {
+    opacity: 0.6;
+  }
+  100% {
+    top: 105%;
+    opacity: 0;
+  }
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    margin-left: 0;
+  }
+  50% {
+    margin-left: var(--sway, 40px);
+  }
+}
+
+.floating-heart {
+  position: absolute;
+  animation: floatDown 8s linear forwards, sway 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.floating-heart::before,
+.floating-heart::after {
+  content: "";
+  background-color: rgb(224, 212, 199);
+  position: absolute;
+  height: 20px;
+  width: 30px;
+  border-radius: 15px 0 0 15px;
+}
+
+.floating-heart::before {
+  transform: rotate(45deg);
+}
+
+.floating-heart::after {
+  left: 7px;
+  transform: rotate(135deg);
+}
