@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 interface LogoProps {
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
   className?: string;
 }
 
@@ -11,7 +11,7 @@ export function Logo({ onClick, className = "" }: LogoProps) {
 
   return (
     <Link
-      href="#"
+      href="/"
       onClick={onClick}
       className={`flex flex-col items-end ${className}`}
     >

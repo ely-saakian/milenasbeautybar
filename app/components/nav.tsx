@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Logo } from "./logo";
 import { NavLink } from "./nav-link";
 import { BookButton } from "./book-button";
@@ -12,6 +13,7 @@ export function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [headerBottom, setHeaderBottom] = useState(0);
   const headerRef = useRef<HTMLElement>(null);
+  const pathname = usePathname();
 
   // Update header bottom position when menu opens or scroll changes
   useEffect(() => {
@@ -60,9 +62,12 @@ export function Nav() {
       >
         <div className="flex max-w-6xl w-full justify-between items-center">
           <Logo
-            onClick={() => {
-              window.scrollTo({ top: 0, behavior: "smooth" });
+            onClick={(e) => {
               setIsMenuOpen(false);
+              if (pathname === "/") {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
             }}
           />
 
@@ -70,22 +75,25 @@ export function Nav() {
           <nav className="hidden lg:flex items-center">
             <ul className="flex items-baseline justify-between gap-8">
               <li>
-                <NavLink href="#about">About</NavLink>
+                <NavLink href="/#about">About</NavLink>
               </li>
               <li>
-                <NavLink href="#packages">Packages</NavLink>
+                <NavLink href="/#packages">Packages</NavLink>
               </li>
               <li>
-                <NavLink href="#brows">Brows</NavLink>
+                <NavLink href="/#brows">Brows</NavLink>
               </li>
               <li>
-                <NavLink href="#lashes">Lashes</NavLink>
+                <NavLink href="/#lashes">Lashes</NavLink>
               </li>
               <li>
-                <NavLink href="#facial-wax">Facial Wax</NavLink>
+                <NavLink href="/#facial-wax">Facial Wax</NavLink>
               </li>
               <li>
-                <NavLink href="#faqs">FAQs</NavLink>
+                <NavLink href="/#faqs">FAQs</NavLink>
+              </li>
+              <li>
+                <NavLink href="/blog">Blog</NavLink>
               </li>
               <li>
                 <BookButton href="https://milenasbeautybar.as.me/schedule/13baf9e3" />
@@ -142,12 +150,13 @@ export function Nav() {
           <nav className="flex flex-col h-full px-6 py-8">
             <ul className="flex flex-col gap-2">
               {[
-                { href: "#about", label: "About" },
-                { href: "#packages", label: "Packages" },
-                { href: "#brows", label: "Brows" },
-                { href: "#lashes", label: "Lashes" },
-                { href: "#facial-wax", label: "Facial Wax" },
-                { href: "#faqs", label: "FAQs" },
+                { href: "/#about", label: "About" },
+                { href: "/#packages", label: "Packages" },
+                { href: "/#brows", label: "Brows" },
+                { href: "/#lashes", label: "Lashes" },
+                { href: "/#facial-wax", label: "Facial Wax" },
+                { href: "/#faqs", label: "FAQs" },
+                { href: "/blog", label: "Blog" },
               ].map((item, index) => (
                 <li
                   key={item.href}
