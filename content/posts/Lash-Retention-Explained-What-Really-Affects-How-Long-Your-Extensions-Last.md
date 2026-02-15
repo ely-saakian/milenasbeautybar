@@ -1,11 +1,9 @@
 ---
-title: 'Lash Retention Explained: What Really Affects How Long Your Extensions Last'
+title: Lash Retention Explained
 date: 2026-02-15T18:59:52.982Z
-description: 'One of the most common questions clients ask is: “How long will my lash extensions last?” The answer depends on more than just the glue. Lash retention is influenced by your natural lash cycle, proper application, and how you care for your lashes after your appointment. Let’s break it down.'
+description: What Really Affects How Long Your Extensions Last
 thumbnail: /IMG_5983.jpeg
 ---
-
-**Lash Retention Explained: What Really Affects How Long Your Extensions Last**
 
 One of the most common questions clients ask is:\
 **“How long will my lash extensions last?”**
@@ -52,3 +50,6 @@ When applied correctly and cared for properly, lash extensions are safe, comfort
 Bottom line, lash retention is about understanding your natural lash cycle, maintaining proper hygiene, and following a refill schedule that works for you.
 
 When applied correctly and cared for properly, lash extensions are safe, comfortable, and designed to move naturally with your lash growth cycle.
+
+References:
+[Lanna Lash Academy](https://www.lannalashes.com/collections/online-training/products/lanna-lashes-academy-1)
