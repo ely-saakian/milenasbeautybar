@@ -2,7 +2,7 @@
 title: Lash Retention Explained
 date: 2026-02-15T18:59:52.982Z
 description: What Really Affects How Long Your Extensions Last
-thumbnail: /IMG_5983.jpeg
+thumbnail: /lash-retention-blog-image.jpeg
 ---
 
 One of the most common questions clients ask is:\
