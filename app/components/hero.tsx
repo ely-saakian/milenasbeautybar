@@ -1,6 +1,6 @@
 export function Hero() {
   return (
-    <section className="relative flex flex-col gap-8 items-center text-center px-4 py-16 md:py-24 overflow-hidden">
+    <section className="relative flex flex-col gap-8 items-center text-center px-4 py-10 overflow-hidden">
       <div className="flex flex-col gap-6 items-center max-w-2xl">
         <div className="inline-flex items-center gap-2">
           <span className="w-8 h-px bg-[#C4A484]" />

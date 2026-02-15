@@ -10,6 +10,7 @@ import { Footer } from "./components/footer";
 import { StructuredData } from "./components/structured-data";
 import { PromoBanner } from "./components/promo-banner";
 import { FloatingHearts } from "./components/floating-hearts";
+import { LatestBlog } from "./components/latest-blog";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       <main className="flex flex-col gap-8 md:gap-20 min-h-screen w-full max-w-6xl pb-16">
         <Hero />
         <About />
+        <LatestBlog />
         <Packages />
         <Brows />
         <Lashes />
