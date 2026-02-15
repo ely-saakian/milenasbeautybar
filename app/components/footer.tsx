@@ -7,11 +7,12 @@ import Link from "next/link";
 import { Logo } from "./logo";
 
 const quickLinks = [
-  { href: "#about", label: "About" },
-  { href: "#brows", label: "Brows" },
-  { href: "#lashes", label: "Lashes" },
-  { href: "#facial-wax", label: "Facial Wax" },
-  { href: "#faqs", label: "FAQs" },
+  { href: "/#about", label: "About" },
+  { href: "/#brows", label: "Brows" },
+  { href: "/#lashes", label: "Lashes" },
+  { href: "/#facial-wax", label: "Facial Wax" },
+  { href: "/#faqs", label: "FAQs" },
+  { href: "/blog", label: "Blog" },
 ];
 
 const socialLinks = [
@@ -41,7 +42,6 @@ export function Footer() {
           {/* Column 1 - Brand */}
           <div className="flex flex-col items-center md:items-start">
             <Logo />
-            <p className="mt-4 text-gray-700">Federal Way, WA</p>
           </div>
 
           {/* Column 2 - Quick Links */}
@@ -50,7 +50,7 @@ export function Footer() {
               Quick Links
             </h3>
             <nav aria-label="Footer navigation">
-              <ul className="flex flex-col gap-2 items-center md:items-start">
+              <ul className="grid grid-cols-2 gap-x-8 gap-y-2 items-center md:items-start">
                 {quickLinks.map((link) => (
                   <li key={link.href}>
                     <Link
@@ -82,6 +82,7 @@ export function Footer() {
                 </Link>
               ))}
             </div>
+            <p className="text-gray-700 text-center md:text-left">Federal Way, WA</p>
             <p className="text-sm text-gray-600 italic text-center md:text-left">
               Address and phone number available upon booking
             </p>
