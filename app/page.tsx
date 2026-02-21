@@ -11,8 +11,13 @@ import { StructuredData } from "./components/structured-data";
 import { PromoBanner } from "./components/promo-banner";
 import { FloatingHearts } from "./components/floating-hearts";
 import { LatestBlog } from "./components/latest-blog";
+import { getServices } from "@/lib/get-services";
 
-export default function Home() {
+export const dynamic = "force-static";
+
+export default async function Home() {
+  const services = await getServices();
+
   return (
     <div className="flex flex-col min-h-screen items-center justify-center font-sans text-black gap-8">
       <FloatingHearts />
@@ -23,10 +28,10 @@ export default function Home() {
         <Hero />
         <About />
         <LatestBlog />
-        <Packages />
-        <Brows />
-        <Lashes />
-        <FacialWax />
+        <Packages services={services.packages} />
+        <Brows services={services.brows} />
+        <Lashes services={services.lashes} />
+        <FacialWax services={services.facialWax} />
         <FAQs />
       </main>
       <Footer />

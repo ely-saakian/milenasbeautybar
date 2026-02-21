@@ -1,4 +1,5 @@
 import { defineConfig } from "tinacms";
+import { SERVICE_CATEGORY_OPTIONS } from "@/lib/constants";
 
 // Your hosting provider likely exposes this as an environment variable
 const branch =
@@ -97,6 +98,105 @@ export default defineConfig({
             name: "message",
             label: "Message",
             isBody: true,
+          },
+        ],
+      },
+      {
+        name: "service",
+        label: "Services",
+        path: "content/services",
+        ui: {
+          router: ({ document }) => `/services/${document._sys.filename}/preview`,
+        },
+        fields: [
+          {
+            type: "string",
+            name: "category",
+            label: "Category",
+            required: true,
+            options: [...SERVICE_CATEGORY_OPTIONS],
+          },
+          {
+            type: "string",
+            name: "name",
+            label: "Name",
+            required: true,
+            description: "Short label in collapsed card",
+          },
+          {
+            type: "string",
+            name: "title",
+            label: "Title",
+            required: true,
+            description: "Heading in expanded card",
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Description",
+            required: true,
+            ui: { component: "textarea" },
+          },
+          {
+            type: "string",
+            name: "href",
+            label: "Booking URL",
+            required: true,
+          },
+          {
+            type: "image",
+            name: "image",
+            label: "Image",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "imageAlt",
+            label: "Image alt text",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "duration",
+            label: "Duration",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "price",
+            label: "Price",
+            required: true,
+          },
+          {
+            type: "number",
+            name: "order",
+            label: "Order",
+            description: "Display order within section (lower first)",
+          },
+          {
+            type: "string",
+            name: "typesLabel",
+            label: "Types label",
+            description: "e.g. Choose Your Extension Type",
+          },
+          {
+            type: "object",
+            name: "types",
+            label: "Sub-options",
+            list: true,
+            description: "Optional variants (e.g. Classic, Volume, Wispy)",
+            ui: {
+              itemProps: (item) => ({
+                label: item?.name || "New sub-option",
+              }),
+            },
+            fields: [
+              { type: "string", name: "name", label: "Name", required: true },
+              { type: "string", name: "description", label: "Description", required: true, ui: { component: "textarea" } },
+              { type: "string", name: "duration", label: "Duration", required: true },
+              { type: "string", name: "price", label: "Price", required: true },
+              { type: "string", name: "href", label: "Booking URL" },
+            ],
           },
         ],
       },
