@@ -45,7 +45,10 @@ export function mapTinaServiceToService(node: TinaServiceNode): Service {
     description: node.description,
     href: node.href,
     image: {
-      src: imageSrc.startsWith("/") ? imageSrc : `/${imageSrc}`,
+      src:
+        imageSrc.startsWith("/") || imageSrc.startsWith("http")
+          ? imageSrc
+          : `/${imageSrc}`,
       alt: node.imageAlt,
       width: IMAGE_WIDTH,
       height: IMAGE_HEIGHT,
