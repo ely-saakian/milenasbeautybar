@@ -3,39 +3,12 @@
 import { useState, useRef, useLayoutEffect } from "react";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
+import type { Service } from "@/types/services";
 import { BookButton } from "./book-button";
-
-interface ServiceType {
-  id: string;
-  name: string;
-  description: string;
-  duration: string;
-  price: string;
-  href?: string;
-}
-
-interface ServiceImage {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-}
-
-interface Service {
-  id: string;
-  name: string;
-  title: string;
-  description: string;
-  href: string;
-  image: ServiceImage;
-  duration: string;
-  price: string;
-  types?: ServiceType[];
-  typesLabel?: string;
-}
 
 interface ServiceListProps {
   services: Service[];
+  defaultExpandedId?: string;
 }
 
 interface CollapsingInfo {
@@ -43,8 +16,10 @@ interface CollapsingInfo {
   height: number;
 }
 
-export function ServiceList({ services }: ServiceListProps) {
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+export function ServiceList({ services, defaultExpandedId }: ServiceListProps) {
+  const [expandedId, setExpandedId] = useState<string | null>(
+    defaultExpandedId ?? null
+  );
   const [collapsingInfo, setCollapsingInfo] = useState<CollapsingInfo | null>(
     null
   );
