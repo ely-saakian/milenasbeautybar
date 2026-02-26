@@ -9,7 +9,6 @@ import { FAQs } from "./components/faqs";
 import { Footer } from "./components/footer";
 import { StructuredData } from "./components/structured-data";
 import { PromoBanner } from "./components/promo-banner";
-import { FloatingHearts } from "./components/floating-hearts";
 import { LatestBlog } from "./components/latest-blog";
 import { getServices } from "@/lib/get-services";
 
@@ -20,7 +19,6 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col min-h-screen items-center justify-center font-sans text-black gap-8">
-      <FloatingHearts />
       <StructuredData />
       <PromoBanner />
       <Nav />
