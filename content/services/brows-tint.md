@@ -9,5 +9,5 @@ image: /brows-tint-image.png
 imageAlt: Brow Tinting
 duration: "15-20 min"
 price: "$25"
-order: 2
+order: 4
 ---

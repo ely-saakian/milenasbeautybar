@@ -9,5 +9,5 @@ image: /brows-wax-image.png
 imageAlt: Brow Waxing
 duration: "15-20 min"
 price: "$15"
-order: 1
+order: 3
 ---
