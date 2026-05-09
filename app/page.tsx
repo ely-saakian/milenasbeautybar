@@ -10,6 +10,7 @@ import { Footer } from "./components/footer";
 import { StructuredData } from "./components/structured-data";
 import { PromoBanner } from "./components/promo-banner";
 import { LatestBlog } from "./components/latest-blog";
+import { ScrollReveal } from "./components/scroll-reveal";
 import { getServices } from "@/lib/get-services";
 
 export const dynamic = "force-static";
@@ -22,15 +23,27 @@ export default async function Home() {
       <StructuredData />
       <PromoBanner />
       <Nav />
-      <main className="flex flex-col gap-8 md:gap-20 min-h-screen w-full max-w-6xl pb-16">
+      <main className="flex flex-col gap-12 md:gap-20 min-h-screen w-full max-w-6xl pb-16">
         <Hero />
         <About />
-        <LatestBlog />
-        <Packages services={services.packages} />
-        <Brows services={services.brows} />
-        <Lashes services={services.lashes} />
-        <FacialWax services={services.facialWax} />
-        <FAQs />
+        <ScrollReveal>
+          <LatestBlog />
+        </ScrollReveal>
+        <ScrollReveal>
+          <Packages services={services.packages} />
+        </ScrollReveal>
+        <ScrollReveal>
+          <Brows services={services.brows} />
+        </ScrollReveal>
+        <ScrollReveal>
+          <Lashes services={services.lashes} />
+        </ScrollReveal>
+        <ScrollReveal>
+          <FacialWax services={services.facialWax} />
+        </ScrollReveal>
+        <ScrollReveal>
+          <FAQs />
+        </ScrollReveal>
       </main>
       <Footer />
     </div>
