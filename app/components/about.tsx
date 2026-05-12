@@ -10,8 +10,9 @@ export function About() {
             <Image
               src="/about-image.png"
               alt="Milena Saakian - Master Esthetician"
-              width={500}
-              height={500}
+              width={1232}
+              height={1232}
+              sizes="(min-width: 1152px) 384px, (min-width: 768px) 40vw, 50vw"
               className="w-full h-full object-contain"
               priority
             />

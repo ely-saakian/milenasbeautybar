@@ -26,7 +26,7 @@ export function BlogpostCard({
             src={image}
             alt={title}
             fill
-            sizes="(max-width: 768px) 100vw, 300px"
+            sizes="(min-width: 768px) 300px, 100vw"
             className="object-cover"
           />
         </div>
