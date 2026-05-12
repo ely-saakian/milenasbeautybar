@@ -147,6 +147,7 @@ function ServiceCard({
               alt={service.name}
               width={service.image.width}
               height={service.image.height}
+              sizes="(min-width: 768px) 128px, 112px"
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
             />
           </div>
