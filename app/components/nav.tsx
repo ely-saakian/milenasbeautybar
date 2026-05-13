@@ -9,6 +9,8 @@ import { BookButton } from "./book-button";
 import { SiInstagram } from "@icons-pack/react-simple-icons";
 import { Menu, X } from "lucide-react";
 
+const BOOK_BUTTON_URL = "https://milenasbeautybar.as.me/schedule/13baf9e3";
+
 export function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [headerBottom, setHeaderBottom] = useState(0);
@@ -96,7 +98,7 @@ export function Nav() {
                 <NavLink href="/blog">Blog</NavLink>
               </li>
               <li>
-                <BookButton href="https://milenasbeautybar.as.me/schedule/13baf9e3" />
+                <BookButton href={BOOK_BUTTON_URL} />
               </li>
               <li>
                 <Link
@@ -110,25 +112,28 @@ export function Nav() {
           </nav>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-[#F0DED3]/30 transition-colors"
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isMenuOpen}
-          >
-            <div className="relative w-6 h-6">
-              <Menu
-                className={`absolute inset-0 w-6 h-6 text-[#C4A484] transition-all duration-300 ${
-                  isMenuOpen ? "opacity-0 rotate-90" : "opacity-100 rotate-0"
-                }`}
-              />
-              <X
-                className={`absolute inset-0 w-6 h-6 text-[#C4A484] transition-all duration-300 ${
-                  isMenuOpen ? "opacity-100 rotate-0" : "opacity-0 -rotate-90"
-                }`}
-              />
-            </div>
-          </button>
+          <div className="lg:hidden flex items-center justify-center gap-4">
+            <BookButton href={BOOK_BUTTON_URL} />
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="lg:hidden p-2 rounded-lg hover:bg-[#F0DED3]/30 transition-colors"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMenuOpen}
+            >
+              <div className="relative w-6 h-6">
+                <Menu
+                  className={`absolute inset-0 w-6 h-6 text-[#C4A484] transition-all duration-300 ${
+                    isMenuOpen ? "opacity-0 rotate-90" : "opacity-100 rotate-0"
+                  }`}
+                />
+                <X
+                  className={`absolute inset-0 w-6 h-6 text-[#C4A484] transition-all duration-300 ${
+                    isMenuOpen ? "opacity-100 rotate-0" : "opacity-0 -rotate-90"
+                  }`}
+                />
+              </div>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -193,7 +198,7 @@ export function Nav() {
                 transitionDelay: isMenuOpen ? "450ms" : "0ms",
               }}
             >
-              <BookButton href="https://milenasbeautybar.as.me/" />
+              <BookButton href={BOOK_BUTTON_URL} />
 
               <div className="flex items-center justify-center gap-4">
                 <Link
