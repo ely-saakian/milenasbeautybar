@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { EB_Garamond, Figtree } from "next/font/google";
 import "./globals.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const ebGaramond = EB_Garamond({
   variable: "--font-eb-garamond",
@@ -60,6 +61,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isProd = process.env.NODE_ENV === "production";
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
   return (
     <html lang="en">
       <body
@@ -67,6 +71,7 @@ export default function RootLayout({
       >
         {children}
       </body>
+      {isProd && gaId && <GoogleAnalytics gaId={gaId} />}
     </html>
   );
 }
