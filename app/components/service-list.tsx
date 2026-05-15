@@ -243,7 +243,7 @@ function ServiceCard({
                         <button
                           key={type.id}
                           onClick={() => setSelectedType(type.id)}
-                          className={`py-2 px-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                          className={`py-2 px-3 rounded-lg text-sm font-semibold transition-all duration-200 cursor-pointer ${
                             selectedType === type.id
                               ? "bg-[#C4A484] text-white"
                               : "bg-[#F0DED3]/50 text-gray-700 hover:bg-[#F0DED3]"
