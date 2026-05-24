@@ -11,6 +11,8 @@
   --color-foreground: var(--foreground);
   --font-serif: var(--font-eb-garamond);
   --font-sans: var(--font-figtree);
+
+  --color-sand: #e3dfdb;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -19,7 +19,7 @@ export function BlogpostCard({
   const hasImage = image && image.length > 0;
 
   return (
-    <article className="flex flex-col md:flex-row rounded-xl shadow-lg bg-white overflow-hidden hover:shadow-xl transition-shadow duration-300">
+    <article className="flex flex-col md:flex-row rounded-xl shadow-lg shadow-sand bg-white overflow-hidden hover:shadow-xl transition-shadow duration-300">
       {hasImage ? (
         <div className="h-[200px] md:h-auto md:w-[300px] md:min-w-[300px] relative">
           <Image
@@ -31,7 +31,7 @@ export function BlogpostCard({
           />
         </div>
       ) : (
-        <div className="h-[200px] md:h-auto md:w-[300px] md:min-w-[300px] bg-gradient-to-br from-[#F0DED3] to-[#C4A484] flex items-center justify-center">
+        <div className="h-[200px] md:h-auto md:w-[300px] md:min-w-[300px] bg-linear-to-br from-[#F0DED3] to-[#C4A484] flex items-center justify-center">
           <span className="text-white/80 text-4xl font-serif">
             {title.charAt(0)}
           </span>

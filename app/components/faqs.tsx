@@ -134,7 +134,7 @@ function FAQItemComponent({
       className={`group bg-white border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 ease-out
         ${
           isExpanded
-            ? "ring-2 ring-[#F0DED3] shadow-lg"
+            ? "ring-2 ring-[#F0DED3] shadow-lg shadow-sand"
             : "hover:border-[#F0DED3]"
         }
       `}
