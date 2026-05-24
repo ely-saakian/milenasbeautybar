@@ -82,7 +82,9 @@ export function Footer() {
                 </Link>
               ))}
             </div>
-            <p className="text-gray-700 text-center md:text-left">Federal Way, WA</p>
+            <p className="text-gray-700 text-center md:text-left">
+              Federal Way, WA
+            </p>
             <p className="text-sm text-gray-600 italic text-center md:text-left">
               Address and phone number available upon booking
             </p>
@@ -94,7 +96,7 @@ export function Footer() {
       <div className="border-t border-[#C4A484]/30">
         <div className="max-w-6xl mx-auto px-6 py-4">
           <p className="text-center text-sm text-gray-600">
-            &copy; {new Date().getFullYear()} Milena&apos;s Beauty Bar. All
+            &copy; {new Date().getFullYear()}&nbsp;Milena&apos;s Beauty Bar. All
             rights reserved.
           </p>
         </div>
