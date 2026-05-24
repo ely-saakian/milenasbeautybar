@@ -266,18 +266,18 @@ function ServiceCard({
                   }}
                 >
                   <div className="p-3 bg-[#F0DED3]/30 rounded-xl">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                    <p className="text-xs font-semibold text-[#C4A484] uppercase tracking-wider">
                       Duration
                     </p>
-                    <p className="text-sm font-semibold text-gray-900 mt-1">
+                    <p className="text-lg font-semibold text-gray-900 mt-1">
                       {currentType?.duration ?? service.duration}
                     </p>
                   </div>
                   <div className="p-3 bg-[#F0DED3]/30 rounded-xl">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                    <p className="text-xs font-semibold text-[#C4A484] uppercase tracking-wider">
                       Price
                     </p>
-                    <p className="text-sm font-semibold text-gray-900 mt-1">
+                    <p className="text-lg font-semibold text-gray-900 mt-1">
                       {currentType?.price ?? service.price}
                     </p>
                   </div>
