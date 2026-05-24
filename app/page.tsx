@@ -1,5 +1,4 @@
 import { Nav } from "./components/nav";
-import { Hero } from "./components/hero";
 import { About } from "./components/about";
 import { Packages } from "./components/packages";
 import { Brows } from "./components/brows";
@@ -24,7 +23,6 @@ export default async function Home() {
       <PromoBanner />
       <Nav />
       <main className="flex flex-col gap-12 md:gap-20 min-h-screen w-full max-w-6xl pb-16">
-        <Hero />
         <About />
         <ScrollReveal>
           <LatestBlog />
