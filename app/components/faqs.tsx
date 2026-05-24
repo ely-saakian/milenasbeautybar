@@ -131,7 +131,7 @@ function FAQItemComponent({
 }: FAQItemComponentProps) {
   return (
     <div
-      className={`group bg-white border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 ease-out
+      className={`group bg-white border border-sand rounded-2xl overflow-hidden transition-all duration-300 ease-out
         ${
           isExpanded
             ? "ring-2 ring-[#F0DED3] shadow-lg shadow-sand"
