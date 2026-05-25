@@ -1,4 +1,5 @@
 import { ServiceList } from "./service-list";
+import { SectionHeading } from "./section-heading";
 import type { Service } from "@/types/services";
 
 interface FacialWaxProps {
@@ -10,7 +11,7 @@ export function FacialWax({ services }: FacialWaxProps) {
 
   return (
     <section id="facial-wax" className="flex flex-col gap-8 px-4">
-      <h2 className="text-3xl font-serif font-bold">Facial Wax</h2>
+      <SectionHeading>Facial Wax</SectionHeading>
       <ServiceList services={services} />
     </section>
   );

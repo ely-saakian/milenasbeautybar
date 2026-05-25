@@ -1,32 +1,14 @@
-import Image from "next/image";
+import { SectionHeading } from "./section-heading";
 
 export function About() {
   return (
-    <section id="about" className="flex flex-col gap-8 px-4">
+    <section id="about" className="flex flex-col gap-8 max-w-[65ch] px-4">
       <div className="overflow-hidden">
         <div className="flex flex-col md:flex-row items-center">
-          {/* Image */}
-          <div className="w-1/2 md:w-2/5 aspect-square md:aspect-auto p-4 md:p-8">
-            <Image
-              src="/about-image.png"
-              alt="Milena Saakian - Master Esthetician"
-              width={1232}
-              height={1232}
-              sizes="(min-width: 1152px) 384px, (min-width: 768px) 40vw, 50vw"
-              className="w-full h-full object-contain"
-              priority
-            />
-          </div>
-
           {/* Content */}
-          <div className="flex-1 pt-6 md:p-8 lg:p-10 flex flex-col justify-center">
+          <div className="flex-1 flex flex-col justify-center">
             <div className="flex flex-col gap-5">
-              <div className="inline-flex items-center gap-2">
-                <span className="w-8 h-px bg-[#C4A484]" />
-                <span className="text-xs font-semibold text-[#C4A484] uppercase tracking-widest">
-                  Your Esthetician
-                </span>
-              </div>
+              <SectionHeading>Your Esthetician</SectionHeading>
 
               <h3 className="text-2xl md:text-3xl font-serif font-bold text-gray-900">
                 Hi, I&apos;m Milena!
