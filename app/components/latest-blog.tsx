@@ -2,6 +2,7 @@ import readingTime from "reading-time";
 import Link from "next/link";
 import client from "@/tina/__generated__/client";
 import { BlogpostCard } from "./blog/blogpost-card";
+import { SectionHeading } from "./section-heading";
 
 async function getLatestPost() {
   try {
@@ -48,14 +49,9 @@ export async function LatestBlog() {
   return (
     <section className="px-4 w-full">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-[#C4A484] uppercase tracking-widest">
-          Latest from the Blog
-        </h2>
-        <Link
-          href="/blog"
-          className="text-sm text-[#C4A484] hover:underline"
-        >
-          View all posts →
+        <SectionHeading>Latest from the Blog</SectionHeading>
+        <Link href="/blog" className="text-sm text-[#C4A484] hover:underline">
+          View all posts
         </Link>
       </div>
       <Link href={`/blog/${post.slug}`} className="block">

@@ -56,11 +56,7 @@ export function Nav() {
     <>
       <header
         ref={headerRef}
-        className={`sticky top-0 z-50 flex w-full justify-center transition-all duration-300 ${
-          isMenuOpen
-            ? "bg-white border-b border-gray-100"
-            : "backdrop-blur-md border-b border-foreground/10"
-        } py-2 px-4`}
+        className="-mt-8 sticky top-0 z-50 flex w-full justify-center bg-[#2A1F1A] border-b border-white/10 text-white py-2 px-4 transition-all duration-300"
       >
         <div className="flex max-w-6xl w-full justify-between items-center">
           <Logo
@@ -98,12 +94,13 @@ export function Nav() {
                 <NavLink href="/blog">Blog</NavLink>
               </li>
               <li>
-                <BookButton href={BOOK_BUTTON_URL} />
+                <BookButton href={BOOK_BUTTON_URL} variant="light" />
               </li>
               <li>
                 <Link
                   href="https://www.instagram.com/milenas.beautybar/"
                   target="_blank"
+                  className="transition-colors hover:text-[#C4A484]"
                 >
                   <SiInstagram className="inline-flex" />
                 </Link>
@@ -113,7 +110,6 @@ export function Nav() {
 
           {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center justify-center gap-4">
-            <BookButton href={BOOK_BUTTON_URL} />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="lg:hidden p-2 rounded-lg hover:bg-[#F0DED3]/30 transition-colors"
@@ -148,7 +144,7 @@ export function Nav() {
       >
         {/* Menu Panel */}
         <div
-          className={`w-full h-full bg-white transform transition-transform duration-500 ease-out ${
+          className={`w-full h-full bg-[#2A1F1A] text-white transform transition-transform duration-500 ease-out ${
             isMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -179,7 +175,7 @@ export function Nav() {
                   <Link
                     href={item.href}
                     onClick={handleNavClick}
-                    className="block py-4 text-2xl font-serif text-gray-900 hover:text-[#C4A484] transition-colors border-b border-gray-100"
+                    className="block py-4 text-2xl font-serif text-white hover:text-[#C4A484] transition-colors border-b border-white/10"
                   >
                     {item.label}
                   </Link>
@@ -198,13 +194,13 @@ export function Nav() {
                 transitionDelay: isMenuOpen ? "450ms" : "0ms",
               }}
             >
-              <BookButton href={BOOK_BUTTON_URL} />
+              <BookButton href={BOOK_BUTTON_URL} variant="light" />
 
               <div className="flex items-center justify-center gap-4">
                 <Link
                   href="https://www.instagram.com/milenas.beautybar/"
                   target="_blank"
-                  className="flex items-center gap-2 text-gray-600 hover:text-[#C4A484] transition-colors"
+                  className="flex items-center gap-2 text-gray-300 hover:text-[#C4A484] transition-colors"
                 >
                   <SiInstagram className="w-6 h-6" />
                   <span className="text-sm">@milenas.beautybar</span>

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { SectionHeading } from "./section-heading";
 
 const faqData: FAQItem[] = [
   {
@@ -197,7 +198,7 @@ export function FAQs() {
 
   return (
     <section id="faqs" className="flex flex-col gap-8 px-4">
-      <h2 className="text-3xl font-serif font-bold">FAQs</h2>
+      <SectionHeading>FAQs</SectionHeading>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Left Column */}

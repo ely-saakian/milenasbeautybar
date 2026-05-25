@@ -1,4 +1,5 @@
 import { ServiceList } from "./service-list";
+import { SectionHeading } from "./section-heading";
 import type { Service } from "@/types/services";
 
 interface LashesProps {
@@ -10,7 +11,7 @@ export function Lashes({ services }: LashesProps) {
 
   return (
     <section id="lashes" className="flex flex-col gap-8 px-4">
-      <h2 className="text-3xl font-serif font-bold">Lashes</h2>
+      <SectionHeading>Lashes</SectionHeading>
       <ServiceList services={services} />
     </section>
   );
