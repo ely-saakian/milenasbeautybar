@@ -22,7 +22,7 @@ export async function PromoBanner() {
   if (!banner.enabled) return null;
 
   return (
-    <div className="flex bg-[#F0DED3] p-2 w-screen items-center justify-center">
+    <div className="flex bg-[#F0DED3] p-2 w-full items-center justify-center">
       <div className="text-center">
         {banner.message && (
           <StaticTinaMarkdown
