@@ -301,7 +301,9 @@ function ServiceCard({
                   </div>
                 )}
 
-                <BookButton href={currentType?.href ?? service.href} />
+                <div className="flex justify-end md:justify-start">
+                  <BookButton href={currentType?.href ?? service.href} />
+                </div>
               </div>
             </div>
           </div>
