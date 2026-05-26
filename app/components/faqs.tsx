@@ -197,7 +197,7 @@ export function FAQs() {
   const rightColumn = faqData.slice(Math.ceil(faqData.length / 2));
 
   return (
-    <section id="faqs" className="flex flex-col gap-8 px-4">
+    <section id="faqs" className="flex flex-col gap-5 px-4">
       <SectionHeading>FAQs</SectionHeading>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

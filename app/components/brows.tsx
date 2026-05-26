@@ -10,7 +10,7 @@ export function Brows({ services }: BrowsProps) {
   if (services.length === 0) return null;
 
   return (
-    <section id="brows" className="flex flex-col gap-8 px-4">
+    <section id="brows" className="flex flex-col gap-5 px-4">
       <SectionHeading>Brows</SectionHeading>
       <ServiceList services={services} />
     </section>

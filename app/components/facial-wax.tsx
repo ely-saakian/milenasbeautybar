@@ -10,7 +10,7 @@ export function FacialWax({ services }: FacialWaxProps) {
   if (services.length === 0) return null;
 
   return (
-    <section id="facial-wax" className="flex flex-col gap-8 px-4">
+    <section id="facial-wax" className="flex flex-col gap-5 px-4">
       <SectionHeading>Facial Wax</SectionHeading>
       <ServiceList services={services} />
     </section>
