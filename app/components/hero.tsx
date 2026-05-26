@@ -17,7 +17,7 @@ export function Hero() {
             id="hero-heading"
             className="font-serif text-4xl md:text-5xl font-bold leading-tight text-white"
           >
-            Soft, natural-looking lashes &amp; brows in Federal Way
+            Soft, natural-looking lashes &amp; brows
           </h1>
 
           <p className="max-w-[60ch] text-base md:text-lg text-gray-300 leading-relaxed">
@@ -29,7 +29,7 @@ export function Hero() {
             {[
               "Licensed Master Esthetician since 2018",
               "Custom lash & brow designs — never one-size-fits-all",
-              "Private studio in Federal Way, WA",
+              "Private studio",
             ].map((item) => (
               <li key={item} className="flex items-start gap-3">
                 <span
@@ -78,7 +78,7 @@ export function Hero() {
             >
               Google
             </Link>{" "}
-            &mdash; 40+ happy clients in Federal Way
+            &mdash; 40+ happy clients
           </p>
         </div>
 
