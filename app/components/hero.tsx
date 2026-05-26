@@ -63,7 +63,7 @@ export function Hero() {
             </Link>
           </div>
 
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-gray-400 text-center sm:text-left">
             <span className="font-semibold text-white">5.0</span>
             <span aria-hidden="true" className="text-[#C4A484]">
               {" "}
