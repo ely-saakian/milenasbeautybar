@@ -25,7 +25,7 @@ export default async function Home() {
       <Nav />
       <Hero />
       <main className="flex flex-col gap-12 md:gap-20 min-h-screen w-full max-w-6xl pb-16">
-        <About />
+        {/* <About /> */}
         <ScrollReveal>
           <LatestBlog />
         </ScrollReveal>

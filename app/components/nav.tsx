@@ -72,9 +72,9 @@ export function Nav() {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center">
             <ul className="flex items-baseline justify-between gap-8">
-              <li>
+              {/* <li>
                 <NavLink href="/#about">About</NavLink>
-              </li>
+              </li> */}
               <li>
                 <NavLink href="/#packages">Packages</NavLink>
               </li>
@@ -151,7 +151,7 @@ export function Nav() {
           <nav className="flex flex-col h-full px-6 py-8">
             <ul className="flex flex-col gap-2">
               {[
-                { href: "/#about", label: "About" },
+                // { href: "/#about", label: "About" },
                 { href: "/#packages", label: "Packages" },
                 { href: "/#brows", label: "Brows" },
                 { href: "/#lashes", label: "Lashes" },
