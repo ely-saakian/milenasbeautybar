@@ -48,7 +48,7 @@ export async function LatestBlog() {
 
   return (
     <section className="px-4 w-full">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-5">
         <SectionHeading>Latest from the Blog</SectionHeading>
         <Link href="/blog" className="text-sm text-[#C4A484] hover:underline">
           View all posts
