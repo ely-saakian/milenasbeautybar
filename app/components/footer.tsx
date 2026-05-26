@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Logo } from "./logo";
 
 const quickLinks = [
-  { href: "/#about", label: "About" },
+  // { href: "/#about", label: "About" },
   { href: "/#brows", label: "Brows" },
   { href: "/#lashes", label: "Lashes" },
   { href: "/#facial-wax", label: "Facial Wax" },
