@@ -175,7 +175,7 @@ export function Nav() {
                   <Link
                     href={item.href}
                     onClick={handleNavClick}
-                    className="block py-4 text-2xl font-serif text-white hover:text-[#C4A484] transition-colors border-b border-white/10"
+                    className="block py-2 text-2xl font-serif text-white hover:text-[#C4A484] transition-colors border-b border-white/10"
                   >
                     {item.label}
                   </Link>
