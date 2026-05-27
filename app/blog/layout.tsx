@@ -8,7 +8,7 @@ export default function BlogLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col min-h-screen font-sans text-black gap-8">
+    <div className="flex flex-col min-h-screen font-sans text-black">
       <PromoBanner />
       <Nav />
       <div className="flex-1">{children}</div>
