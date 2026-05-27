@@ -11,24 +11,19 @@ export interface ServiceType {
   duration: string;
   price: string;
   href?: string;
-}
-
-export interface ServiceImage {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
+  regularPrice?: string;
+  tags?: string[];
 }
 
 export interface Service {
   id: string;
   name: string;
-  title: string;
   description: string;
   href: string;
-  image: ServiceImage;
   duration: string;
   price: string;
+  regularPrice?: string;
+  tags?: string[];
   types?: ServiceType[];
   typesLabel?: string;
 }

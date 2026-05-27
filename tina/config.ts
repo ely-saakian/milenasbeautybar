@@ -121,14 +121,7 @@ export default defineConfig({
             name: "name",
             label: "Name",
             required: true,
-            description: "Short label in collapsed card",
-          },
-          {
-            type: "string",
-            name: "title",
-            label: "Title",
-            required: true,
-            description: "Heading in expanded card",
+            description: "Displayed service name",
           },
           {
             type: "string",
@@ -144,18 +137,6 @@ export default defineConfig({
             required: true,
           },
           {
-            type: "image",
-            name: "image",
-            label: "Image",
-            required: true,
-          },
-          {
-            type: "string",
-            name: "imageAlt",
-            label: "Image alt text",
-            required: true,
-          },
-          {
             type: "string",
             name: "duration",
             label: "Duration",
@@ -166,6 +147,20 @@ export default defineConfig({
             name: "price",
             label: "Price",
             required: true,
+          },
+          {
+            type: "string",
+            name: "regularPrice",
+            label: "Regular Price",
+            description:
+              "Optional. Shown as strikethrough next to price to signal value (e.g. for packages).",
+          },
+          {
+            type: "string",
+            name: "tags",
+            label: "Tags",
+            list: true,
+            description: 'Optional labels like "Most Popular" or "High Seller".',
           },
           {
             type: "number",
@@ -195,6 +190,21 @@ export default defineConfig({
               { type: "string", name: "description", label: "Description", required: true, ui: { component: "textarea" } },
               { type: "string", name: "duration", label: "Duration", required: true },
               { type: "string", name: "price", label: "Price", required: true },
+              {
+                type: "string",
+                name: "regularPrice",
+                label: "Regular Price",
+                description:
+                  "Optional. Shown as strikethrough next to price to signal value.",
+              },
+              {
+                type: "string",
+                name: "tags",
+                label: "Tags",
+                list: true,
+                description:
+                  'Optional labels like "Most Popular" or "High Seller".',
+              },
               { type: "string", name: "href", label: "Booking URL" },
             ],
           },

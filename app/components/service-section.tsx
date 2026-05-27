@@ -8,6 +8,19 @@ interface ServiceSectionProps {
   alt?: boolean;
 }
 
+function parseSingleDollarValue(v?: string): number | null {
+  if (!v) return null;
+  const m = v.replace(/,/g, "").match(/^\s*\$?(\d+(?:\.\d+)?)\s*$/);
+  return m ? Number(m[1]) : null;
+}
+
+function formatSavings(regularPrice: string, price: string): number | null {
+  const regular = parseSingleDollarValue(regularPrice);
+  const current = parseSingleDollarValue(price);
+  if (regular == null || current == null || regular <= current) return null;
+  return Math.round(regular - current);
+}
+
 export function ServiceSection({
   section,
   services,
@@ -45,45 +58,82 @@ export function ServiceSection({
           </div>
 
           <ul className="lg:col-span-8 divide-y divide-border/70">
-            {services.map((s) => (
-              <li key={s.id} className="py-6 first:pt-0 group">
-                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2">
-                  <h3 className="font-serif text-2xl sm:text-[1.65rem] text-espresso">
-                    {s.name}
-                  </h3>
-                  <div className="flex items-center gap-3 text-sm">
-                    <span className="text-espresso/60">{s.duration}</span>
-                    <span aria-hidden className="text-espresso/30">
-                      ·
-                    </span>
-                    <span className="font-medium text-espresso">{s.price}</span>
+            {services.map((s) => {
+              const savings =
+                s.regularPrice != null
+                  ? formatSavings(s.regularPrice, s.price)
+                  : null;
+
+              return (
+                <li key={s.id} className="py-6 first:pt-0 group">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                    <div className="flex flex-col gap-2 sm:gap-1.5">
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                        <h3 className="font-serif text-2xl sm:text-[1.65rem] text-espresso">
+                          {s.name}
+                        </h3>
+                        {s.tags?.length ? (
+                          <ul className="flex flex-wrap gap-1.5">
+                            {s.tags.map((t) => (
+                              <li
+                                key={t}
+                                className="rounded-full border border-espresso/20 bg-cream/60 px-2.5 py-0.5 text-[0.65rem] font-medium uppercase tracking-[0.12em] text-espresso/80"
+                              >
+                                {t}
+                              </li>
+                            ))}
+                          </ul>
+                        ) : null}
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-start sm:items-end shrink-0">
+                      <div className="flex items-center gap-3 text-sm">
+                        <span className="text-espresso/60">{s.duration}</span>
+                        <span aria-hidden className="text-espresso/30">
+                          ·
+                        </span>
+                        {s.regularPrice ? (
+                          <span className="text-espresso/40 line-through">
+                            {s.regularPrice}
+                          </span>
+                        ) : null}
+                        <span className="font-medium text-espresso">
+                          {s.price}
+                        </span>
+                      </div>
+                      {savings != null ? (
+                        <span className="mt-1 inline-flex rounded-full bg-espresso px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-cream">
+                          Save ${savings}
+                        </span>
+                      ) : null}
+                    </div>
                   </div>
-                </div>
-                <p className="mt-2 text-espresso/70 leading-relaxed max-w-2xl">
-                  {s.description}
-                </p>
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-espresso underline underline-offset-4 decoration-espresso/30 hover:decoration-espresso transition"
-                >
-                  Book {s.name}
-                  <svg
-                    viewBox="0 0 24 24"
-                    width="14"
-                    height="14"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    aria-hidden
+                  <p className="mt-2 text-espresso/70 leading-relaxed max-w-2xl">
+                    {s.description}
+                  </p>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-espresso underline underline-offset-4 decoration-espresso/30 hover:decoration-espresso transition"
                   >
-                    <path d="M5 12h14M13 5l7 7-7 7" />
-                  </svg>
-                </a>
-              </li>
-            ))}
+                    Book {s.name}
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="14"
+                      height="14"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      aria-hidden
+                    >
+                      <path d="M5 12h14M13 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

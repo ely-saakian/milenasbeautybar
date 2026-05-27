@@ -8,15 +8,14 @@ export type FlatService = {
   duration: string;
   price: string;
   href: string;
+  regularPrice?: string;
+  tags?: string[];
 };
 
 export type FlatServicesByCategory = Record<
   "packages" | "brows" | "lashes" | "facialWax",
   FlatService[]
 >;
-
-const IMAGE_WIDTH = 523;
-const IMAGE_HEIGHT = 364;
 
 /** Generate a stable kebab-case id from a display name (e.g. "Deluxe Package" -> "deluxe-package"). */
 function toKebabId(name: string): string {
@@ -31,13 +30,12 @@ interface TinaServiceNode {
   id?: string | null;
   category: string;
   name: string;
-  title: string;
   description: string;
   href: string;
-  image?: string | null;
-  imageAlt: string;
   duration: string;
   price: string;
+  regularPrice?: string | null;
+  tags?: Array<string | null> | null;
   order?: number | null;
   typesLabel?: string | null;
   types?: Array<{
@@ -46,29 +44,26 @@ interface TinaServiceNode {
     duration: string;
     price: string;
     href?: string | null;
+    regularPrice?: string | null;
+    tags?: Array<string | null> | null;
   } | null> | null;
 }
 
+function normalizeTags(tags?: Array<string | null> | null): string[] | undefined {
+  const normalized = tags?.filter((t): t is string => t != null && t.trim() !== "");
+  return normalized?.length ? normalized : undefined;
+}
+
 export function mapTinaServiceToService(node: TinaServiceNode): Service {
-  const imageSrc =
-    typeof node.image === "string" ? node.image : node.image ?? "";
   return {
     id: node.id?.trim() ? node.id : toKebabId(node.name),
     name: node.name,
-    title: node.title,
     description: node.description,
     href: node.href,
-    image: {
-      src:
-        imageSrc.startsWith("/") || imageSrc.startsWith("http")
-          ? imageSrc
-          : `/${imageSrc}`,
-      alt: node.imageAlt,
-      width: IMAGE_WIDTH,
-      height: IMAGE_HEIGHT,
-    },
     duration: node.duration,
     price: node.price,
+    regularPrice: node.regularPrice ?? undefined,
+    tags: normalizeTags(node.tags),
     typesLabel: node.typesLabel ?? undefined,
     types: node.types
       ?.filter((t): t is NonNullable<typeof t> => t != null)
@@ -79,6 +74,8 @@ export function mapTinaServiceToService(node: TinaServiceNode): Service {
         duration: t.duration,
         price: t.price,
         href: t.href ?? undefined,
+        regularPrice: t.regularPrice ?? undefined,
+        tags: normalizeTags(t.tags),
       })),
   };
 }
@@ -137,10 +134,41 @@ export async function getServices(): Promise<ServicesByCategory> {
 }
 
 /**
+ * Flatten a single `Service` into one or more `FlatService` rows. Services
+ * with sub-options (`types`) expand into one row per type; otherwise the
+ * service passes through as a single row. Drops layout-only fields
+ * (`typesLabel`, `types`).
+ */
+export function flattenService(service: Service): FlatService[] {
+  if (service.types?.length) {
+    return service.types.map((type) => ({
+      id: `${service.id}-${type.id}`,
+      name: `${service.name} — ${type.name}`,
+      description: type.description,
+      duration: type.duration,
+      price: type.price,
+      href: type.href ?? service.href,
+      regularPrice: type.regularPrice,
+      tags: type.tags,
+    }));
+  }
+  return [
+    {
+      id: service.id,
+      name: service.name,
+      description: service.description,
+      duration: service.duration,
+      price: service.price,
+      href: service.href,
+      regularPrice: service.regularPrice,
+      tags: service.tags,
+    },
+  ];
+}
+
+/**
  * Flatten the hierarchical `Service[]` model into a single list per category
- * where each service "type" becomes its own row. Services without `types`
- * pass through as a single row. Drops layout-only fields (`title`, `image`,
- * `typesLabel`, `types`).
+ * where each service "type" becomes its own row.
  */
 export async function getFlatServices(): Promise<FlatServicesByCategory> {
   const services = await getServices();
@@ -159,31 +187,7 @@ export async function getFlatServices(): Promise<FlatServicesByCategory> {
   };
 
   for (const category of categories) {
-    const flat: FlatService[] = [];
-    for (const service of services[category]) {
-      if (service.types?.length) {
-        for (const type of service.types) {
-          flat.push({
-            id: `${service.id}-${type.id}`,
-            name: `${service.name} — ${type.name}`,
-            description: type.description,
-            duration: type.duration,
-            price: type.price,
-            href: type.href ?? service.href,
-          });
-        }
-      } else {
-        flat.push({
-          id: service.id,
-          name: service.name,
-          description: service.description,
-          duration: service.duration,
-          price: service.price,
-          href: service.href,
-        });
-      }
-    }
-    result[category] = flat;
+    result[category] = services[category].flatMap(flattenService);
   }
 
   return result;
