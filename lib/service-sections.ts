@@ -31,7 +31,7 @@ export const serviceSections: ServiceSectionMeta[] = [
     title: "Packages",
     blurb:
       "Bundled treatments designed to give you a complete, balanced look in one visit.",
-    image: "/package-image.png",
+    image: "/package-image.PNG",
     imageAlt: "Packages at Milena's Beauty Bar",
   },
   {
@@ -40,7 +40,7 @@ export const serviceSections: ServiceSectionMeta[] = [
     title: "Brows",
     blurb:
       "Considered shaping and soft tinting that respects your natural arch.",
-    image: "/brows-image.png",
+    image: "/brows-image.PNG",
     imageAlt: "Brow services at Milena's Beauty Bar",
   },
   {
@@ -49,7 +49,7 @@ export const serviceSections: ServiceSectionMeta[] = [
     title: "Lashes",
     blurb:
       "Soft, weightless lashes tailored to your eye shape — never one-size-fits-all.",
-    image: "/lashes-image.png",
+    image: "/lashes-image.PNG",
     imageAlt: "Lash services at Milena's Beauty Bar",
   },
   {
