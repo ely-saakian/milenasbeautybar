@@ -2,7 +2,7 @@
 title: Lash Retention Explained
 date: 2026-02-15T18:59:52.982Z
 description: What Really Affects How Long Your Extensions Last
-thumbnail: /lash-retention-blog-image.jpeg
+thumbnail: /blog-images/lash-retention-blog-image.jpeg
 ---
 
 One of the most common questions clients ask is:\
@@ -34,10 +34,10 @@ When cleansing, it’s important to focus on the root area of the lashes. This i
 
 **After cleansing:**
 
-* Rinse thoroughly with lukewarm water.
-* Gently dab dry with a towel (do not rub).
-* Brush through the lashes with a clean spoolie.
-* Allow them to air dry naturally or use a [lash fan](https://www.lannalashes.com/collections/all-lash-products/products/handheld-lash-fan).
+- Rinse thoroughly with lukewarm water.
+- Gently dab dry with a towel (do not rub).
+- Brush through the lashes with a clean spoolie.
+- Allow them to air dry naturally or use a [lash fan](https://www.lannalashes.com/collections/all-lash-products/products/handheld-lash-fan).
 
 Avoid using hair dryers, as high heat and strong airflow can disturb the lash direction.
 

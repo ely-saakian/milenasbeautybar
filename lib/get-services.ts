@@ -1,6 +1,20 @@
 import client from "@/tina/__generated__/client";
 import type { Service, ServicesByCategory } from "@/types/services";
 
+export type FlatService = {
+  id: string;
+  name: string;
+  description: string;
+  duration: string;
+  price: string;
+  href: string;
+};
+
+export type FlatServicesByCategory = Record<
+  "packages" | "brows" | "lashes" | "facialWax",
+  FlatService[]
+>;
+
 const IMAGE_WIDTH = 523;
 const IMAGE_HEIGHT = 364;
 
@@ -120,4 +134,57 @@ export async function getServices(): Promise<ServicesByCategory> {
   } catch {
     return empty;
   }
+}
+
+/**
+ * Flatten the hierarchical `Service[]` model into a single list per category
+ * where each service "type" becomes its own row. Services without `types`
+ * pass through as a single row. Drops layout-only fields (`title`, `image`,
+ * `typesLabel`, `types`).
+ */
+export async function getFlatServices(): Promise<FlatServicesByCategory> {
+  const services = await getServices();
+  const categories: (keyof ServicesByCategory)[] = [
+    "packages",
+    "brows",
+    "lashes",
+    "facialWax",
+  ];
+
+  const result: FlatServicesByCategory = {
+    packages: [],
+    brows: [],
+    lashes: [],
+    facialWax: [],
+  };
+
+  for (const category of categories) {
+    const flat: FlatService[] = [];
+    for (const service of services[category]) {
+      if (service.types?.length) {
+        for (const type of service.types) {
+          flat.push({
+            id: `${service.id}-${type.id}`,
+            name: `${service.name} — ${type.name}`,
+            description: type.description,
+            duration: type.duration,
+            price: type.price,
+            href: type.href ?? service.href,
+          });
+        }
+      } else {
+        flat.push({
+          id: service.id,
+          name: service.name,
+          description: service.description,
+          duration: service.duration,
+          price: service.price,
+          href: service.href,
+        });
+      }
+    }
+    result[category] = flat;
+  }
+
+  return result;
 }
