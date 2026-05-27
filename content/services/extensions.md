@@ -2,12 +2,9 @@
 category: lashes
 id: extensions
 name: Extensions
-title: Full Lash Extensions
 description: "Enhance your natural lashes with our premium extensions. Choose from Classic, Wispy, or Volume styles for a glamorous, full look that lasts 4-6 weeks."
 href: "#book"
-image: /lashes-extensions-image.png
-imageAlt: Lash Extensions
-duration: "1 hour 45 min - 3 hours"
+duration: "1 hour 45 minutes - 3 hours"
 price: "$150-250"
 order: 1
 typesLabel: Choose Your Extension Type
@@ -15,7 +12,7 @@ types:
   - optionId: half-set
     name: Half Set
     description: "A half set is a 40–60% lash coverage that gives a soft, lifted 'lash-cluster' look—perfect for vacations or events—and lasts about 7–10 days depending on care and natural lash growth."
-    duration: "1 hour 45 min"
+    duration: "1 hour 45 minutes"
     price: "$75.00"
     href: "https://milenasbeautybar.as.me/?appointmentType=86404163"
   - optionId: classic
@@ -33,7 +30,7 @@ types:
   - optionId: wispy
     name: Wispy
     description: "A blend of classics, spikes, and volume techniques for the best custom look. Wispy lashes give you a soft, textured look with added fullness and dimension. Great for clients who want a little more drama than classic but less than volume."
-    duration: "2 hours 30 min"
+    duration: "2 hours 30 minutes"
     price: "$130.00"
     href: "https://milenasbeautybar.as.me/?appointmentType=83828506"
 ---

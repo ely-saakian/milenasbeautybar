@@ -2,10 +2,11 @@
 
 import { useTina } from "tinacms/dist/react";
 import type { ServiceQuery } from "@/tina/__generated__/types";
-import { mapTinaServiceToService } from "@/lib/get-services";
+import { flattenService, mapTinaServiceToService } from "@/lib/get-services";
 import { CATEGORY_LABELS } from "@/lib/constants";
+import { serviceSections } from "@/lib/service-sections";
 import { ServicePreviewLayout } from "@/app/components/service-preview-layout";
-import { ServiceList } from "@/app/components/service-list";
+import { ServiceSection } from "@/app/components/service-section";
 
 interface ClientServicePreviewProps {
   query: string;
@@ -24,15 +25,16 @@ export default function ClientServicePreview(props: ClientServicePreviewProps) {
 
   const tinaService = data.service;
   const service = mapTinaServiceToService(tinaService);
+  const flatServices = flattenService(service);
   const categoryLabel =
     CATEGORY_LABELS[tinaService.category] ?? tinaService.category;
+  const section = serviceSections.find(
+    (s) => s.category === tinaService.category
+  );
 
   return (
     <ServicePreviewLayout category={categoryLabel}>
-      <ServiceList
-        services={[service]}
-        defaultExpandedId={service.id}
-      />
+      {section && <ServiceSection section={section} services={flatServices} />}
     </ServicePreviewLayout>
   );
 }
