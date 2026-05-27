@@ -54,16 +54,16 @@ export default async function Blog() {
   return (
     <Main>
       <div className="space-y-2 mb-6">
-        <h1 className="text-3xl lg:text-4xl font-serif font-bold text-gray-900">
+        <h1 className="text-3xl lg:text-4xl font-serif font-bold text-espresso">
           Blog
         </h1>
-        <p className="text-gray-600">
+        <p className="text-espresso/70">
           Tips, tutorials, and insights about beauty and self-care.
         </p>
       </div>
 
       {posts.length === 0 ? (
-        <p className="text-gray-500 text-center py-10">
+        <p className="text-espresso/50 text-center py-10">
           No blog posts yet. Check back soon!
         </p>
       ) : (

@@ -31,7 +31,7 @@ export function ServiceSection({
   return (
     <section
       id={section.id}
-      className={`scroll-mt-24 py-20 sm:py-24 ${alt ? "bg-cream/40" : ""}`}
+      className={`py-20 sm:py-24 ${alt ? "bg-cream/40" : ""}`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
@@ -45,14 +45,14 @@ export function ServiceSection({
             <p className="mt-4 text-espresso/70 leading-relaxed">
               {section.blurb}
             </p>
-            <div className="mt-6 overflow-hidden rounded-2xl aspect-[4/5] hidden lg:block relative">
+            <div className="group mt-6 overflow-hidden rounded-2xl aspect-[4/5] hidden lg:block relative">
               <Image
                 src={section.image}
                 alt={section.imageAlt}
                 fill
                 sizes="(min-width: 1024px) 33vw, 100vw"
                 loading="lazy"
-                className="object-cover"
+                className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
               />
             </div>
           </div>

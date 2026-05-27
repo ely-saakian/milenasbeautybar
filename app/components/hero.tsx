@@ -94,7 +94,7 @@ export function Hero() {
         </div>
 
         <div className="lg:col-span-5 relative">
-          <div className="relative mx-auto aspect-square w-[78%] sm:w-[60%] lg:w-full max-w-md">
+          <div className="group relative mx-auto aspect-square w-[78%] sm:w-[60%] lg:w-full max-w-md">
             <div
               aria-hidden
               className="absolute inset-0 rounded-full bg-cream translate-x-4 translate-y-4"
@@ -106,14 +106,16 @@ export function Hero() {
                 fill
                 priority
                 sizes="(min-width: 1024px) 480px, (min-width: 640px) 60vw, 78vw"
-                className="object-cover object-top"
+                className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
               />
             </div>
-            <div className="absolute -left-4 sm:-left-8 bottom-6 bg-background/95 backdrop-blur rounded-2xl shadow-lg px-4 py-3 text-xs sm:text-sm">
-              <p className="font-serif text-espresso text-base sm:text-lg leading-tight">
+            <div className="absolute -left-4 sm:-left-8 bottom-6 rounded-2xl bg-background/95 px-4 py-3 text-xs shadow-lg backdrop-blur transition-colors duration-500 ease-out group-hover:bg-espresso sm:text-sm">
+              <p className="font-serif text-base leading-tight text-espresso transition-colors duration-500 ease-out group-hover:text-cream sm:text-lg">
                 Milena
               </p>
-              <p className="text-espresso/60">Master Esthetician · est. 2018</p>
+              <p className="text-espresso/60 transition-colors duration-500 ease-out group-hover:text-cream/75">
+                Master Esthetician · est. 2018
+              </p>
             </div>
           </div>
         </div>
