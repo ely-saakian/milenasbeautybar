@@ -120,10 +120,7 @@ export function FAQs() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section
-      id="faqs"
-      className="scroll-mt-24 py-20 sm:py-28 bg-espresso text-cream"
-    >
+    <section id="faqs" className="py-20 sm:py-28 bg-espresso text-cream">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <div className="text-center">
           <p className="text-xs uppercase tracking-[0.25em] text-cream/60">

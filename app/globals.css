@@ -79,7 +79,6 @@
   }
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
   }
   body {
     background-color: var(--color-background);
@@ -95,11 +94,6 @@
     font-family: var(--font-serif);
     letter-spacing: -0.01em;
   }
-}
-
-/* Offset for sticky header */
-section[id] {
-  scroll-margin-top: 80px;
 }
 
 /* Floating hearts animation */

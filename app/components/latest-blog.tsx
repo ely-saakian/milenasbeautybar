@@ -3,52 +3,65 @@ import Link from "next/link";
 import client from "@/tina/__generated__/client";
 import { BlogpostCard } from "./blog/blogpost-card";
 
-async function getLatestPost() {
+type LatestPost = {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  thumbnail: string;
+  readingTime: string;
+};
+
+async function getLatestPosts(limit = 3): Promise<LatestPost[]> {
   try {
     const postsResponse = await client.queries.postConnection({
       sort: "date",
     });
 
-    const edges = postsResponse.data?.postConnection?.edges;
-    if (!edges || edges.length === 0) return null;
+    const posts =
+      postsResponse.data?.postConnection?.edges?.map((edge) => {
+        const node = edge?.node;
+        if (!node) return null;
 
-    // Sorted ascending by date, so the last item is the newest
-    const latest = edges[edges.length - 1]?.node;
-    if (!latest) return null;
+        const bodyString = JSON.stringify(node.body);
+        const timeToRead = readingTime(bodyString).text;
 
-    const bodyString = JSON.stringify(latest.body);
-    const timeToRead = readingTime(bodyString).text;
+        const formattedDate = node.date
+          ? new Date(node.date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          : "";
 
-    const formattedDate = latest.date
-      ? new Date(latest.date).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })
-      : "";
+        return {
+          slug: node._sys.filename,
+          title: node.title,
+          description: node.description ?? "",
+          date: formattedDate,
+          thumbnail: node.thumbnail ?? "",
+          readingTime: timeToRead,
+        };
+      }) ?? [];
 
-    return {
-      slug: latest._sys.filename,
-      title: latest.title,
-      description: latest.description ?? "",
-      date: formattedDate,
-      thumbnail: latest.thumbnail ?? "",
-      readingTime: timeToRead,
-    };
+    return posts
+      .filter((post): post is NonNullable<typeof post> => post !== null)
+      .reverse()
+      .slice(0, limit);
   } catch (error) {
-    console.error("Error fetching latest post from Tina:", error);
-    return null;
+    console.error("Error fetching latest posts from Tina:", error);
+    return [];
   }
 }
 
 export async function LatestBlog() {
-  const post = await getLatestPost();
-  if (!post) return null;
+  const posts = await getLatestPosts(3);
+  if (posts.length === 0) return null;
 
   return (
     <section className="py-16 sm:py-20 bg-cream-soft">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex items-end justify-between mb-8">
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-xs uppercase tracking-[0.25em] text-espresso/60">
               Journal
@@ -59,20 +72,27 @@ export async function LatestBlog() {
           </div>
           <Link
             href="/blog"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-espresso underline underline-offset-4 decoration-espresso/30 hover:decoration-espresso transition"
+            className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-espresso underline underline-offset-4 decoration-espresso/30 transition hover:decoration-espresso"
           >
-            View all posts <span aria-hidden>→</span>
+            View all posts
           </Link>
         </div>
-        <Link href={`/blog/${post.slug}`} className="block">
-          <BlogpostCard
-            title={post.title}
-            description={post.description}
-            date={post.date}
-            image={post.thumbnail}
-            readingTime={post.readingTime}
-          />
-        </Link>
+        <ul className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
+          {posts.map((post) => (
+            <li key={post.slug}>
+              <Link href={`/blog/${post.slug}`} className="block h-full">
+                <BlogpostCard
+                  layout="grid"
+                  title={post.title}
+                  description={post.description}
+                  date={post.date}
+                  image={post.thumbnail}
+                  readingTime={post.readingTime}
+                />
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
