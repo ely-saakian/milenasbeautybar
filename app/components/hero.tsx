@@ -101,7 +101,7 @@ export function Hero() {
             />
             <div className="relative h-full w-full overflow-hidden rounded-full shadow-xl ring-1 ring-espresso/10">
               <Image
-                src="/about-image.jpg"
+                src="/about-image.JPG"
                 alt="Portrait of Milena, Licensed Master Esthetician"
                 fill
                 priority
