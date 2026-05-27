@@ -1,215 +1,142 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Logo } from "./logo";
-import { NavLink } from "./nav-link";
-import { BookButton } from "./book-button";
 import { SiInstagram } from "@icons-pack/react-simple-icons";
 import { Menu, X } from "lucide-react";
+import { Logo } from "./logo";
 
-const BOOK_BUTTON_URL = "https://milenasbeautybar.as.me/schedule/13baf9e3";
+const BOOKING_URL = "https://milenasbeautybar.as.me/schedule/13baf9e3";
+const INSTAGRAM_URL = "https://www.instagram.com/milenas.beautybar/";
+
+const links = [
+  { href: "/#packages", label: "Packages" },
+  { href: "/#brows", label: "Brows" },
+  { href: "/#lashes", label: "Lashes" },
+  { href: "/#facial-wax", label: "Facial Wax" },
+  { href: "/#faqs", label: "FAQs" },
+  { href: "/blog", label: "Blog" },
+];
 
 export function Nav() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [headerBottom, setHeaderBottom] = useState(0);
-  const headerRef = useRef<HTMLElement>(null);
-  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  // Update header bottom position when menu opens or scroll changes
   useEffect(() => {
-    function updateHeaderBottom() {
-      if (headerRef.current) {
-        const rect = headerRef.current.getBoundingClientRect();
-        setHeaderBottom(rect.bottom);
-      }
-    }
-
-    updateHeaderBottom();
-    window.addEventListener("scroll", updateHeaderBottom, { passive: true });
-    window.addEventListener("resize", updateHeaderBottom, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", updateHeaderBottom);
-      window.removeEventListener("resize", updateHeaderBottom);
-    };
-  }, [isMenuOpen]);
-
-  // Prevent body scroll when menu is open
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isMenuOpen]);
-
-  function handleNavClick() {
-    setIsMenuOpen(false);
-  }
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <>
-      <header
-        ref={headerRef}
-        className="-mt-8 sticky top-0 z-50 flex w-full justify-center bg-[#2A1F1A] border-b border-white/10 text-white py-2 px-4 transition-all duration-300"
+    <header
+      className={`sticky top-0 z-40 transition-all ${
+        scrolled
+          ? "bg-background/85 backdrop-blur border-b border-border"
+          : "bg-background/60 backdrop-blur-sm"
+      }`}
+    >
+      <nav
+        className="mx-auto max-w-7xl px-4 sm:px-6 h-16 flex items-center justify-between gap-4"
+        aria-label="Primary"
       >
-        <div className="flex max-w-6xl w-full justify-between items-center">
-          <Logo
-            onClick={(e) => {
-              setIsMenuOpen(false);
-              if (pathname === "/") {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }
-            }}
-          />
+        <Logo className="text-espresso" />
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center">
-            <ul className="flex items-baseline justify-between gap-8">
-              {/* <li>
-                <NavLink href="/#about">About</NavLink>
-              </li> */}
-              <li>
-                <NavLink href="/#packages">Packages</NavLink>
-              </li>
-              <li>
-                <NavLink href="/#brows">Brows</NavLink>
-              </li>
-              <li>
-                <NavLink href="/#lashes">Lashes</NavLink>
-              </li>
-              <li>
-                <NavLink href="/#facial-wax">Facial Wax</NavLink>
-              </li>
-              <li>
-                <NavLink href="/#faqs">FAQs</NavLink>
-              </li>
-              <li>
-                <NavLink href="/blog">Blog</NavLink>
-              </li>
-              <li>
-                <BookButton href={BOOK_BUTTON_URL} variant="light" />
-              </li>
-              <li>
-                <Link
-                  href="https://www.instagram.com/milenas.beautybar/"
-                  target="_blank"
-                  className="transition-colors hover:text-[#C4A484]"
-                >
-                  <SiInstagram className="inline-flex" />
-                </Link>
-              </li>
-            </ul>
-          </nav>
+        <ul className="hidden lg:flex items-center gap-8 text-sm text-espresso/80">
+          {links.map((l) => (
+            <li key={l.href}>
+              <Link
+                href={l.href}
+                className="hover:text-espresso transition relative after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-px after:bg-espresso after:scale-x-0 hover:after:scale-x-100 after:transition-transform"
+              >
+                {l.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center justify-center gap-4">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-[#F0DED3]/30 transition-colors"
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isMenuOpen}
-            >
-              <div className="relative w-6 h-6">
-                <Menu
-                  className={`absolute inset-0 w-6 h-6 text-[#C4A484] transition-all duration-300 ${
-                    isMenuOpen ? "opacity-0 rotate-90" : "opacity-100 rotate-0"
-                  }`}
-                />
-                <X
-                  className={`absolute inset-0 w-6 h-6 text-[#C4A484] transition-all duration-300 ${
-                    isMenuOpen ? "opacity-100 rotate-0" : "opacity-0 -rotate-90"
-                  }`}
-                />
-              </div>
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Mobile Menu Overlay */}
-      <div
-        className={`fixed inset-x-0 bottom-0 z-40 lg:hidden transition-all duration-500 ease-out ${
-          isMenuOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
-        }`}
-        style={{ top: `${headerBottom}px` }}
-      >
-        {/* Menu Panel */}
-        <div
-          className={`w-full h-full bg-[#2A1F1A] text-white transform transition-transform duration-500 ease-out ${
-            isMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-        >
-          <nav className="flex flex-col h-full px-6 py-8">
-            <ul className="flex flex-col gap-2">
-              {[
-                // { href: "/#about", label: "About" },
-                { href: "/#packages", label: "Packages" },
-                { href: "/#brows", label: "Brows" },
-                { href: "/#lashes", label: "Lashes" },
-                { href: "/#facial-wax", label: "Facial Wax" },
-                { href: "/#faqs", label: "FAQs" },
-                { href: "/blog", label: "Blog" },
-              ].map((item, index) => (
-                <li
-                  key={item.href}
-                  className={`transform transition-all duration-500 ease-out ${
-                    isMenuOpen
-                      ? "translate-x-0 opacity-100"
-                      : "translate-x-8 opacity-0"
-                  }`}
-                  style={{
-                    transitionDelay: isMenuOpen
-                      ? `${(index + 1) * 75}ms`
-                      : "0ms",
-                  }}
-                >
-                  <Link
-                    href={item.href}
-                    onClick={handleNavClick}
-                    className="block py-2 text-2xl font-serif text-white hover:text-[#C4A484] transition-colors border-b border-white/10"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            {/* Book Button & Social */}
-            <div
-              className={`mt-auto pt-8 flex flex-col gap-6 transform transition-all duration-500 ease-out ${
-                isMenuOpen
-                  ? "translate-y-0 opacity-100"
-                  : "translate-y-4 opacity-0"
-              }`}
-              style={{
-                transitionDelay: isMenuOpen ? "450ms" : "0ms",
-              }}
-            >
-              <BookButton href={BOOK_BUTTON_URL} variant="light" />
-
-              <div className="flex items-center justify-center gap-4">
-                <Link
-                  href="https://www.instagram.com/milenas.beautybar/"
-                  target="_blank"
-                  className="flex items-center gap-2 text-gray-300 hover:text-[#C4A484] transition-colors"
-                >
-                  <SiInstagram className="w-6 h-6" />
-                  <span className="text-sm">@milenas.beautybar</span>
-                </Link>
-              </div>
+        <div className="flex items-center gap-2 sm:gap-3">
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            className="hidden sm:inline-flex h-10 w-10 items-center justify-center rounded-full text-espresso hover:bg-cream transition"
+          >
+            <SiInstagram width={18} height={18} />
+          </a>
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center rounded-full bg-espresso px-5 py-2.5 text-sm font-medium text-cream hover:bg-espresso-soft transition"
+          >
+            Book an Appointment
+          </a>
+          <button
+            type="button"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
+            className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-full text-espresso hover:bg-cream transition"
+          >
+            <div className="relative w-6 h-6">
+              <Menu
+                className={`absolute inset-0 w-6 h-6 transition-all duration-300 ${
+                  open ? "opacity-0 rotate-90" : "opacity-100 rotate-0"
+                }`}
+              />
+              <X
+                className={`absolute inset-0 w-6 h-6 transition-all duration-300 ${
+                  open ? "opacity-100 rotate-0" : "opacity-0 -rotate-90"
+                }`}
+              />
             </div>
-          </nav>
+          </button>
         </div>
+      </nav>
+
+      <div
+        id="mobile-menu"
+        className={`lg:hidden overflow-hidden border-t border-border transition-[max-height,opacity] duration-300 ${
+          open ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <ul className="px-6 py-4 flex flex-col gap-1 bg-background">
+          {links.map((l) => (
+            <li key={l.href}>
+              <Link
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="block py-3 text-base text-espresso border-b border-border/60"
+              >
+                {l.label}
+              </Link>
+            </li>
+          ))}
+          <li className="pt-4 flex items-center gap-3">
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border text-espresso"
+            >
+              <SiInstagram width={18} height={18} />
+            </a>
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 inline-flex justify-center items-center rounded-full bg-espresso px-5 py-3 text-sm font-medium text-cream hover:bg-espresso-soft transition"
+            >
+              Book an Appointment
+            </a>
+          </li>
+        </ul>
       </div>
-    </>
+    </header>
   );
 }

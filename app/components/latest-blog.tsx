@@ -2,7 +2,6 @@ import readingTime from "reading-time";
 import Link from "next/link";
 import client from "@/tina/__generated__/client";
 import { BlogpostCard } from "./blog/blogpost-card";
-import { SectionHeading } from "./section-heading";
 
 async function getLatestPost() {
   try {
@@ -47,22 +46,34 @@ export async function LatestBlog() {
   if (!post) return null;
 
   return (
-    <section className="px-4 w-full">
-      <div className="flex items-center justify-between mb-5">
-        <SectionHeading>Latest from the Blog</SectionHeading>
-        <Link href="/blog" className="text-sm text-[#C4A484] hover:underline">
-          View all posts
+    <section className="py-16 sm:py-20 bg-cream-soft">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="flex items-end justify-between mb-8">
+          <div>
+            <p className="text-xs uppercase tracking-[0.25em] text-espresso/60">
+              Journal
+            </p>
+            <h2 className="mt-2 font-serif text-3xl sm:text-4xl text-espresso">
+              Latest from the blog
+            </h2>
+          </div>
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-espresso underline underline-offset-4 decoration-espresso/30 hover:decoration-espresso transition"
+          >
+            View all posts <span aria-hidden>→</span>
+          </Link>
+        </div>
+        <Link href={`/blog/${post.slug}`} className="block">
+          <BlogpostCard
+            title={post.title}
+            description={post.description}
+            date={post.date}
+            image={post.thumbnail}
+            readingTime={post.readingTime}
+          />
         </Link>
       </div>
-      <Link href={`/blog/${post.slug}`} className="block">
-        <BlogpostCard
-          title={post.title}
-          description={post.description}
-          date={post.date}
-          image={post.thumbnail}
-          readingTime={post.readingTime}
-        />
-      </Link>
     </section>
   );
 }

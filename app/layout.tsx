@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
-import { EB_Garamond, Figtree } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
-const ebGaramond = EB_Garamond({
-  variable: "--font-eb-garamond",
+const cormorantGaramond = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
 });
 
-const figtree = Figtree({
-  variable: "--font-figtree",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
 });
 
 const siteUrl = "https://www.milenasbeautybar.com";
@@ -67,7 +70,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${ebGaramond.variable} ${figtree.variable} antialiased`}
+        className={`${cormorantGaramond.variable} ${inter.variable} antialiased`}
       >
         {children}
       </body>

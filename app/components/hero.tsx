@@ -1,102 +1,122 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SectionHeading } from "./section-heading";
+import { Star } from "lucide-react";
+
+const BULLETS = [
+  "Licensed Master Esthetician since 2018",
+  "Custom designs — never one-size-fits-all",
+  "Private, appointment-only studio",
+];
 
 export function Hero() {
   return (
-    <section
-      id="hero"
-      aria-labelledby="hero-heading"
-      className="-mt-8 w-full bg-[#2A1F1A] px-4 py-12 md:py-20 lg:py-24"
-    >
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-10 md:flex-row md:gap-12">
-        <div className="flex flex-1 flex-col gap-6 md:gap-7 text-left">
-          <SectionHeading tone="tan">Federal Way, WA</SectionHeading>
+    <section id="top" className="relative overflow-hidden">
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-cream/60 via-background to-background"
+      />
+      <div
+        aria-hidden
+        className="absolute -top-32 -right-32 -z-10 h-[420px] w-[420px] rounded-full bg-cream blur-3xl opacity-70"
+      />
 
-          <h1
-            id="hero-heading"
-            className="font-serif text-4xl md:text-5xl font-bold leading-tight text-white"
-          >
-            Soft, natural-looking lashes &amp; brows
-          </h1>
-
-          <p className="max-w-[60ch] text-base md:text-lg text-gray-300 leading-relaxed">
-            Master Esthetician with medical-field experience, specializing in
-            safe, precise lash and brow services tailored to your face.
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-14 pb-20 lg:pt-24 lg:pb-28 grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+        <div className="lg:col-span-7">
+          <p className="inline-flex items-center gap-2 text-xs sm:text-sm uppercase tracking-[0.25em] text-espresso/70">
+            <span className="h-px w-8 bg-espresso/40" />
+            Federal Way, WA
           </p>
 
-          <ul className="flex flex-col gap-2 text-gray-200">
-            {[
-              "Licensed Master Esthetician since 2018",
-              "Custom lash & brow designs — never one-size-fits-all",
-              "Private studio",
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-3">
+          <h1 className="mt-5 font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.05] text-espresso">
+            Soft, natural-looking
+            <span className="block italic text-espresso/90">
+              lashes &amp; brows
+            </span>
+            <span className="block">tailored to you.</span>
+          </h1>
+
+          <p className="mt-6 max-w-xl text-base sm:text-lg text-espresso/75 leading-relaxed">
+            I&apos;m Milena — a Licensed Master Esthetician since 2018 with a
+            background in the medical field. Every service is custom, safe, and
+            precise. No two faces are the same, so nothing I do is
+            one-size-fits-all.
+          </p>
+
+          <ul className="mt-8 space-y-3 text-sm sm:text-base text-espresso/85">
+            {BULLETS.map((t) => (
+              <li key={t} className="flex items-start gap-3">
                 <span
                   aria-hidden="true"
-                  className="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-[#C4A484]"
+                  className="mt-2 h-1.5 w-1.5 rounded-full bg-espresso"
                 />
-                <span>{item}</span>
+                <span>{t}</span>
               </li>
             ))}
           </ul>
 
-          <div className="flex flex-col sm:flex-row items-center md:items-center gap-3 sm:gap-4 pt-1">
-            <Link
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            <a
               href="https://milenasbeautybar.as.me/schedule/13baf9e3"
-              aria-label="Book a lash or brow appointment"
-              className="group/book relative inline-flex w-fit overflow-hidden rounded-full border border-white bg-white px-6 py-3 text-base font-medium text-black transition-colors duration-300 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C4A484] focus-visible:ring-offset-2 focus-visible:ring-offset-[#2A1F1A]"
-            >
-              <span className="absolute inset-0 overflow-hidden rounded-full">
-                <span className="absolute left-0 top-0 h-full w-0 bg-[#F0DED3] transition-[width] duration-300 ease-in-out group-hover/book:w-full" />
-              </span>
-              <span className="absolute inset-0 -z-10 rounded-full bg-white transition-colors duration-300 group-hover/book:bg-[#F0DED3]" />
-              <span className="relative z-10">Book an Appointment</span>
-            </Link>
-
-            <Link
-              href="/#packages"
-              className="inline-flex w-fit items-center gap-1 rounded-full px-3 py-2 text-base font-medium text-gray-200 underline-offset-4 transition-colors hover:text-[#C4A484] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C4A484] focus-visible:ring-offset-2 focus-visible:ring-offset-[#2A1F1A]"
-            >
-              View Services &amp; Pricing
-              <span aria-hidden="true">&rarr;</span>
-            </Link>
-          </div>
-
-          <p className="text-sm text-gray-400 text-center sm:text-left">
-            <span className="font-semibold text-white">5.0</span>
-            <span aria-hidden="true" className="text-[#C4A484]">
-              {" "}
-              ★{" "}
-            </span>
-            on{" "}
-            <Link
-              href="https://maps.app.goo.gl/NFJACRstzS8q67gM8"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-[#F0DED3] underline underline-offset-4 transition-colors hover:text-[#C4A484] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C4A484] focus-visible:ring-offset-2 focus-visible:ring-offset-[#2A1F1A] rounded-sm"
+              className="inline-flex items-center rounded-full bg-espresso px-7 py-3.5 text-sm sm:text-base font-medium text-cream hover:bg-espresso-soft transition"
             >
-              Google
-            </Link>{" "}
-            &mdash; 40+ happy clients
-          </p>
+              Book an Appointment
+            </a>
+            <Link
+              href="/#packages"
+              className="inline-flex items-center rounded-full border border-espresso/30 px-7 py-3.5 text-sm sm:text-base font-medium text-espresso hover:bg-cream transition"
+            >
+              View Services &amp; Pricing
+            </Link>
+          </div>
+
+          <a
+            href="https://maps.app.goo.gl/NFJACRstzS8q67gM8"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex items-center gap-2 text-sm text-espresso/75 hover:text-espresso transition"
+          >
+            <span className="flex text-espresso" aria-hidden="true">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star
+                  key={i}
+                  width={16}
+                  height={16}
+                  fill="currentColor"
+                  strokeWidth={0}
+                />
+              ))}
+            </span>
+            <span className="font-medium">5.0 on Google</span>
+            <span className="text-espresso/50">— 40+ happy clients</span>
+          </a>
         </div>
 
-        <aside
-          className="w-2/3 md:w-2/5 shrink-0"
-          aria-label="Portrait of Milena"
-        >
-          <div className="relative aspect-square overflow-hidden rounded-full">
-            <Image
-              src="/about-image.png"
-              alt="Milena, Licensed Master Esthetician in Federal Way"
-              fill
-              priority
-              sizes="(min-width: 1152px) 480px, (min-width: 768px) 40vw, 66vw"
-              className="object-cover"
+        <div className="lg:col-span-5 relative">
+          <div className="relative mx-auto aspect-square w-[78%] sm:w-[60%] lg:w-full max-w-md">
+            <div
+              aria-hidden
+              className="absolute inset-0 rounded-full bg-cream translate-x-4 translate-y-4"
             />
+            <div className="relative h-full w-full overflow-hidden rounded-full shadow-xl ring-1 ring-espresso/10">
+              <Image
+                src="/about-image.jpg"
+                alt="Portrait of Milena, Licensed Master Esthetician"
+                fill
+                priority
+                sizes="(min-width: 1024px) 480px, (min-width: 640px) 60vw, 78vw"
+                className="object-cover object-top"
+              />
+            </div>
+            <div className="absolute -left-4 sm:-left-8 bottom-6 bg-background/95 backdrop-blur rounded-2xl shadow-lg px-4 py-3 text-xs sm:text-sm">
+              <p className="font-serif text-espresso text-base sm:text-lg leading-tight">
+                Milena
+              </p>
+              <p className="text-espresso/60">Master Esthetician · est. 2018</p>
+            </div>
           </div>
-        </aside>
+        </div>
       </div>
     </section>
   );

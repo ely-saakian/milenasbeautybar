@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronDown } from "lucide-react";
-import { SectionHeading } from "./section-heading";
 
 const faqData: FAQItem[] = [
   {
@@ -118,119 +116,89 @@ interface FAQItem {
   answer: string | React.ReactNode;
 }
 
-interface FAQItemComponentProps {
-  faq: FAQItem;
-  index: number;
-  isExpanded: boolean;
-  onToggle: () => void;
-}
-
-function FAQItemComponent({
-  faq,
-  isExpanded,
-  onToggle,
-}: FAQItemComponentProps) {
-  return (
-    <div
-      className={`group bg-white border border-sand rounded-2xl overflow-hidden transition-all duration-300 ease-out
-        ${
-          isExpanded
-            ? "ring-2 ring-[#F0DED3] shadow-lg shadow-sand"
-            : "hover:border-[#F0DED3]"
-        }
-      `}
-    >
-      <button
-        onClick={onToggle}
-        className="w-full text-left p-5 flex items-start gap-4 cursor-pointer hover:bg-[#F0DED3]/10 transition-colors"
-        aria-expanded={isExpanded}
-      >
-        <div
-          className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
-            isExpanded
-              ? "bg-[#C4A484]"
-              : "bg-[#F0DED3]/50 group-hover:bg-[#F0DED3]"
-          }`}
-        >
-          <ChevronDown
-            className={`w-4 h-4 transition-all duration-300 ${
-              isExpanded ? "text-white rotate-180" : "text-[#C4A484]"
-            }`}
-          />
-        </div>
-        <div className="flex-1 pt-0.5">
-          <h3 className="text-lg font-serif font-semibold text-gray-900 leading-snug">
-            {faq.question}
-          </h3>
-        </div>
-      </button>
-
-      <div
-        className="grid transition-[grid-template-rows] duration-300 ease-out"
-        style={{
-          gridTemplateRows: isExpanded ? "1fr" : "0fr",
-        }}
-      >
-        <div className="overflow-hidden">
-          <div className="px-5 pb-5 pt-0">
-            <div className="ml-12 p-4 rounded-xl bg-[#F0DED3]/20 border border-[#F0DED3]/40">
-              <div className="text-gray-600 leading-relaxed [&_strong]:text-gray-800 [&_strong]:font-semibold">
-                {faq.answer}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function FAQs() {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-
-  function handleToggle(index: number) {
-    setExpandedIndex(expandedIndex === index ? null : index);
-  }
-
-  // Split FAQs into two columns
-  const leftColumn = faqData.slice(0, Math.ceil(faqData.length / 2));
-  const rightColumn = faqData.slice(Math.ceil(faqData.length / 2));
+  const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faqs" className="flex flex-col gap-5 px-4">
-      <SectionHeading>FAQs</SectionHeading>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Left Column */}
-        <div className="flex flex-col gap-4">
-          {leftColumn.map((faq, index) => {
-            const actualIndex = index;
-            return (
-              <FAQItemComponent
-                key={actualIndex}
-                faq={faq}
-                index={actualIndex}
-                isExpanded={expandedIndex === actualIndex}
-                onToggle={() => handleToggle(actualIndex)}
-              />
-            );
-          })}
+    <section
+      id="faqs"
+      className="scroll-mt-24 py-20 sm:py-28 bg-espresso text-cream"
+    >
+      <div className="mx-auto max-w-4xl px-4 sm:px-6">
+        <div className="text-center">
+          <p className="text-xs uppercase tracking-[0.25em] text-cream/60">
+            Good to know
+          </p>
+          <h2 className="mt-3 font-serif text-4xl sm:text-5xl">
+            Frequently asked questions
+          </h2>
+          <p className="mt-4 text-cream/70 max-w-2xl mx-auto">
+            A few answers to help you feel prepared and confident before your
+            visit.
+          </p>
         </div>
 
-        {/* Right Column */}
-        <div className="flex flex-col gap-4">
-          {rightColumn.map((faq, index) => {
-            const actualIndex = index + leftColumn.length;
+        <ul className="mt-12 divide-y divide-cream/15 border-y border-cream/15">
+          {faqData.map((faq, i) => {
+            const isOpen = open === i;
             return (
-              <FAQItemComponent
-                key={actualIndex}
-                faq={faq}
-                index={actualIndex}
-                isExpanded={expandedIndex === actualIndex}
-                onToggle={() => handleToggle(actualIndex)}
-              />
+              <li key={i}>
+                <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  className="w-full flex items-start justify-between gap-6 py-5 text-left"
+                >
+                  <span className="font-serif text-lg sm:text-xl pr-2">
+                    {faq.question}
+                  </span>
+                  <span
+                    aria-hidden
+                    className={`mt-1 flex-shrink-0 h-7 w-7 rounded-full border border-cream/40 inline-flex items-center justify-center transition ${
+                      isOpen ? "rotate-45 bg-cream text-espresso" : ""
+                    }`}
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="14"
+                      height="14"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    >
+                      <path d="M12 5v14M5 12h14" />
+                    </svg>
+                  </span>
+                </button>
+                <div
+                  className={`grid transition-all duration-300 ${
+                    isOpen
+                      ? "grid-rows-[1fr] opacity-100 pb-6"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="text-cream/75 leading-relaxed pr-10 max-w-2xl [&_strong]:text-cream [&_strong]:font-semibold">
+                      {faq.answer}
+                    </div>
+                  </div>
+                </div>
+              </li>
             );
           })}
+        </ul>
+
+        <div className="mt-16 text-center">
+          <p className="text-cream/60 text-sm">Still have questions?</p>
+          <a
+            href="https://milenasbeautybar.as.me/?appointmentType=83824594"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 inline-block font-serif text-2xl sm:text-3xl border-b border-cream pb-1 hover:text-cream/80 transition-colors"
+          >
+            Book a Consultation
+          </a>
         </div>
       </div>
     </section>
