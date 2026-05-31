@@ -1,10 +1,10 @@
 ---
 id: lift
 category: lashes
-name: Lift
-description: Experience enhanced lifted lashes with our professional lash lift treatment. Enjoy long-lasting results that make your natural lashes appear longer and more defined. Our treatment includes nourishment cream to keep your lashes healthy and beautiful for weeks to come.
+name: Premium Lash Lift
+description: 'Experience lifted lashes with our professional Korean lash lift treatment. Enjoy the results up to 6 weeks where your natural lashes appear longer and more defined. Our treatment includes nourishment cream to keep your lashes healthy and beautiful. Its not just a lash lift, its a lash treatment. '
 href: 'https://milenasbeautybar.as.me/Lashlift'
-duration: 45-60 minutes
+duration: 60-90 minutes
 price: $95
 order: 3
 ---
