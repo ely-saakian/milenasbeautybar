@@ -214,6 +214,10 @@ export default defineConfig({
         name: "customerReview",
         label: "Customer Reviews",
         path: "content/reviews",
+        ui: {
+          router: ({ document }) =>
+            `/reviews/${document._sys.filename}/preview`,
+        },
         fields: [
           {
             type: "string",
