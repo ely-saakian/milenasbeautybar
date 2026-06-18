@@ -210,6 +210,91 @@ export default defineConfig({
           },
         ],
       },
+      {
+        name: "customerReview",
+        label: "Customer Reviews",
+        path: "content/reviews",
+        fields: [
+          {
+            type: "string",
+            name: "customerName",
+            label: "Customer Name",
+            isTitle: true,
+            required: true,
+            description: "First name only (e.g. Sarah).",
+          },
+          {
+            type: "string",
+            name: "review",
+            label: "Review",
+            required: true,
+            ui: { component: "textarea" },
+            description:
+              "Keep it specific — mention the treatment, timeline, or concern rather than generic praise.",
+          },
+          {
+            type: "image",
+            name: "beforeImage",
+            label: "Before Photo",
+            required: true,
+            description:
+              "Use consistent lighting and angle with the after photo.",
+          },
+          {
+            type: "string",
+            name: "beforeAlt",
+            label: "Before Alt Text",
+            required: true,
+          },
+          {
+            type: "image",
+            name: "afterImage",
+            label: "After Photo",
+            required: true,
+            description:
+              "Match the before photo framing for a credible comparison.",
+          },
+          {
+            type: "string",
+            name: "afterAlt",
+            label: "After Alt Text",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "serviceCategory",
+            label: "Service Category",
+            required: true,
+            options: [...SERVICE_CATEGORY_OPTIONS],
+          },
+          {
+            type: "string",
+            name: "serviceName",
+            label: "Treatment Name",
+            required: true,
+            description: 'e.g. "Brow Lamination", "Classic Lash Fill".',
+          },
+          {
+            type: "string",
+            name: "bookingHref",
+            label: "Booking URL",
+            required: true,
+            description:
+              "Copy the Booking URL from the related service in Services.",
+          },
+          {
+            type: "number",
+            name: "order",
+            label: "Order",
+            description: "Homepage display order (lower first).",
+          },
+          {
+            type: "boolean",
+            name: "published",
+            label: "Published",
+          },
+        ],
+      },
     ],
   },
 });
