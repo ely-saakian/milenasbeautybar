@@ -47,7 +47,7 @@ function useSlotWiring(slot: Slot, decode: boolean) {
       imgRef.current = node;
       if (node?.complete && node.naturalWidth > 0) markLoaded();
     },
-    [markLoaded]
+    [markLoaded],
   );
 
   const onLoad = useCallback(() => {
@@ -87,8 +87,8 @@ function SlotImage({
     // will-change hint is toggled by the container's `cr-dragging` marker via
     // CSS so the image element never re-renders on drag start/end.
     clip &&
-      "[clip-path:inset(0_calc(100%_-_var(--split)*1%)_0_0)] [.cr-dragging_&]:will-change-[clip-path]",
-    className
+      "[clip-path:inset(0_0_0_calc(var(--split)*1%))] [.cr-dragging_&]:will-change-[clip-path]",
+    className,
   );
 
   if (asChild) {
@@ -103,7 +103,7 @@ function SlotImage({
   if (!src) {
     if (process.env.NODE_ENV !== "production") {
       console.warn(
-        `CompareReveal.${slot === "before" ? "Before" : "After"}: no \`src\` and no \`asChild\` child provided.`
+        `CompareReveal.${slot === "before" ? "Before" : "After"}: no \`src\` and no \`asChild\` child provided.`,
       );
     }
     return null;
@@ -187,7 +187,7 @@ export function Handle({
       className={cn(
         "group absolute top-0 bottom-0 left-[calc(var(--split)*1%)] z-10 flex w-11 -translate-x-1/2 items-center justify-center outline-none",
         canInteract ? "cursor-ew-resize" : "cursor-default",
-        className
+        className,
       )}
     >
       {children ?? (
@@ -198,7 +198,7 @@ export function Handle({
           />
           <span
             aria-hidden
-            className="pointer-events-none relative grid size-9 place-items-center rounded-full bg-background text-foreground shadow-md ring-ring ring-offset-2 ring-offset-background motion-safe:transition-transform group-active:scale-95 group-focus-visible:ring-2"
+            className="pointer-events-none relative grid size-9 place-items-center rounded-full bg-background text-foreground shadow-md ring-ring ring-offset-2 ring-offset-background opacity-0 transition motion-safe:duration-150 group-hover:opacity-100 group-focus-visible:opacity-100 group-active:scale-95 group-focus-visible:ring-2"
           >
             <svg
               viewBox="0 0 24 24"
@@ -227,7 +227,7 @@ export function Label({ slot, className, children }: LabelProps) {
       className={cn(
         "pointer-events-none absolute top-3 z-10 rounded-md bg-foreground/80 px-2 py-1 font-medium text-background text-xs",
         slot === "before" ? "left-3" : "right-3",
-        className
+        className,
       )}
     >
       {children}
@@ -249,7 +249,7 @@ export function Overlay({
       <div
         className={cn(
           "absolute inset-0 z-20 grid place-items-center bg-muted text-sm text-muted-foreground",
-          className
+          className,
         )}
       >
         {errorContent ?? "Failed to load images."}
@@ -263,7 +263,7 @@ export function Overlay({
         aria-hidden
         className={cn(
           "absolute inset-0 z-20 animate-pulse bg-muted",
-          className
+          className,
         )}
       >
         {loadingContent}
