@@ -7,7 +7,7 @@ afterImage: /review-images/karina-after.jpeg
 afterAlt: "Karina's lashes after lash lift"
 serviceCategory: lashes
 serviceName: Lash Lift
-bookingHref: "#book"
+bookingHref: "https://milenasbeautybar.as.me/Lashlift"
 order: 2
 published: true
 ---

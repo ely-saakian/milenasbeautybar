@@ -7,7 +7,7 @@ afterImage: /review-images/mariah-after.jpg
 afterAlt: "Mariah's lashes after wispy lash extensions"
 serviceCategory: lashes
 serviceName: Wispy Lash Extensions
-bookingHref: "#book"
+bookingHref: "https://milenasbeautybar.as.me/?appointmentType=83828506"
 order: 3
 published: true
 ---

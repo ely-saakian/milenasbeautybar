@@ -7,7 +7,7 @@ afterImage: /review-images/sulamita-after.jpeg
 afterAlt: "Sulamita's brows after brow lamination"
 serviceCategory: brows
 serviceName: Brow Lamination
-bookingHref: "#book"
+bookingHref: "https://milenasbeautybar.as.me/?appointmentType=83825757"
 order: 1
 published: true
 ---
