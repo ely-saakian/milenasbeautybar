@@ -21,8 +21,8 @@ types:
     href: 'https://milenasbeautybar.as.me/?appointmentType=category:Lash%20Fills%20-%20Volume'
   - name: Wispy
     description: 'Trendy hybrid style combining classic and volume for a feathery, textured look. Great for those wanting a modern, editorial appearance.'
-    duration: 60-70 minutes
-    price: $60-75
+    duration: 60-140 minutes
+    price: $75-115
     href: 'https://milenasbeautybar.as.me/?appointmentType=category:Lash%20Fills%20-%20Wispy'
 ---
 
