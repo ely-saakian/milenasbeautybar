@@ -16,8 +16,8 @@ types:
     href: 'https://milenasbeautybar.as.me/?appointmentType=category:Lash%20Fills%20-%20Classic'
   - name: Volume
     description: 'Fuller, dramatic appearance with multiple lightweight extensions per natural lash. Ideal for adding glamorous volume and dimension.'
-    duration: 60-75 minutes
-    price: $65-80
+    duration: 60- 140 minutes
+    price: $90-145
     href: 'https://milenasbeautybar.as.me/?appointmentType=category:Lash%20Fills%20-%20Volume'
   - name: Wispy
     description: 'Trendy hybrid style combining classic and volume for a feathery, textured look. Great for those wanting a modern, editorial appearance.'
