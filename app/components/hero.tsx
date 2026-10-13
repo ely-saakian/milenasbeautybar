@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Star } from "lucide-react";
 
 const BULLETS = [
-  "Licensed Master Esthetician since 2018",
+  "Licensed Master Esthetician",
   "Custom designs — never one-size-fits-all",
   "Private, appointment-only studio",
 ];
@@ -36,10 +36,11 @@ export function Hero() {
           </h1>
 
           <p className="mt-6 max-w-xl text-base sm:text-lg text-espresso/75 leading-relaxed">
-            I&apos;m Milena — a Licensed Master Esthetician since 2018 with a
-            background in the medical field. Every service is custom, safe, and
-            precise. No two faces are the same, so nothing I do is
-            one-size-fits-all.
+            I&apos;m Milena, your licensed esthetician specializing in
+            customized lash services and beautiful brows. Because no two faces
+            are the same, I believe your beauty services should never be
+            one-size-fits-all. Every treatment is thoughtfully tailored to you,
+            your features, and your desired results.
           </p>
 
           <ul className="mt-8 space-y-3 text-sm sm:text-base text-espresso/85">

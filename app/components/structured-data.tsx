@@ -159,7 +159,7 @@ export function StructuredData() {
         name: "Can I get my lashes or brows wet right after lamination/lifting?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Some modern formulas allow earlier water contact, but it depends on the product and your natural lashes. At Milena's Beauty Bar we use Zola and LashBase, and both recommend leaving the third step 'Enriching Solution' on for 12 hours — therefore please avoid getting lashes or brows wet for 12 hours after treatment.",
+          text: "Some modern formulas allow earlier water contact, but it depends on the product and your natural lashes. At Milena's Beauty Bar we leave the third step 'Enriching Solution' on for 12 hours — therefore please avoid getting lashes or brows wet for 12 hours after treatment.",
         },
       },
       {

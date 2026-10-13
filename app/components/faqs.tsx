@@ -9,11 +9,10 @@ const faqData: FAQItem[] = [
     answer: (
       <p>
         Some modern formulas allow earlier water contact, but it depends on the
-        product and your natural lashes. At Milena&apos;s Beauty Bar we use Zola
-        and LashBase, and both recommend leaving the third step &quot;Enriching
-        Solution&quot; on for <strong>12 hours</strong> — therefore please avoid
-        getting lashes or brows wet for <strong>12 hours</strong> after
-        treatment.
+        product and your natural lashes. At Milena&apos;s Beauty Bar we leave
+        the third step &quot;Enriching Solution&quot; on for{" "}
+        <strong>12 hours</strong> — therefore please avoid getting lashes or
+        brows wet for <strong>12 hours</strong> after treatment.
       </p>
     ),
   },
