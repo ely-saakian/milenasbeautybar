@@ -26,8 +26,8 @@ types:
     href: 'https://milenasbeautybar.as.me/?appointmentType=83828550'
   - name: Wispy
     description: 'A blend of classics, spikes, and volume techniques for the best custom look. Wispy lashes give you a soft, textured look with added fullness and dimension. Great for clients who want a little more drama than classic but less than volume.'
-    duration: 2 hours 30 minutes
-    price: $130.00
+    duration: '3 hours '
+    price: $155.00
     href: 'https://milenasbeautybar.as.me/?appointmentType=83828506'
 ---
 
