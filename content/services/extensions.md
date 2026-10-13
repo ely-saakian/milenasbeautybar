@@ -21,8 +21,8 @@ types:
     href: 'https://milenasbeautybar.as.me/?appointmentType=83828435'
   - name: Volume
     description: 'Fluffy, and full! Volume lashes are created by applying lightweight fans (2–6 extensions per natural lash) for a soft, glamorous look. A perfect choice if you love extra fullness while keeping lashes lightweight and comfortable. I offer multiple styles that will be tailored to your eye shape.'
-    duration: 3 hours
-    price: $165.00
+    duration: 3 hours 30 min
+    price: $190.00
     href: 'https://milenasbeautybar.as.me/?appointmentType=83828550'
   - name: Wispy
     description: 'A blend of classics, spikes, and volume techniques for the best custom look. Wispy lashes give you a soft, textured look with added fullness and dimension. Great for clients who want a little more drama than classic but less than volume.'
