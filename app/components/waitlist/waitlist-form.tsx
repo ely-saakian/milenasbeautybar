@@ -1,7 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
-import { GENERAL_SERVICE, NAME_MAX } from "@/lib/waitlist";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type FormEvent,
+  type ReactNode,
+  type RefObject,
+} from "react";
+import { INSTAGRAM_URL } from "@/lib/constants";
+import { GENERAL_SERVICE, NAME_MAX, type SignupField } from "@/lib/waitlist";
 import { useWaitlistSignup, type SignupState } from "./use-waitlist-signup";
 
 type WaitlistFormProps = {
@@ -12,29 +20,95 @@ type WaitlistFormProps = {
 };
 
 const fieldClass =
-  "h-12 w-full rounded-xl border border-espresso/25 bg-card px-3.5 text-[15px] text-espresso placeholder:text-espresso/50 transition-[border-color] duration-150 ease-out focus:outline-2 focus:outline-offset-1 focus:outline-espresso";
+  "h-12 w-full rounded-xl border bg-card px-3.5 text-[15px] text-espresso placeholder:text-espresso/50 transition-[border-color] duration-150 ease-out focus:outline-2 focus:outline-offset-1 focus:outline-espresso";
 
 /**
  * The waitlist form and its result, independent of the surface it sits in
  * (desktop modal now, mobile sheet later). Heading id: "waitlist-title".
  */
 export function WaitlistForm({ service, onDone }: WaitlistFormProps) {
-  const { state, submit } = useWaitlistSignup(service);
+  const { state, submit, clearFieldError } = useWaitlistSignup(service);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const nameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  // Set on each submit and used up by its result: if that comes back invalid,
+  // focus the first bad field once its message has rendered (so it's announced
+  // with it). Later edits to the fields don't move focus.
+  const focusOnResult = useRef(false);
 
-  if (state.status === "created" || state.status === "already_listed") {
-    // already_listed gets its own copy in a later slice; until then it's the
-    // same truthful "you're on the list".
-    return <SignupSuccess result={state} onDone={onDone} />;
-  }
+  useEffect(() => {
+    if (!focusOnResult.current) return;
+    if (state.status === "idle" || state.status === "submitting") return;
+    focusOnResult.current = false;
+    if (state.status === "invalid") {
+      (state.fields.name ? nameRef : phoneRef).current?.focus();
+    }
+  }, [state]);
 
-  const submitting = state.status === "submitting";
+  if (isDone(state)) return <SignupDone result={state} onDone={onDone} />;
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    focusOnResult.current = true;
     void submit({ name, phone });
   };
+
+  return (
+    <SignupFormView
+      state={state}
+      name={name}
+      phone={phone}
+      onNameChange={(value) => {
+        setName(value);
+        clearFieldError("name");
+      }}
+      onPhoneChange={(value) => {
+        setPhone(value);
+        clearFieldError("phone");
+      }}
+      onSubmit={handleSubmit}
+      nameRef={nameRef}
+      phoneRef={phoneRef}
+    />
+  );
+}
+
+type DoneState = Extract<SignupState, { status: "created" | "already_listed" }>;
+
+function isDone(state: SignupState): state is DoneState {
+  return state.status === "created" || state.status === "already_listed";
+}
+
+type SignupFormViewProps = {
+  /** The two final states show SignupDone instead. */
+  state: Exclude<SignupState, DoneState>;
+  name: string;
+  phone: string;
+  onNameChange: (value: string) => void;
+  onPhoneChange: (value: string) => void;
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  nameRef?: RefObject<HTMLInputElement | null>;
+  phoneRef?: RefObject<HTMLInputElement | null>;
+};
+
+/**
+ * The form as it looks in each state, with what the visitor typed. Validation
+ * messages are our own (noValidate), the same text the server sends, shown
+ * under each field and linked to it with aria-invalid + aria-describedby.
+ */
+export function SignupFormView({
+  state,
+  name,
+  phone,
+  onNameChange,
+  onPhoneChange,
+  onSubmit,
+  nameRef,
+  phoneRef,
+}: SignupFormViewProps) {
+  const submitting = state.status === "submitting";
+  const fields = state.status === "invalid" ? state.fields : {};
 
   return (
     <div className="flex flex-col gap-[22px]">
@@ -55,49 +129,56 @@ export function WaitlistForm({ service, onDone }: WaitlistFormProps) {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="waitlist-name" className="text-[13px] font-medium">
-            Name
-          </label>
-          <input
-            id="waitlist-name"
-            name="name"
-            type="text"
-            autoComplete="name"
-            placeholder="First and last name"
-            required
-            maxLength={NAME_MAX}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            data-autofocus
-            className={fieldClass}
-          />
-        </div>
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="waitlist-phone" className="text-[13px] font-medium">
-            Mobile number
-          </label>
-          <input
-            id="waitlist-phone"
-            name="phone"
-            type="tel"
-            inputMode="tel"
-            autoComplete="tel-national"
-            placeholder="(253) 555-0147"
-            required
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            className={`${fieldClass} tabular-nums`}
-          />
-        </div>
+      <form
+        id="waitlist-form"
+        noValidate
+        onSubmit={onSubmit}
+        className="flex flex-col gap-4"
+      >
+        <Field field="name" label="Name" error={fields.name}>
+          {(controlProps) => (
+            <input
+              ref={nameRef}
+              name="name"
+              type="text"
+              autoComplete="name"
+              placeholder="First and last name"
+              required
+              maxLength={NAME_MAX}
+              value={name}
+              onChange={(e) => onNameChange(e.target.value)}
+              data-autofocus
+              {...controlProps}
+            />
+          )}
+        </Field>
+        <Field field="phone" label="Mobile number" error={fields.phone}>
+          {(controlProps) => (
+            <input
+              ref={phoneRef}
+              name="phone"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel-national"
+              placeholder="(253) 555-0147"
+              required
+              value={phone}
+              onChange={(e) => onPhoneChange(e.target.value)}
+              {...controlProps}
+              className={`${controlProps.className} tabular-nums`}
+            />
+          )}
+        </Field>
 
-        <SubmitProblem state={state} />
+        {state.status === "error" && <SubmitFailed />}
 
+        {/* aria-disabled rather than disabled while sending, so focus stays on
+            the button (and "Try again" is focused if it fails). The hook's
+            in-flight guard is what stops a second send. */}
         <button
           type="submit"
-          disabled={submitting}
-          className="inline-flex h-[52px] items-center justify-center gap-2.5 rounded-full bg-espresso text-[15px] font-medium text-cream hover:bg-espresso-soft active:scale-[0.97] disabled:cursor-default disabled:opacity-75 disabled:active:scale-100 transition-[background-color,opacity,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:active:scale-100 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-espresso"
+          aria-disabled={submitting || undefined}
+          className="inline-flex h-[52px] items-center justify-center gap-2.5 rounded-full bg-espresso text-[15px] font-medium text-cream hover:bg-espresso-soft active:scale-[0.97] aria-disabled:cursor-default aria-disabled:opacity-75 aria-disabled:hover:bg-espresso aria-disabled:active:scale-100 transition-[background-color,opacity,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:active:scale-100 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-espresso"
         >
           {submitting && (
             <svg
@@ -114,7 +195,13 @@ export function WaitlistForm({ service, onDone }: WaitlistFormProps) {
               <path d="M21 12a9 9 0 1 1-6.2-8.56" />
             </svg>
           )}
-          <span>{submitting ? "Adding you…" : "Join the waitlist"}</span>
+          <span>
+            {submitting
+              ? "Adding you…"
+              : state.status === "error"
+                ? "Try again"
+                : "Join the waitlist"}
+          </span>
         </button>
         <p className="text-center text-xs text-espresso/70">
           Your number is only used to contact you about booking.
@@ -124,32 +211,103 @@ export function WaitlistForm({ service, onDone }: WaitlistFormProps) {
   );
 }
 
-/**
- * A minimal, always-safe message when a submit didn't go through. The proper
- * per-field messages and retry copy come in the response-states slice.
- */
-function SubmitProblem({ state }: { state: SignupState }) {
-  if (state.status !== "invalid" && state.status !== "error") return null;
-  const message =
-    state.status === "invalid"
-      ? Object.values(state.fields).join(" ") ||
-        "Please check your details and try again."
-      : "Something went wrong on my end. Please try again in a minute, or message me on Instagram.";
+/** What Field gives its input: its id, styling and error links. */
+type FieldControlProps = {
+  id: string;
+  className: string;
+  "aria-invalid"?: true;
+  "aria-describedby"?: string;
+};
+
+/** A labelled input with its message underneath when it's invalid. */
+function Field({
+  field,
+  label,
+  error,
+  children,
+}: {
+  field: SignupField;
+  label: string;
+  error: string | undefined;
+  children: (props: FieldControlProps) => ReactNode;
+}) {
+  const id = `waitlist-${field}`;
+  const errorId = `${id}-error`;
   return (
-    <p
-      role="alert"
-      className="waitlist-fade rounded-xl bg-destructive/10 px-3.5 py-3 text-[13px] leading-normal text-destructive"
-    >
-      {message}
-    </p>
+    <div className="flex flex-col gap-1.5">
+      <label htmlFor={id} className="text-[13px] font-medium">
+        {label}
+      </label>
+      {children(
+        error
+          ? {
+              id,
+              className: `${fieldClass} border-destructive`,
+              "aria-invalid": true,
+              "aria-describedby": errorId,
+            }
+          : { id, className: `${fieldClass} border-espresso/25` }
+      )}
+      {error && (
+        <p
+          id={errorId}
+          className="waitlist-fade text-[13px] leading-normal text-destructive"
+        >
+          {error}
+        </p>
+      )}
+    </div>
   );
 }
 
-function SignupSuccess({
+/** 429, 500 or a network failure: what was typed stays, and they can retry. */
+function SubmitFailed() {
+  return (
+    <div
+      role="alert"
+      className="waitlist-fade flex items-start gap-2.5 rounded-xl bg-destructive/10 px-3.5 py-3 text-[13px] leading-normal text-destructive"
+    >
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        aria-hidden="true"
+        className="mt-px shrink-0"
+      >
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7.5v5.5M12 16.5v.01" />
+      </svg>
+      <span>
+        Something went wrong on my end. Please try again in a minute, or message
+        me on{" "}
+        <a
+          href={INSTAGRAM_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium underline underline-offset-2"
+        >
+          Instagram
+        </a>
+        .
+      </span>
+    </div>
+  );
+}
+
+/**
+ * The final state of a visit: a new signup (created) or a phone that was
+ * already saved (already_listed). Only echoes what this visitor typed; never
+ * anything stored for that phone.
+ */
+export function SignupDone({
   result,
   onDone,
 }: {
-  result: Extract<SignupState, { status: "created" | "already_listed" }>;
+  result: DoneState;
   onDone: () => void;
 }) {
   // The submit button just unmounted; keep focus in the dialog on Done. The
@@ -159,10 +317,17 @@ function SignupSuccess({
     doneRef.current?.focus({ preventScroll: true });
   }, []);
 
+  const phone = (
+    <strong className="whitespace-nowrap font-semibold text-espresso tabular-nums">
+      {result.phone}
+    </strong>
+  );
   const forService =
     result.service && result.service !== GENERAL_SERVICE
       ? ` for your ${result.service}`
       : "";
+  const alreadyListed = result.status === "already_listed";
+
   return (
     <div
       role="status"
@@ -170,8 +335,8 @@ function SignupSuccess({
     >
       <div className="waitlist-pop flex size-[72px] items-center justify-center rounded-full bg-cream text-espresso">
         <svg
-          width="32"
-          height="32"
+          width={alreadyListed ? 30 : 32}
+          height={alreadyListed ? 30 : 32}
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -180,26 +345,40 @@ function SignupSuccess({
           strokeLinejoin="round"
           aria-hidden="true"
         >
-          <path d="M5 12.5l4.5 4.5L19 7.5" />
+          {alreadyListed ? (
+            <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" />
+          ) : (
+            <path d="M5 12.5l4.5 4.5L19 7.5" />
+          )}
         </svg>
       </div>
       <h2
         id="waitlist-title"
         className="waitlist-rise font-serif text-[38px] font-medium leading-[1.1] text-balance text-espresso"
       >
-        You&apos;re on the list
-        {result.firstName ? (
+        {alreadyListed ? (
           <>
-            , <span className="italic">{result.firstName}</span>
+            You&apos;re already <span className="italic">on the list</span>
           </>
-        ) : null}
+        ) : (
+          <>
+            You&apos;re on the list
+            {result.firstName ? (
+              <>
+                , <span className="italic">{result.firstName}</span>
+              </>
+            ) : null}
+          </>
+        )}
       </h2>
       <p className="waitlist-rise waitlist-rise-late max-w-[340px] text-[15px] leading-relaxed text-espresso/75">
-        I&apos;ll text{" "}
-        <strong className="whitespace-nowrap font-semibold text-espresso tabular-nums">
-          {result.phone}
-        </strong>{" "}
-        as soon as booking reopens{forService}.
+        {alreadyListed ? (
+          <>{phone} is already saved. No need to do anything else.</>
+        ) : (
+          <>
+            I&apos;ll text {phone} as soon as booking reopens{forService}.
+          </>
+        )}
       </p>
       <p className="waitlist-rise waitlist-rise-late mt-1 font-serif text-[22px] italic">
         Milena

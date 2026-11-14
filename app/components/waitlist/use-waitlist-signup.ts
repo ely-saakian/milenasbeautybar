@@ -5,7 +5,9 @@ import { trackEvent } from "@/lib/analytics";
 import { formatUsPhone } from "@/lib/phone";
 import {
   firstName,
+  parseSignup,
   type FieldErrors,
+  type SignupField,
   type SignupRequest,
   type SignupResponse,
 } from "@/lib/waitlist";
@@ -17,7 +19,9 @@ import {
  *   invalid | error ──submit──▶ submitting
  *
  * created and already_listed are final for this visit (the form remounts on
- * the next open). invalid and error keep what was typed.
+ * the next open). invalid and error keep what was typed. A field's message
+ * clears as soon as the visitor edits that field; when none are left the form
+ * is back to idle.
  */
 export type SignupState =
   | { status: "idle" }
@@ -34,14 +38,34 @@ export type SignupState =
 
 const ENDPOINT = "/api/waitlist";
 
+/** Keep only the messages the form knows how to show, under its own fields. */
+function fieldErrors(value: unknown): FieldErrors {
+  const raw = (value && typeof value === "object" ? value : {}) as Record<
+    string,
+    unknown
+  >;
+  const fields: FieldErrors = {};
+  for (const field of ["name", "phone"] as const) {
+    if (typeof raw[field] === "string" && raw[field])
+      fields[field] = raw[field];
+  }
+  return fields;
+}
+
 /**
- * POST a signup and read the result. Every outcome comes back as a
- * SignupResponse: anything unexpected (network failure, a non-JSON body, an
- * unknown status such as a 429 from the firewall) becomes `{ status: "error" }`.
+ * Check a signup in the browser, then POST it and read the result. An invalid
+ * signup is answered locally with the same messages the server would send, and
+ * nothing is sent. Every other outcome comes back as a SignupResponse: anything
+ * unexpected (network failure, a non-JSON body, an unknown status such as a 429
+ * from the firewall, or an "invalid" with no field to point at) becomes
+ * `{ status: "error" }`.
  */
 export async function submitSignup(
   request: SignupRequest
 ): Promise<SignupResponse> {
+  const checked = parseSignup(request);
+  if (!checked.ok) return { status: "invalid", fields: checked.fields };
+
   try {
     const res = await fetch(ENDPOINT, {
       method: "POST",
@@ -53,11 +77,12 @@ export async function submitSignup(
       case "created":
       case "already_listed":
         return { status: body.status };
-      case "invalid":
-        return {
-          status: "invalid",
-          fields: (body as { fields?: FieldErrors }).fields ?? {},
-        };
+      case "invalid": {
+        const fields = fieldErrors((body as { fields?: unknown }).fields);
+        return Object.keys(fields).length > 0
+          ? { status: "invalid", fields }
+          : { status: "error" };
+      }
       default:
         return { status: "error" };
     }
@@ -101,5 +126,18 @@ export function useWaitlistSignup(service: string) {
     [service]
   );
 
-  return { state, submit };
+  /** The visitor is fixing `field`: drop its message. */
+  const clearFieldError = useCallback((field: SignupField) => {
+    setState((current) => {
+      if (current.status !== "invalid" || !current.fields[field])
+        return current;
+      const fields = { ...current.fields };
+      delete fields[field];
+      return Object.keys(fields).length > 0
+        ? { status: "invalid", fields }
+        : { status: "idle" };
+    });
+  }, []);
+
+  return { state, submit, clearFieldError };
 }

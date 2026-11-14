@@ -4,6 +4,7 @@ import {
   SiTiktok,
 } from "@icons-pack/react-simple-icons";
 import Link from "next/link";
+import { INSTAGRAM_URL } from "@/lib/constants";
 import { Logo } from "./logo";
 import { BookingLink } from "./booking-link";
 
@@ -18,7 +19,7 @@ const exploreLinks = [
 
 const socialLinks = [
   {
-    href: "https://www.instagram.com/milenas.beautybar/",
+    href: INSTAGRAM_URL,
     label: "Instagram",
     icon: SiInstagram,
   },

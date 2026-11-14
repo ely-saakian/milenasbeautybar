@@ -74,6 +74,47 @@ describe("POST /api/waitlist", () => {
     expect(sql).not.toHaveBeenCalled();
   });
 
+  it("points a blank name at the name field only", async () => {
+    const sql = fakeSql([{ inserted: true }]);
+
+    const res = await post({ ...signup, name: "" });
+
+    expect(res.status).toBe(400);
+    expect(await res.json()).toEqual({
+      status: "invalid",
+      fields: { name: "Please enter your name." },
+    });
+    expect(sql).not.toHaveBeenCalled();
+  });
+
+  it("points a bad phone at the phone field only", async () => {
+    const sql = fakeSql([{ inserted: true }]);
+
+    const res = await post({ ...signup, phone: "253-555-0147 ext 2" });
+
+    expect(res.status).toBe(400);
+    expect(await res.json()).toEqual({
+      status: "invalid",
+      fields: { phone: "Enter a 10-digit US mobile number." },
+    });
+    expect(sql).not.toHaveBeenCalled();
+  });
+
+  it("treats missing fields as blank", async () => {
+    fakeSql([{ inserted: true }]);
+
+    const res = await post({});
+
+    expect(res.status).toBe(400);
+    expect(await res.json()).toEqual({
+      status: "invalid",
+      fields: {
+        name: "Please enter your name.",
+        phone: "Enter a 10-digit US mobile number.",
+      },
+    });
+  });
+
   it("rejects a body that isn't JSON", async () => {
     fakeSql([{ inserted: true }]);
 

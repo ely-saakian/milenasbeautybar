@@ -8,3 +8,6 @@ export const SERVICE_CATEGORY_OPTIONS = [
 export const CATEGORY_LABELS: Record<string, string> = Object.fromEntries(
   SERVICE_CATEGORY_OPTIONS.map((c) => [c.value, c.label])
 );
+
+/** Milena's Instagram profile. */
+export const INSTAGRAM_URL = "https://www.instagram.com/milenas.beautybar/";
