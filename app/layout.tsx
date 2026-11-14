@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { WaitlistProvider } from "./components/waitlist/waitlist-provider";
+import { getBookingMode } from "@/lib/get-booking-mode";
+import { BookingModeProvider } from "./components/booking-mode-provider";
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -60,20 +61,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const isProd = process.env.NODE_ENV === "production";
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  const bookingMode = await getBookingMode();
 
   return (
     <html lang="en">
       <body
         className={`${cormorantGaramond.variable} ${inter.variable} antialiased`}
       >
-        <WaitlistProvider>{children}</WaitlistProvider>
+        <BookingModeProvider mode={bookingMode}>{children}</BookingModeProvider>
       </body>
       {isProd && gaId && <GoogleAnalytics gaId={gaId} />}
     </html>

@@ -21,10 +21,11 @@ export type BookingLinkProps = Omit<
 };
 
 /**
- * The single place every "Book" link on the site goes through. While Milena is
- * on leave, clicking one opens the waitlist form for its service (see
- * BookingLinkAnchor and WaitlistProvider). The href stays the Acuity URL, in a
- * new tab, as the no-JavaScript fallback.
+ * The single place every "Book" link on the site goes through. In waitlist
+ * mode (TinaCMS → Booking → Mode), clicking one opens the waitlist form for
+ * its service (see BookingLinkAnchor and BookingModeProvider). In Acuity mode
+ * there's no waitlist to open, so it's a plain link. Either way the href is
+ * the Acuity URL, in a new tab, which is also the no-JavaScript fallback.
  */
 export function BookingLink({
   service = GENERAL_SERVICE,
