@@ -198,7 +198,7 @@ export function Handle({
           />
           <span
             aria-hidden
-            className="pointer-events-none relative grid size-9 place-items-center rounded-full bg-background text-foreground shadow-md ring-ring ring-offset-2 ring-offset-background opacity-0 transition motion-safe:duration-150 group-hover:opacity-100 group-focus-visible:opacity-100 group-active:scale-95 group-focus-visible:ring-2"
+            className="pointer-events-none relative grid size-9 place-items-center rounded-full bg-background text-foreground shadow-md ring-ring ring-offset-2 ring-offset-background opacity-100 transition-[opacity,scale,box-shadow] motion-safe:duration-150 [@media(hover:hover)_and_(pointer:fine)]:opacity-0 [@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100 group-focus-visible:opacity-100 group-active:scale-95 group-focus-visible:ring-2"
           >
             <svg
               viewBox="0 0 24 24"

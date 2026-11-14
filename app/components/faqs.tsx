@@ -143,14 +143,14 @@ export function FAQs() {
                   type="button"
                   aria-expanded={isOpen}
                   onClick={() => setOpen(isOpen ? null : i)}
-                  className="w-full flex items-start justify-between gap-6 py-5 text-left"
+                  className="group w-full flex items-start justify-between gap-6 py-5 text-left"
                 >
                   <span className="font-serif text-lg sm:text-xl pr-2">
                     {faq.question}
                   </span>
                   <span
                     aria-hidden
-                    className={`mt-1 flex-shrink-0 h-7 w-7 rounded-full border border-cream/40 inline-flex items-center justify-center transition ${
+                    className={`mt-1 flex-shrink-0 h-7 w-7 rounded-full border border-cream/40 inline-flex items-center justify-center group-active:scale-90 transition-[rotate,scale,background-color,color] duration-[250ms] ease-[cubic-bezier(0.23,1,0.32,1)] ${
                       isOpen ? "rotate-45 bg-cream text-espresso" : ""
                     }`}
                   >
@@ -168,14 +168,14 @@ export function FAQs() {
                   </span>
                 </button>
                 <div
-                  className={`grid transition-all duration-300 ${
+                  className={`grid transition-[grid-template-rows,opacity] duration-[250ms] ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none ${
                     isOpen
-                      ? "grid-rows-[1fr] opacity-100 pb-6"
+                      ? "grid-rows-[1fr] opacity-100"
                       : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <div className="text-cream/75 leading-relaxed pr-10 max-w-2xl [&_strong]:text-cream [&_strong]:font-semibold">
+                    <div className="pb-6 text-cream/75 leading-relaxed pr-10 max-w-2xl [&_strong]:text-cream [&_strong]:font-semibold">
                       {faq.answer}
                     </div>
                   </div>
@@ -191,7 +191,7 @@ export function FAQs() {
             href="https://milenasbeautybar.as.me/?appointmentType=83824594"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2 inline-block font-serif text-2xl sm:text-3xl border-b border-cream pb-1 hover:text-cream/80 transition-colors"
+            className="mt-2 inline-block font-serif text-2xl sm:text-3xl border-b border-cream pb-1 hover:text-cream/80 active:scale-[0.97] transition-[color,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]"
           >
             Book a Consultation
           </a>
