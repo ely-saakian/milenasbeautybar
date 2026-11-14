@@ -49,7 +49,7 @@ export function Footer() {
             href={BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center rounded-full bg-cream text-espresso px-5 py-2.5 text-sm font-medium hover:bg-cream/90 transition"
+            className="mt-6 inline-flex items-center rounded-full bg-cream text-espresso px-5 py-2.5 text-sm font-medium hover:bg-cream/90 active:scale-[0.97] transition-[background-color,color,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]"
           >
             Book an Appointment
           </a>
@@ -89,7 +89,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="h-10 w-10 inline-flex items-center justify-center rounded-full border border-cream/25 hover:bg-cream/10 transition"
+                className="size-11 inline-flex items-center justify-center rounded-full border border-cream/25 hover:bg-cream/10 active:scale-[0.97] transition-[background-color,color,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]"
               >
                 <social.icon className="w-[18px] h-[18px]" aria-hidden="true" />
               </a>

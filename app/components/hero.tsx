@@ -60,13 +60,13 @@ export function Hero() {
               href="https://milenasbeautybar.as.me/schedule/13baf9e3"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full bg-espresso px-7 py-3.5 text-sm sm:text-base font-medium text-cream hover:bg-espresso-soft transition"
+              className="inline-flex items-center rounded-full bg-espresso px-7 py-3.5 text-sm sm:text-base font-medium text-cream hover:bg-espresso-soft active:scale-[0.97] transition-[background-color,color,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]"
             >
               Book an Appointment
             </a>
             <Link
               href="/#packages"
-              className="inline-flex items-center rounded-full border border-espresso/30 px-7 py-3.5 text-sm sm:text-base font-medium text-espresso hover:bg-cream transition"
+              className="inline-flex items-center rounded-full border border-espresso/30 px-7 py-3.5 text-sm sm:text-base font-medium text-espresso hover:bg-cream active:scale-[0.97] transition-[background-color,color,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]"
             >
               View Services &amp; Pricing
             </Link>
@@ -110,11 +110,11 @@ export function Hero() {
                 className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
               />
             </div>
-            <div className="absolute -left-4 sm:-left-8 bottom-6 rounded-2xl bg-background/95 px-4 py-3 text-xs shadow-lg backdrop-blur transition-colors duration-500 ease-out group-hover:bg-espresso sm:text-sm">
-              <p className="font-serif text-base leading-tight text-espresso transition-colors duration-500 ease-out group-hover:text-cream sm:text-lg">
+            <div className="absolute -left-4 sm:-left-8 bottom-6 rounded-2xl bg-background/95 px-4 py-3 text-xs shadow-lg backdrop-blur transition-colors duration-300 ease-[ease] group-hover:bg-espresso sm:text-sm">
+              <p className="font-serif text-base leading-tight text-espresso transition-colors duration-300 ease-[ease] group-hover:text-cream sm:text-lg">
                 Milena
               </p>
-              <p className="text-espresso/60 transition-colors duration-500 ease-out group-hover:text-cream/75">
+              <p className="text-espresso/60 transition-colors duration-300 ease-[ease] group-hover:text-cream/75">
                 Master Esthetician · est. 2018
               </p>
             </div>

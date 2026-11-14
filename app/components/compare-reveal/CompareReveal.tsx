@@ -18,6 +18,8 @@ import type { CompareRevealProps, CompareState, Slot } from "./types";
 import { useSlotLoad } from "./useSlotLoad";
 import { useSplit } from "./useSplit";
 
+const TOUCH_SLOP_PX = 6;
+
 interface RootProps {
   defaultSplit?: number;
   split?: number;
@@ -100,19 +102,47 @@ function CompareRevealRoot({
     [beginDrag, drag, endDrag, nudge, setStatus, bounds, controlled, label],
   );
 
+  // Touch starts are held until the finger moves sideways, so a vertical
+  // swipe that begins on the image scrolls the page (`touch-pan-y`) instead
+  // of jumping the split. The browser cancels the pointer once it pans.
+  const pendingTouchRef = useRef<{ id: number; x: number } | null>(null);
+
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (!canInteract) return;
+    if (event.pointerType === "touch") {
+      pendingTouchRef.current = { id: event.pointerId, x: event.clientX };
+      return;
+    }
     event.currentTarget.setPointerCapture(event.pointerId);
     beginDrag(event.clientX);
   };
 
   const onPointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const pending = pendingTouchRef.current;
+    if (pending && pending.id === event.pointerId) {
+      if (Math.abs(event.clientX - pending.x) < TOUCH_SLOP_PX) return;
+      pendingTouchRef.current = null;
+      event.currentTarget.setPointerCapture(event.pointerId);
+      beginDrag(pending.x);
+      drag(event.clientX);
+      return;
+    }
     if (!isDragging) return;
     event.preventDefault();
     drag(event.clientX);
   };
 
   const onPointerEnd = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const pending = pendingTouchRef.current;
+    if (pending && pending.id === event.pointerId) {
+      pendingTouchRef.current = null;
+      // A tap (no pan) still moves the split to the tapped point.
+      if (event.type === "pointerup") {
+        beginDrag(event.clientX);
+        endDrag();
+      }
+      return;
+    }
     if (!isDragging) return;
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
@@ -133,7 +163,7 @@ function CompareRevealRoot({
           className={cn(
             "relative isolate overflow-hidden",
             isDragging && "cr-dragging",
-            canInteract && "cursor-ew-resize touch-none select-none",
+            canInteract && "cursor-ew-resize touch-pan-y select-none",
             className,
           )}
           style={style}
