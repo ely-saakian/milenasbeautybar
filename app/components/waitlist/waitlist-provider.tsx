@@ -10,7 +10,11 @@ import {
   type ReactNode,
 } from "react";
 import { GENERAL_SERVICE } from "@/lib/waitlist";
+import { useMediaQuery } from "./use-media-query";
 import { WaitlistDialog } from "./waitlist-dialog";
+
+/** Phones get the bottom sheet; matches Tailwind's `sm` breakpoint. */
+const SHEET_QUERY = "(max-width: 639px)";
 
 export type OpenWaitlistOptions = {
   /** The service the visitor wants, e.g. "Lash Lift". Defaults to "General". */
@@ -36,7 +40,8 @@ export function useWaitlist(): WaitlistContextValue | null {
 
 /**
  * Mounted once in the root layout. Owns whether the waitlist form is open and
- * for which service, and renders the one form surface for the whole site.
+ * for which service, and renders the one form surface for the whole site: a
+ * centred modal, or a bottom sheet on phones.
  */
 export function WaitlistProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -44,6 +49,7 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
   // Bumped on every open so each visit starts with a fresh form.
   const [session, setSession] = useState(0);
   const triggerRef = useRef<HTMLElement | null>(null);
+  const showSheet = useMediaQuery(SHEET_QUERY);
 
   const openWaitlist = useCallback((options: OpenWaitlistOptions = {}) => {
     triggerRef.current = options.trigger ?? null;
@@ -70,6 +76,7 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
       {children}
       <WaitlistDialog
         open={open}
+        variant={showSheet ? "sheet" : "modal"}
         service={service}
         session={session}
         onClose={closeWaitlist}
