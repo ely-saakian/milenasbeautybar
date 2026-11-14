@@ -1,7 +1,6 @@
 import type { ComponentPropsWithoutRef } from "react";
-
-/** Service name used for "Book" links that aren't tied to a specific service. */
-export const GENERAL_SERVICE = "General";
+import { GENERAL_SERVICE } from "@/lib/waitlist";
+import { BookingLinkAnchor } from "./booking-link-anchor";
 
 /** Acuity scheduler for general bookings (nav, hero, footer). */
 export const GENERAL_BOOKING_URL =
@@ -22,15 +21,24 @@ export type BookingLinkProps = Omit<
 };
 
 /**
- * The single place every "Book" link on the site goes through. Today it opens
- * Acuity in a new tab; later it decides per service whether to book or waitlist.
+ * The single place every "Book" link on the site goes through. While Milena is
+ * on leave, clicking one opens the waitlist form for its service (see
+ * BookingLinkAnchor and WaitlistProvider). The href stays the Acuity URL, in a
+ * new tab, as the no-JavaScript fallback.
  */
 export function BookingLink({
   service = GENERAL_SERVICE,
   href = GENERAL_BOOKING_URL,
   ...rest
 }: BookingLinkProps) {
-  // Not used yet; kept off the DOM. The waitlist slices use it to pick the service.
-  void service;
-  return <a href={href} target="_blank" rel="noopener noreferrer" {...rest} />;
+  // The service travels with the click, not the DOM, so the markup stays the same.
+  return (
+    <BookingLinkAnchor
+      service={service}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      {...rest}
+    />
+  );
 }

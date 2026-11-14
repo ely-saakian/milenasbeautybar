@@ -34,6 +34,9 @@ export function Nav() {
     if (!open) return;
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
+      // Escape inside a modal (the waitlist form) closes that, not the menu,
+      // so focus can return to the Book link the form was opened from.
+      if (document.querySelector("dialog:modal")) return;
       setOpen(false);
       toggleRef.current?.focus();
     };
