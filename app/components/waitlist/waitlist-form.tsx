@@ -51,7 +51,12 @@ export function WaitlistForm({ service, onDone }: WaitlistFormProps) {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     focusOnResult.current = true;
-    void submit({ name, phone });
+    const website = new FormData(e.currentTarget).get("website");
+    void submit({
+      name,
+      phone,
+      website: typeof website === "string" ? website : "",
+    });
   };
 
   return (
@@ -135,6 +140,7 @@ export function SignupFormView({
         onSubmit={onSubmit}
         className="flex flex-col gap-4"
       >
+        <Honeypot />
         <Field field="name" label="Name" error={fields.name}>
           {(controlProps) => (
             <input
@@ -207,6 +213,37 @@ export function SignupFormView({
           Your number is only used to contact you about booking.
         </p>
       </form>
+    </div>
+  );
+}
+
+/**
+ * Spam trap: a "Website" field people never see or reach (off-screen, out of
+ * the tab order, hidden from screen readers) but form-filling bots do. It's
+ * uncontrolled; WaitlistForm reads it on submit and the server fakes a success
+ * for anything in it. Positioned off-screen rather than display:none, which
+ * some bots know to skip.
+ */
+function Honeypot() {
+  return (
+    <div
+      aria-hidden="true"
+      className="absolute -left-[10000px] top-0 size-px overflow-hidden"
+    >
+      <label htmlFor="waitlist-website">Website</label>
+      <input
+        id="waitlist-website"
+        name="website"
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        // Browsers and password managers may autofill a "Website" field
+        // despite autoComplete="off"; these ask the common managers not to.
+        data-1p-ignore
+        data-lpignore="true"
+        data-bwignore
+        data-form-type="other"
+      />
     </div>
   );
 }

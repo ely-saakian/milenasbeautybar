@@ -75,6 +75,26 @@ describe("submitSignup", () => {
     expect(await submitSignup(signup)).toEqual({ status: "error" });
   });
 
+  it("reports a refused origin as error", async () => {
+    respond(403, { status: "forbidden" });
+
+    expect(await submitSignup(signup)).toEqual({ status: "error" });
+  });
+
+  it("sends what's in the honeypot so the server can spot a bot", async () => {
+    const fetchMock = respond(201, { status: "created" });
+
+    await submitSignup({ ...signup, website: "https://spam.example" });
+
+    const [, init] = fetchMock.mock.calls[0] as unknown as [
+      string,
+      RequestInit,
+    ];
+    expect(JSON.parse(init.body as string)).toMatchObject({
+      website: "https://spam.example",
+    });
+  });
+
   it("reports a body that isn't JSON as error", async () => {
     respond(200, "<html>Bad gateway</html>");
 

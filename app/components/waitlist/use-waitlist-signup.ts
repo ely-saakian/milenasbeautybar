@@ -57,8 +57,8 @@ function fieldErrors(value: unknown): FieldErrors {
  * signup is answered locally with the same messages the server would send, and
  * nothing is sent. Every other outcome comes back as a SignupResponse: anything
  * unexpected (network failure, a non-JSON body, an unknown status such as a 429
- * from the firewall, or an "invalid" with no field to point at) becomes
- * `{ status: "error" }`.
+ * from the firewall, a 403 "forbidden" from the origin check, or an "invalid"
+ * with no field to point at) becomes `{ status: "error" }`.
  */
 export async function submitSignup(
   request: SignupRequest
@@ -97,7 +97,7 @@ export function useWaitlistSignup(service: string) {
   const inFlight = useRef(false);
 
   const submit = useCallback(
-    async (values: { name: string; phone: string }) => {
+    async (values: Omit<SignupRequest, "service">) => {
       if (inFlight.current) return;
       inFlight.current = true;
       setState({ status: "submitting" });
@@ -106,7 +106,7 @@ export function useWaitlistSignup(service: string) {
         name: values.name,
         phone: values.phone,
         service,
-        website: "",
+        website: values.website,
       });
 
       inFlight.current = false;

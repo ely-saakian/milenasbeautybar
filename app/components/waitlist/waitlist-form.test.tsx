@@ -104,6 +104,29 @@ describe("SignupFormView", () => {
     expect(submitLabel(html)).toBe("Try again");
   });
 
+  it("has a hidden website field for bots, out of sight and out of the tab order", () => {
+    const html = form({ status: "idle" });
+
+    const input = tag(html, "waitlist-website");
+    expect(input).toContain('name="website"');
+    expect(input).toContain('tabindex="-1"');
+    expect(input).toContain('autoComplete="off"');
+    // A password manager filling it would silently drop a real signup.
+    expect(input).toContain('data-1p-ignore="true"');
+    expect(input).toContain('data-lpignore="true"');
+    expect(html).toMatch(/<label for="waitlist-website"[^>]*>Website</);
+
+    // Off-screen (not display:none, which some bots skip) and hidden from
+    // screen readers, label included.
+    const wrapper =
+      html.match(/<div[^>]*>(?=<label for="waitlist-website")/)?.[0] ?? "";
+    expect(wrapper).toContain('aria-hidden="true"');
+    expect(wrapper).toMatch(/-left-\[10000px\]/);
+    expect(wrapper).not.toMatch(
+      /class="(?:[^"]*\s)?hidden[\s"]|display:\s*none/
+    );
+  });
+
   it("shows the sending state and can't be pressed again", () => {
     const html = form({ status: "submitting" });
 

@@ -18,11 +18,16 @@ function fakeSql(rows: unknown[] | Error) {
   return sql;
 }
 
-function post(body: unknown) {
+/** POST `body` from `origin` (Vitest isn't production, so localhost is the site). */
+function post(body: unknown, origin: string | null = "http://localhost:3000") {
+  const headers: Record<string, string> = {
+    "content-type": "application/json",
+  };
+  if (origin !== null) headers.origin = origin;
   return POST(
     new Request("http://localhost/api/waitlist", {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers,
       body: typeof body === "string" ? body : JSON.stringify(body),
     })
   );
@@ -38,6 +43,7 @@ const signup = {
 describe("POST /api/waitlist", () => {
   beforeEach(() => {
     vi.mocked(getSql).mockReset();
+    vi.restoreAllMocks();
   });
 
   it("saves a new signup and answers 201 created", async () => {
@@ -126,7 +132,7 @@ describe("POST /api/waitlist", () => {
 
   it("answers a bare 500 error without leaking what went wrong", async () => {
     fakeSql(new Error("connection to ep-secret-host refused"));
-    vi.spyOn(console, "error").mockImplementation(() => {});
+    const log = vi.spyOn(console, "error").mockImplementation(() => {});
 
     const res = await post(signup);
 
@@ -134,6 +140,59 @@ describe("POST /api/waitlist", () => {
     const text = await res.text();
     expect(JSON.parse(text)).toEqual({ status: "error" });
     expect(text).not.toContain("ep-secret-host");
+    // The log line is fixed too: no connection details, no visitor details.
+    expect(log).toHaveBeenCalledWith("waitlist signup failed");
+    const logged = JSON.stringify(log.mock.calls);
+    expect(logged).not.toContain("ep-secret-host");
+    expect(logged).not.toContain("Sarah");
+    expect(logged).not.toContain("555");
+  });
+
+  it("answers a filled honeypot with a fake created and saves nothing", async () => {
+    const sql = fakeSql([{ inserted: true }]);
+    const log = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    const res = await post({ ...signup, website: "https://spam.example" });
+
+    expect(res.status).toBe(201);
+    expect(await res.json()).toEqual({ status: "created" });
+    expect(sql).not.toHaveBeenCalled();
+    expect(getSql).not.toHaveBeenCalled();
+    // A fixed line, so false positives show up without logging what was sent.
+    expect(log).toHaveBeenCalledWith("waitlist honeypot filled; nothing saved");
+  });
+
+  it("checks the honeypot before validating, so a bot learns nothing", async () => {
+    const sql = fakeSql([{ inserted: true }]);
+
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    const res = await post({ name: "", phone: "nope", website: "x" });
+
+    expect(res.status).toBe(201);
+    expect(await res.json()).toEqual({ status: "created" });
+    expect(sql).not.toHaveBeenCalled();
+  });
+
+  it("refuses a post from another site and saves nothing", async () => {
+    const sql = fakeSql([{ inserted: true }]);
+
+    const res = await post(signup, "https://evil.example");
+
+    expect(res.status).toBe(403);
+    expect(await res.json()).toEqual({ status: "forbidden" });
+    expect(sql).not.toHaveBeenCalled();
+    expect(getSql).not.toHaveBeenCalled();
+  });
+
+  it("refuses a post with no Origin and saves nothing", async () => {
+    const sql = fakeSql([{ inserted: true }]);
+
+    const res = await post(signup, null);
+
+    expect(res.status).toBe(403);
+    expect(await res.json()).toEqual({ status: "forbidden" });
+    expect(sql).not.toHaveBeenCalled();
   });
 
   it("answers 500 when the database isn't configured", async () => {
