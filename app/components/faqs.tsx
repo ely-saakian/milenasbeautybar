@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { BookingLink, CONSULTATION_BOOKING_URL } from "./booking-link";
 
 const faqData: FAQItem[] = [
   {
@@ -187,14 +188,13 @@ export function FAQs() {
 
         <div className="mt-16 text-center">
           <p className="text-cream/60 text-sm">Still have questions?</p>
-          <a
-            href="https://milenasbeautybar.as.me/?appointmentType=83824594"
-            target="_blank"
-            rel="noopener noreferrer"
+          <BookingLink
+            service="Consultation"
+            href={CONSULTATION_BOOKING_URL}
             className="mt-2 inline-block font-serif text-2xl sm:text-3xl border-b border-cream pb-1 hover:text-cream/80 active:scale-[0.97] transition-[color,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]"
           >
             Book a Consultation
-          </a>
+          </BookingLink>
         </div>
       </div>
     </section>

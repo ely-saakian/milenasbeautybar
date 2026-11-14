@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Star } from "lucide-react";
+import { BookingLink } from "./booking-link";
 
 const BULLETS = [
   "Licensed Master Esthetician",
@@ -56,14 +57,9 @@ export function Hero() {
           </ul>
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
-            <a
-              href="https://milenasbeautybar.as.me/schedule/13baf9e3"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full bg-espresso px-7 py-3.5 text-sm sm:text-base font-medium text-cream hover:bg-espresso-soft active:scale-[0.97] transition-[background-color,color,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]"
-            >
+            <BookingLink className="inline-flex items-center rounded-full bg-espresso px-7 py-3.5 text-sm sm:text-base font-medium text-cream hover:bg-espresso-soft active:scale-[0.97] transition-[background-color,color,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]">
               Book an Appointment
-            </a>
+            </BookingLink>
             <Link
               href="/#packages"
               className="inline-flex items-center rounded-full border border-espresso/30 px-7 py-3.5 text-sm sm:text-base font-medium text-espresso hover:bg-cream active:scale-[0.97] transition-[background-color,color,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]"

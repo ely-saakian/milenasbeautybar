@@ -4,6 +4,7 @@ import Image from "next/image";
 import { CATEGORY_LABELS } from "@/lib/constants";
 import type { CustomerReview } from "@/types/reviews";
 import { CompareReveal } from "./compare-reveal";
+import { BookingLink } from "./booking-link";
 
 interface CustomerReviewCardProps {
   review: CustomerReview;
@@ -59,10 +60,9 @@ export function CustomerReviewCard({
           <span className="rounded-full border border-espresso/20 bg-cream/60 px-2.5 py-0.5 text-[0.65rem] font-medium uppercase tracking-[0.12em] text-espresso/80">
             {categoryLabel} · {review.serviceName}
           </span>
-          <a
+          <BookingLink
+            service={review.serviceName}
             href={review.bookingHref}
-            target="_blank"
-            rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-espresso underline underline-offset-4 decoration-espresso/30 hover:decoration-espresso transition"
           >
             Book
@@ -78,7 +78,7 @@ export function CustomerReviewCard({
             >
               <path d="M5 12h14M13 5l7 7-7 7" />
             </svg>
-          </a>
+          </BookingLink>
         </div>
       </div>
     </article>

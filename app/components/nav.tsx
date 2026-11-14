@@ -5,8 +5,8 @@ import Link from "next/link";
 import { SiInstagram } from "@icons-pack/react-simple-icons";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./logo";
+import { BookingLink } from "./booking-link";
 
-const BOOKING_URL = "https://milenasbeautybar.as.me/schedule/13baf9e3";
 const INSTAGRAM_URL = "https://www.instagram.com/milenas.beautybar/";
 
 const links = [
@@ -78,14 +78,9 @@ export function Nav() {
           >
             <SiInstagram width={18} height={18} />
           </a>
-          <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center rounded-full bg-espresso px-5 py-2.5 text-sm font-medium text-cream hover:bg-espresso-soft active:scale-[0.97] transition-[background-color,color,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]"
-          >
+          <BookingLink className="hidden sm:inline-flex items-center rounded-full bg-espresso px-5 py-2.5 text-sm font-medium text-cream hover:bg-espresso-soft active:scale-[0.97] transition-[background-color,color,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]">
             Book an Appointment
-          </a>
+          </BookingLink>
           <button
             ref={toggleRef}
             type="button"
@@ -145,14 +140,9 @@ export function Nav() {
             >
               <SiInstagram width={18} height={18} />
             </a>
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 inline-flex justify-center items-center rounded-full bg-espresso px-5 py-3 text-sm font-medium text-cream hover:bg-espresso-soft active:scale-[0.97] transition-[background-color,color,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]"
-            >
+            <BookingLink className="flex-1 inline-flex justify-center items-center rounded-full bg-espresso px-5 py-3 text-sm font-medium text-cream hover:bg-espresso-soft active:scale-[0.97] transition-[background-color,color,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]">
               Book an Appointment
-            </a>
+            </BookingLink>
           </li>
         </ul>
       </div>
