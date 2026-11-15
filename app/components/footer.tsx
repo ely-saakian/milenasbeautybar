@@ -5,8 +5,7 @@ import {
 } from "@icons-pack/react-simple-icons";
 import Link from "next/link";
 import { Logo } from "./logo";
-
-const BOOKING_URL = "https://milenasbeautybar.as.me/schedule/13baf9e3";
+import { BookingLink } from "./booking-link";
 
 const exploreLinks = [
   { href: "/#packages", label: "Packages" },
@@ -45,14 +44,9 @@ export function Footer() {
           <p className="mt-3 text-cream/70 max-w-xs leading-relaxed">
             Soft, natural-looking lashes and brows — tailored to you.
           </p>
-          <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center rounded-full bg-cream text-espresso px-5 py-2.5 text-sm font-medium hover:bg-cream/90 active:scale-[0.97] transition-[background-color,color,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]"
-          >
+          <BookingLink className="mt-6 inline-flex items-center rounded-full bg-cream text-espresso px-5 py-2.5 text-sm font-medium hover:bg-cream/90 active:scale-[0.97] transition-[background-color,color,scale] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]">
             Book an Appointment
-          </a>
+          </BookingLink>
         </div>
 
         <div>

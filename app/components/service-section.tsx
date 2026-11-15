@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ServiceSectionMeta } from "@/lib/service-sections";
 import type { FlatService } from "@/lib/get-services";
+import { BookingLink } from "./booking-link";
 
 interface ServiceSectionProps {
   section: ServiceSectionMeta;
@@ -111,10 +112,9 @@ export function ServiceSection({
                   <p className="mt-2 text-espresso/70 leading-relaxed max-w-2xl">
                     {s.description}
                   </p>
-                  <a
+                  <BookingLink
+                    service={s.name}
                     href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-espresso underline underline-offset-4 decoration-espresso/30 hover:decoration-espresso transition"
                   >
                     Book {s.name}
@@ -130,7 +130,7 @@ export function ServiceSection({
                     >
                       <path d="M5 12h14M13 5l7 7-7 7" />
                     </svg>
-                  </a>
+                  </BookingLink>
                 </li>
               );
             })}
