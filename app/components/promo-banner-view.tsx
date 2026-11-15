@@ -6,6 +6,7 @@ import {
   type ReactNode,
   type TransitionEvent,
 } from "react";
+import { WaitlistLink } from "./waitlist/waitlist-link";
 
 const STORAGE_KEY = "promo-banner-dismissed";
 
@@ -29,7 +30,17 @@ function writeDismissed() {
 // hydration and written on dismiss, so there is nothing to subscribe to.
 const subscribe = () => () => {};
 
-export function PromoBannerView({ children }: { children: ReactNode }) {
+type PromoBannerViewProps = {
+  /** The banner message from TinaCMS. */
+  children: ReactNode;
+  /** Show "Join the waitlist →" after the message. */
+  waitlistLink: boolean;
+};
+
+export function PromoBannerView({
+  children,
+  waitlistLink,
+}: PromoBannerViewProps) {
   // Server (and hydration) render as not dismissed so markup matches; React
   // re-renders with the stored value right after hydration.
   const storedDismissed = useSyncExternalStore(
@@ -73,6 +84,14 @@ export function PromoBannerView({ children }: { children: ReactNode }) {
         <div className="relative bg-espresso text-cream">
           <div className="mx-auto max-w-7xl px-4 py-2 pr-12 text-center text-xs sm:text-sm tracking-wide">
             {children}
+            {waitlistLink && (
+              // Its own line on phones, inline after the message from `sm` up.
+              <span className="mt-0.5 block sm:mt-0 sm:ml-3.5 sm:inline">
+                <WaitlistLink className="font-semibold tracking-normal text-cream underline decoration-cream/60 underline-offset-4 hover:decoration-cream transition-[text-decoration-color] duration-150 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cream">
+                  Join the waitlist<span aria-hidden="true"> →</span>
+                </WaitlistLink>
+              </span>
+            )}
           </div>
           <button
             type="button"

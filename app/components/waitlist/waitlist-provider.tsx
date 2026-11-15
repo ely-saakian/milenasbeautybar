@@ -4,6 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -12,6 +13,7 @@ import {
 import { GENERAL_SERVICE } from "@/lib/waitlist";
 import { useMediaQuery } from "./use-media-query";
 import { WaitlistDialog } from "./waitlist-dialog";
+import { isWaitlistHash, urlWithoutWaitlistHash } from "./waitlist-hash";
 
 /** Phones get the bottom sheet; matches Tailwind's `sm` breakpoint. */
 const SHEET_QUERY = "(max-width: 639px)";
@@ -42,6 +44,9 @@ export function useWaitlist(): WaitlistContextValue | null {
  * Mounted once in the root layout. Owns whether the waitlist form is open and
  * for which service, and renders the one form surface for the whole site: a
  * centred modal, or a bottom sheet on phones.
+ *
+ * Also opens the form for the shareable #waitlist link, on page load or when
+ * the hash changes to it, and clears that hash again when the form closes.
  */
 export function WaitlistProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -49,18 +54,42 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
   // Bumped on every open so each visit starts with a fresh form.
   const [session, setSession] = useState(0);
   const triggerRef = useRef<HTMLElement | null>(null);
+  // Mirrors `open` for the hash listener, so a repeat #waitlist doesn't
+  // restart a form that's already showing.
+  const openRef = useRef(false);
   const showSheet = useMediaQuery(SHEET_QUERY);
 
   const openWaitlist = useCallback((options: OpenWaitlistOptions = {}) => {
+    openRef.current = true;
     triggerRef.current = options.trigger ?? null;
     setService(options.service?.trim() || GENERAL_SERVICE);
     setSession((n) => n + 1);
     setOpen(true);
   }, []);
 
-  const closeWaitlist = useCallback(() => setOpen(false), []);
+  const closeWaitlist = useCallback(() => {
+    openRef.current = false;
+    setOpen(false);
+  }, []);
+
+  // #waitlist opens the form. Runs after hydration, so the dialog is mounted
+  // and showModal() works. Only native hash changes are seen: a plain
+  // <a href="#waitlist"> works, a next/link to it (pushState) would not.
+  useEffect(() => {
+    const openFromHash = () => {
+      if (isWaitlistHash(window.location.hash) && !openRef.current) {
+        openWaitlist();
+      }
+    };
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+  }, [openWaitlist]);
 
   const handleClosed = useCallback(() => {
+    const url = urlWithoutWaitlistHash(window.location);
+    if (url !== null) window.history.replaceState(null, "", url);
+
     const trigger = triggerRef.current;
     triggerRef.current = null;
     if (trigger?.isConnected) trigger.focus({ preventScroll: true });

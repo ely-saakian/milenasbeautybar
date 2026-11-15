@@ -24,7 +24,9 @@ export async function PromoBanner() {
   if (!banner.message) return null;
 
   return (
-    <PromoBannerView>
+    // The one switch for the banner's "Join the waitlist →" link (to be
+    // turned off when bookings go back to Acuity).
+    <PromoBannerView waitlistLink>
       <StaticTinaMarkdown content={banner.message} components={components} />
     </PromoBannerView>
   );
