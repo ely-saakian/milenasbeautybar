@@ -8,10 +8,10 @@ type BookingLinkAnchorProps = ComponentPropsWithoutRef<"a"> & {
 };
 
 /**
- * The client half of BookingLink. While booking is paused, a click opens the
- * waitlist form for this link's service instead of following the href. The
- * href stays the Acuity URL, so the link still works before hydration, without
- * JavaScript, or outside the WaitlistProvider.
+ * The client half of BookingLink. Inside the WaitlistProvider (waitlist mode),
+ * a click opens the waitlist form for this link's service instead of following
+ * the href. Outside it (Acuity mode, see BookingModeProvider), before
+ * hydration, or without JavaScript, it's a plain link to the Acuity URL.
  */
 export function BookingLinkAnchor({
   service,

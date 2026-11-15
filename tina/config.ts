@@ -1,5 +1,6 @@
 import { defineConfig } from "tinacms";
 import { SERVICE_CATEGORY_OPTIONS } from "@/lib/constants";
+import { BOOKING_MODE_OPTIONS, DEFAULT_BOOKING_MODE } from "@/lib/booking-mode";
 
 // Your hosting provider likely exposes this as an environment variable
 const branch =
@@ -98,6 +99,29 @@ export default defineConfig({
             name: "message",
             label: "Message",
             isBody: true,
+          },
+        ],
+      },
+      {
+        name: "booking",
+        label: "Booking",
+        path: "content/booking",
+        ui: {
+          allowedActions: {
+            create: false,
+            delete: false,
+          },
+        },
+        defaultItem: () => ({ mode: DEFAULT_BOOKING_MODE }),
+        fields: [
+          {
+            type: "string",
+            name: "mode",
+            label: "Mode",
+            required: true,
+            options: [...BOOKING_MODE_OPTIONS],
+            description:
+              "Waitlist: every Book button opens the waitlist form. Acuity: Book buttons go straight to Acuity.",
           },
         ],
       },

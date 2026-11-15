@@ -1,6 +1,7 @@
 import type { JSX } from "react";
 import { StaticTinaMarkdown } from "tinacms/dist/rich-text/static";
 import client from "@/tina/__generated__/client";
+import { getBookingMode } from "@/lib/get-booking-mode";
 import { PromoBannerView } from "./promo-banner-view";
 
 const components = {
@@ -18,15 +19,16 @@ export async function PromoBanner() {
   } catch {
     return null;
   }
+  const mode = await getBookingMode();
 
   const banner = data.data.promoBanner;
   if (!banner.enabled) return null;
   if (!banner.message) return null;
 
   return (
-    // The one switch for the banner's "Join the waitlist →" link (to be
-    // turned off when bookings go back to Acuity).
-    <PromoBannerView waitlistLink>
+    // "Join the waitlist →" only while Book links open the waitlist
+    // (TinaCMS → Booking → Mode).
+    <PromoBannerView waitlistLink={mode === "waitlist"}>
       <StaticTinaMarkdown content={banner.message} components={components} />
     </PromoBannerView>
   );
