@@ -19,12 +19,13 @@ type WaitlistFormProps = {
   onDone: () => void;
 };
 
+/** 16px on phones: iOS zooms the page into any smaller field on focus. */
 const fieldClass =
-  "h-12 w-full rounded-xl border bg-card px-3.5 text-[15px] text-espresso placeholder:text-espresso/50 transition-[border-color] duration-150 ease-out focus:outline-2 focus:outline-offset-1 focus:outline-espresso";
+  "h-12 w-full rounded-xl border bg-card px-3.5 text-base sm:text-[15px] text-espresso placeholder:text-espresso/50 transition-[border-color] duration-150 ease-out focus:outline-2 focus:outline-offset-1 focus:outline-espresso";
 
 /**
  * The waitlist form and its result, independent of the surface it sits in
- * (desktop modal now, mobile sheet later). Heading id: "waitlist-title".
+ * (desktop modal or mobile sheet). Heading id: "waitlist-title".
  */
 export function WaitlistForm({ service, onDone }: WaitlistFormProps) {
   const { state, submit, clearFieldError } = useWaitlistSignup(service);

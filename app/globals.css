@@ -133,13 +133,28 @@
     animation: waitlist-fade-in 200ms ease-out both;
   }
 
+  /*
+   * Mobile bottom sheet (the same dialog with variant="sheet"). Slides up in
+   * 260ms on the drawer curve and down in 180ms; the backdrop fades as above.
+   * Enter fills backwards only, so once it lands the inline transform a swipe
+   * sets takes over; the exit starts from wherever a swipe left it.
+   */
+  .waitlist-dialog.waitlist-sheet[open] {
+    animation: waitlist-sheet-in 260ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
+  }
+  .waitlist-dialog.waitlist-sheet[data-state="closing"] {
+    animation: waitlist-sheet-out 180ms cubic-bezier(0.32, 0.72, 0, 1) forwards;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .waitlist-dialog[open],
+    .waitlist-dialog.waitlist-sheet[open],
     .waitlist-pop,
     .waitlist-rise {
       animation-name: waitlist-fade-in;
     }
-    .waitlist-dialog[data-state="closing"] {
+    .waitlist-dialog[data-state="closing"],
+    .waitlist-dialog.waitlist-sheet[data-state="closing"] {
       animation-name: waitlist-fade-out;
     }
   }
@@ -160,6 +175,16 @@ html:has(.waitlist-dialog[open]) {
   to {
     opacity: 0;
     transform: scale(0.96);
+  }
+}
+@keyframes waitlist-sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes waitlist-sheet-out {
+  to {
+    transform: translateY(100%);
   }
 }
 @keyframes waitlist-pop {
