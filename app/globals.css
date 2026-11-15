@@ -97,3 +97,90 @@
     letter-spacing: -0.01em;
   }
 }
+
+/*
+ * Waitlist dialog (app/components/waitlist/waitlist-dialog.tsx). Enters in
+ * 260ms (fade + scale from 0.96, centre origin) with a strong ease-out, and
+ * leaves faster (180ms). The dialog sets data-state="closing" while it leaves.
+ * Reduced motion: opacity only.
+ */
+@layer components {
+  .waitlist-dialog[open] {
+    animation: waitlist-in 260ms cubic-bezier(0.23, 1, 0.32, 1) both;
+  }
+  .waitlist-dialog[open]::backdrop {
+    background-color: color-mix(in oklch, var(--espresso) 40%, transparent);
+    animation: waitlist-fade-in 260ms ease-out both;
+  }
+  .waitlist-dialog[data-state="closing"] {
+    animation: waitlist-out 180ms cubic-bezier(0.23, 1, 0.32, 1) both;
+  }
+  .waitlist-dialog[data-state="closing"]::backdrop {
+    animation: waitlist-fade-out 180ms ease-out both;
+  }
+
+  /* Content that appears inside it (the success state). */
+  .waitlist-pop {
+    animation: waitlist-pop 360ms cubic-bezier(0.23, 1, 0.32, 1) both;
+  }
+  .waitlist-rise {
+    animation: waitlist-rise 320ms cubic-bezier(0.23, 1, 0.32, 1) 40ms both;
+  }
+  .waitlist-rise-late {
+    animation-delay: 90ms;
+  }
+  .waitlist-fade {
+    animation: waitlist-fade-in 200ms ease-out both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .waitlist-dialog[open],
+    .waitlist-pop,
+    .waitlist-rise {
+      animation-name: waitlist-fade-in;
+    }
+    .waitlist-dialog[data-state="closing"] {
+      animation-name: waitlist-fade-out;
+    }
+  }
+}
+
+/* Keep the page behind the open form from scrolling. */
+html:has(.waitlist-dialog[open]) {
+  overflow: hidden;
+}
+
+@keyframes waitlist-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+@keyframes waitlist-out {
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+@keyframes waitlist-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+@keyframes waitlist-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@keyframes waitlist-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes waitlist-fade-out {
+  to {
+    opacity: 0;
+  }
+}

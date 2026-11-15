@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { WaitlistProvider } from "./components/waitlist/waitlist-provider";
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -72,7 +73,7 @@ export default function RootLayout({
       <body
         className={`${cormorantGaramond.variable} ${inter.variable} antialiased`}
       >
-        {children}
+        <WaitlistProvider>{children}</WaitlistProvider>
       </body>
       {isProd && gaId && <GoogleAnalytics gaId={gaId} />}
     </html>
