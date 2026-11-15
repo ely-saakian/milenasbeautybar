@@ -24,12 +24,18 @@ export type SignupRequest = {
 export type SignupField = "name" | "phone";
 export type FieldErrors = Partial<Record<SignupField, string>>;
 
-/** Every response body the route can send. */
+/** The outcomes the form knows how to show. */
 export type SignupResponse =
   | { status: "created" }
   | { status: "already_listed" }
   | { status: "invalid"; fields: FieldErrors }
   | { status: "error" };
+
+/**
+ * Every response body the route can send. `forbidden` (another site's Origin)
+ * never comes from the real form, so the form reads it as an error.
+ */
+export type RouteResponse = SignupResponse | { status: "forbidden" };
 
 /** A signup that passed validation, ready to store. */
 export type Signup = {
@@ -68,6 +74,16 @@ export function parseSignup(input: unknown): ParseResult {
 
   if (!name || !phone) return { ok: false, fields };
   return { ok: true, signup: { name, phone, service } };
+}
+
+/**
+ * True when the hidden `website` field came back with anything in it. People
+ * never see that field, so only a bot fills it in.
+ */
+export function isHoneypotFilled(input: unknown): boolean {
+  if (!input || typeof input !== "object") return false;
+  const website = (input as Record<string, unknown>).website;
+  return typeof website === "string" ? website.trim() !== "" : website != null;
 }
 
 /** The visitor's first name, for "You're on the list, {first name}". */

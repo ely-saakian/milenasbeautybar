@@ -11,7 +11,10 @@ function post(body: unknown) {
   return POST(
     new Request("http://localhost/api/waitlist", {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json",
+        origin: "http://localhost:3000",
+      },
       body: JSON.stringify(body),
     })
   );
