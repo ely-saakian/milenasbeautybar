@@ -5,9 +5,8 @@ import Link from "next/link";
 import { SiInstagram } from "@icons-pack/react-simple-icons";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./logo";
+import { INSTAGRAM_URL } from "@/lib/constants";
 import { BookingLink } from "./booking-link";
-
-const INSTAGRAM_URL = "https://www.instagram.com/milenas.beautybar/";
 
 const links = [
   { href: "/#packages", label: "Packages" },
